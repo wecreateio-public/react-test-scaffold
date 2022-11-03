@@ -1,0 +1,143 @@
+{
+  "possibleTypes": {
+    "Account": [
+      "MyOnlineAccount",
+      "OnlineAccount"
+    ],
+    "Agent": [
+      "Group",
+      "Network",
+      "Person"
+    ],
+    "AgentViewer": [
+      "GroupViewer",
+      "NetworkViewer",
+      "PersonViewer"
+    ],
+    "Connection": [
+      "AccountConnection",
+      "AddressConnection",
+      "AddressScopeConnection",
+      "AgentConnection",
+      "ArticleConnection",
+      "CategoryConnection",
+      "ChannelConnection",
+      "CollabTextConnection",
+      "CommentConnection",
+      "CommentRatingConnection",
+      "ContentConnection",
+      "ContentRatingConnection",
+      "DocumentConnection",
+      "EventConnection",
+      "FeedConnection",
+      "FileConnection",
+      "GroupConnection",
+      "ImageConnection",
+      "ImpulseConnection",
+      "MembershipConnection",
+      "MembershipInviteConnection",
+      "MembershipRequestConnection",
+      "NetworkCategoryConnection",
+      "NetworkConnection",
+      "OnlineAccountConnection",
+      "PersonConnection",
+      "PreferenceConnection",
+      "RatingConnection",
+      "RoleConnection",
+      "TaskConnection",
+      "ThingConnection",
+      "TopicConnection",
+      "VideoMeetingConnection"
+    ],
+    "Content": [
+      "Article",
+      "Event",
+      "Impulse",
+      "Topic"
+    ],
+    "ContentViewer": [
+      "ArticleViewer",
+      "EventViewer",
+      "ImpulseViewer",
+      "TopicViewer"
+    ],
+    "Document": [
+      "File",
+      "Image"
+    ],
+    "Edge": [
+      "AccountEdge",
+      "AddressEdge",
+      "AddressScopeEdge",
+      "AgentEdge",
+      "ArticleEdge",
+      "CategoryEdge",
+      "ChannelEdge",
+      "CollabTextEdge",
+      "CommentEdge",
+      "CommentRatingEdge",
+      "ContentEdge",
+      "ContentRatingEdge",
+      "DocumentEdge",
+      "EventEdge",
+      "FeedEdge",
+      "FileEdge",
+      "GroupEdge",
+      "ImageEdge",
+      "ImpulseEdge",
+      "MembershipEdge",
+      "MembershipInviteEdge",
+      "MembershipRequestEdge",
+      "NetworkCategoryEdge",
+      "NetworkEdge",
+      "OnlineAccountEdge",
+      "PersonEdge",
+      "PreferenceEdge",
+      "RatingEdge",
+      "RoleEdge",
+      "TaskEdge",
+      "ThingEdge",
+      "TopicEdge",
+      "VideoMeetingEdge"
+    ],
+    "Feed": [
+      "Article",
+      "Event",
+      "Impulse",
+      "Topic"
+    ],
+    "Rating": [
+      "CommentRating",
+      "ContentRating"
+    ],
+    "Thing": [
+      "Address",
+      "AddressScope",
+      "Article",
+      "Category",
+      "Channel",
+      "CollabText",
+      "Comment",
+      "CommentRating",
+      "ContentRating",
+      "Event",
+      "File",
+      "Group",
+      "Image",
+      "Impulse",
+      "Membership",
+      "MembershipInvite",
+      "MembershipRequest",
+      "MyOnlineAccount",
+      "Network",
+      "NetworkCategory",
+      "OnlineAccount",
+      "Person",
+      "Preference",
+      "Role",
+      "Task",
+      "Topic",
+      "VideoMeeting"
+    ]
+  }
+}

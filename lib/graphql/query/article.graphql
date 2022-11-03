@@ -1,0 +1,22 @@
+query Article($id: ID!, $commentedByCursor: String) {
+  article(id: $id) {
+    ...Article
+    __typename
+  }
+}
+
+fragment Article on Article {
+  ...ContentMeta
+  ...ContentAuthor
+  ...ContentImages
+  ...ContentCategories
+  ...ContentLocation
+  ...ContentRatings
+  ...ContentComments
+  ...ContentTopics
+  ...ContentPermissions
+  title
+  intro
+  text
+  __typename
+}
