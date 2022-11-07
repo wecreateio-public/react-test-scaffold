@@ -3,17 +3,18 @@
 ## Introduction
 
 Welcome to this scaffold project for the challenge! The folder and file structure is rather similar to our
-main
-project and therefore a bit verbose.
+main project and therefore a bit verbose. Don't be discouraged by that, if you create new files, put them
+where-ever you feel it's appropriate.
 
 - You can find the app's entry point in `pages/_app.tsx`.
 - There are two queries prepared: `useTopicQuery()` and `useArticleQuery()`, and the first one can be seen in
   action. In case you need other queries, feel free to contact use! If you're confident with GraphQL, you
   can also try to set up new queries by your own: develop them at
   our [playground](https://graph.dev.we-create.io/graphql), add them to `lib/graphql/query` and
-  run `npm run generate:graphql`. But doing that on your own isn't first priority at all.
-- This project something like work in progress. It's totally possible that something essential (like queries)
-  is missing at
+  run `npm run generate:graphql` for the updated TypeScript file. But doing that on your own isn't first
+  priority at all.
+- This project is work in progress. It's totally possible that something essential (like queries) is missing
+  at
   this point, so don't hesitate to ask us if you got that impression!
 - If it makes sense, try
   to utilize [(dynamic) routing]([API routes](https://nextjs.org/docs/api-routes/introduction))
@@ -22,6 +23,14 @@ project and therefore a bit verbose.
   also nice to see if you're used to common design patterns, so feel free to "overengineer" your code a bit.
   The example page isn't really a shining example of well-structured code, so if you do better than that, it
   would be very welcome! ;)
+- In case you want to write tests, `jest` is already set up.
+- The dependency versions resemble that our productive one's and are a bit outdated for that matter.
+- A bonus would be a separate branch where the project got upgraded to MaterialUI 5 (with `Emotion` style and
+  the css properties coming from  `react-tss` or the manual `sx` approach), since that's something
+  we are aiming at in our real project. But an example running with MaterialUI 4 takes precedence! Especially
+  if you don't understand a word of the specs given in the previous sentence, it's totally fine to skip this
+  bonus part.
+
 
 ## Figma Design
 
@@ -45,16 +54,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/_app.tsx`. The page auto-updates as you edit the file.
 
+We're looking forward your ideas!
+
 ## Tasks that should be done
 * Based on the data you will get from the graphql query, you have to create a slider that can run without user interaction
 * Please use for each big step of your work a git commit
 * Implement a QR Code, any react lib could be used. The QR Code should link to the following page: https://dev.we-create.io/article/{articleID}
 * There should be a time based progress bar, that the user see when the next item will be shown
-<img width="1285" alt="image" src="https://user-images.githubusercontent.com/2462953/200390328-f46e5d36-b7f0-44f3-8807-dcf3344d4742.png">
+  <img width="1285" alt="image" src="https://user-images.githubusercontent.com/2462953/200390328-f46e5d36-b7f0-44f3-8807-dcf3344d4742.png">
 
 
 ## Optional Tasks, does not have to be done
 * Write a test
 * Build a Docker container
 * GitHub Action that will run some steps (Tests, Build Container)
+* Sketch an upgrade to MaterialUI 5
 
