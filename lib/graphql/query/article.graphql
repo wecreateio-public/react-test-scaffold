@@ -1,0 +1,291 @@
+query Article($id: ID!, $commentedByCursor: String) {
+  article(id: $id) {
+    ...Article
+    __typename
+  }
+}
+
+fragment Article on Article {
+  ...ContentMeta
+  ...ContentAuthor
+  ...ContentImages
+  ...ContentCategories
+  ...ContentLocation
+  ...ContentRatings
+  ...ContentComments
+  ...ContentTopics
+  ...ContentPermissions
+  title
+  intro
+  text
+  __typename
+}
+
+fragment ContentMeta on Content {
+  ...ContentState
+  __typename
+  id
+  createdAt
+  updatedAt
+}
+
+fragment ContentState on Content {
+  _viewer {
+    ratedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
+    }
+    commentedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment ContentAuthor on Content {
+  createdByPerson {
+    ...AgentSignature
+    __typename
+  }
+  createdByGroup {
+    ...AgentSignature
+    __typename
+  }
+  __typename
+}
+
+fragment AgentSignature on Agent {
+  ...AgentAvatar
+  info
+  __typename
+}
+
+fragment AgentAvatar on Agent {
+  __typename
+  id
+  name
+  imagedBy {
+    ...Document
+    __typename
+  }
+}
+
+fragment Document on Document {
+  id
+  resourceLocation
+  __typename
+}
+
+fragment ContentImages on Content {
+  imagedBy(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Document
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment ContentCategories on Content {
+  categorizedByCategory(orderBy: { name: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Category
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Category on Category {
+  id
+  name
+  __typename
+}
+
+fragment ContentLocation on Content {
+  locatedByAddress {
+    ...Address
+    __typename
+  }
+  __typename
+}
+
+fragment Address on Address {
+  id
+  name
+  __typename
+}
+
+fragment ContentRatings on Content {
+  ratedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    edges {
+      node {
+        ...Rating
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Rating on Rating {
+  id
+  createdBy {
+    ...AgentAvatar
+    __typename
+  }
+  __typename
+}
+
+fragment ContentComments on Content {
+  commentedBy(
+    orderBy: { createdAt: { ascending: false, priority: 1 } }
+    pagination: { first: 4, afterCursor: $commentedByCursor }
+  ) {
+    count
+    edges {
+      node {
+        ...Comment
+        __typename
+      }
+      __typename
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Comment on Comment {
+  ...CommentAuthor
+  id
+  createdAt
+  text
+  __typename
+}
+
+fragment CommentAuthor on Comment {
+  createdBy {
+    ...AgentSignature
+    __typename
+  }
+  __typename
+}
+
+fragment ContentTopics on Content {
+  curatedBy(orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...TopicTeaser
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment TopicTeaser on Topic {
+  ...ContentSummary
+  __typename
+}
+
+fragment ContentSummary on Content {
+  ...ContentMeta
+  ...ContentImages
+  ...ContentAuthor
+  ...ContentStats
+  ...ContentNetworks
+  ...ContentCategories
+  ...ContentLocation
+  title
+  warning
+  visibility
+  displayedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...MinimalNetworkInfo
+        __typename
+      }
+      __typename
+    }
+    ...PageInfo
+    __typename
+  }
+  __typename
+}
+
+fragment ContentStats on Content {
+  ratingStats: ratedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    __typename
+  }
+  commentStats: commentedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    __typename
+  }
+  __typename
+}
+
+fragment ContentNetworks on Content {
+  managedBy(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        supervisedBy {
+          id
+          name
+          logoedBy {
+            resourceLocation
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment MinimalNetworkInfo on Network {
+  id
+  name
+  __typename
+}
+
+fragment PageInfo on Connection {
+  pageInfo {
+    endCursor
+    hasNextPage
+    __typename
+  }
+  __typename
+}
+
+fragment ContentPermissions on Content {
+  _permissions {
+    update
+    __typename
+  }
+  __typename
+}
