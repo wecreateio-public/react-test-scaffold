@@ -1,0 +1,235 @@
+query Topic($id: ID!) {
+  topic(id: $id) {
+    ...Topic
+    __typename
+  }
+}
+
+fragment Topic on Topic {
+  ...ContentMeta
+  ...ContentAuthor
+  ...ContentImages
+  ...ContentCategories
+  ...ContentLocation
+  ...ContentPermissions
+  title
+  intro
+  curates(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...ContentSummary
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  createdByGroup {
+    ...AgentSignature
+    intro
+    creates(type: [TOPIC], orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
+      edges {
+        node {
+          ...TopicTeaser
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment ContentMeta on Content {
+  ...ContentState
+  __typename
+  id
+  createdAt
+  updatedAt
+}
+
+fragment ContentState on Content {
+  _viewer {
+    ratedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
+    }
+    commentedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment ContentAuthor on Content {
+  createdByPerson {
+    ...AgentSignature
+    __typename
+  }
+  createdByGroup {
+    ...AgentSignature
+    __typename
+  }
+  __typename
+}
+
+fragment AgentSignature on Agent {
+  ...AgentAvatar
+  info
+  __typename
+}
+
+fragment AgentAvatar on Agent {
+  __typename
+  id
+  name
+  imagedBy {
+    ...Document
+    __typename
+  }
+}
+
+fragment Document on Document {
+  id
+  resourceLocation
+  __typename
+}
+
+fragment ContentImages on Content {
+  imagedBy(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Document
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment ContentCategories on Content {
+  categorizedByCategory(orderBy: { name: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Category
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Category on Category {
+  id
+  name
+  __typename
+}
+
+fragment ContentLocation on Content {
+  locatedByAddress {
+    ...Address
+    __typename
+  }
+  __typename
+}
+
+fragment Address on Address {
+  id
+  name
+  __typename
+}
+
+fragment ContentPermissions on Content {
+  _permissions {
+    update
+    __typename
+  }
+  __typename
+}
+
+fragment ContentSummary on Content {
+  ...ContentMeta
+  ...ContentImages
+  ...ContentAuthor
+  ...ContentStats
+  ...ContentNetworks
+  ...ContentCategories
+  ...ContentLocation
+  title
+  warning
+  visibility
+  displayedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...MinimalNetworkInfo
+        __typename
+      }
+      __typename
+    }
+    ...PageInfo
+    __typename
+  }
+  __typename
+}
+
+fragment ContentStats on Content {
+  ratingStats: ratedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    __typename
+  }
+  commentStats: commentedBy(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    __typename
+  }
+  __typename
+}
+
+fragment ContentNetworks on Content {
+  managedBy(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        supervisedBy {
+          id
+          name
+          logoedBy {
+            resourceLocation
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment MinimalNetworkInfo on Network {
+  id
+  name
+  __typename
+}
+
+fragment PageInfo on Connection {
+  pageInfo {
+    endCursor
+    hasNextPage
+    __typename
+  }
+  __typename
+}
+
+fragment TopicTeaser on Topic {
+  ...ContentSummary
+  __typename
+}

@@ -1,0 +1,6287 @@
+"""
+Date and time in RFC3339, e.g. 2006-01-02T15:04:05Z or 2006-01-02T15:02:05+02:00
+"""
+scalar DateTime
+scalar Date
+scalar Time
+scalar Duration
+scalar URL
+
+"""
+Determines the next items to be returned
+"""
+input Pagination {
+  "The number of items to return after the the given cursor. Can be negative for a negative number."
+  first: Int!
+  "Determines the start of the new page. It's not included itself. Can be empty for the first page."
+  afterCursor: String
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+interface Connection {
+  pageInfo: PageInfo!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+"""
+Holds the cursor of the current item, plus the item.
+"""
+interface Edge {
+  "Cursor of the item to be used for pagination"
+  cursor: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+enum Admittance {
+  "To join a collective, a confirmation of an admin is required."
+  CLOSED
+  "Everybody can join the collective without a confirmation required."
+  OPEN
+}
+"""
+Represents the visibility setting of a single entity - not to be confused with the visibility settings applying to the whole entity type.
+"""
+enum Visibility {
+  NETWORK
+  PUBLIC
+  PRIVATE
+}
+
+interface Thing {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type Address implements Thing {
+  addressCountry: String!
+  addressLocality: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String
+  updatedAt: DateTime!
+}
+
+input OrderAddressesBy {
+  addressCountry: OrderAddressesByAddressCountry
+  addressLocality: OrderAddressesByAddressLocality
+  createdAt: OrderAddressesByCreatedAt
+  name: OrderAddressesByName
+  updatedAt: OrderAddressesByUpdatedAt
+}
+input OrderAddressesByAddressCountry {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderAddressesByAddressLocality {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderAddressesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderAddressesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderAddressesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewAddress {
+  id: ID!
+  addressCountry: String!
+}
+
+"""
+Possible filter fields when the Address is queried
+"""
+input AddressesFilter {
+  addressCountry_contains: String
+  addressCountry_eq: String
+  addressCountry_in: [String!]
+  addressCountry_not_contains: String
+  addressCountry_not_eq: String
+  addressCountry_not_in: [String!]
+  addressLocality_contains: String
+  addressLocality_eq: String
+  addressLocality_in: [String!]
+  addressLocality_not_contains: String
+  addressLocality_not_eq: String
+  addressLocality_not_in: [String!]
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type AddressEdge implements Edge {
+  "The item at the end of the edge."
+  node: Address!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type AddressConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AddressEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+type Query {
+  """
+  Queries all Addresses matching the given filter. Filters regarding relations can be set via header.
+  """
+  addresses(pagination: Pagination, orderBy: OrderAddressesBy!, filter: AddressesFilter): AddressConnection!
+  """
+  Queries all Addresses matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  addressesBulk(
+    pagination: Pagination
+    orderBy: OrderAddressesBy!
+    filter: AddressesFilter
+  ): [AddressConnection!]!
+  """
+  Return the Address for the given id, if it exists
+  """
+  address(id: ID!): Address
+}
+
+type Mutation {
+  """
+  Creates a new Address and returns it
+  """
+  addressCreate(input: NewAddress!): Address!
+  """
+  Deletes an existing Address and returns the success
+  """
+  addressDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Addresses and returns the success
+  """
+  addressDeleteBulk(ids: [ID!]!): Boolean!
+}
+type AddressScope implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderAddressScopesBy {
+  createdAt: OrderAddressScopesByCreatedAt
+  updatedAt: OrderAddressScopesByUpdatedAt
+}
+input OrderAddressScopesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderAddressScopesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewAddressScope {
+  id: ID!
+}
+
+"""
+Possible filter fields when the AddressScope is queried
+"""
+input AddressScopesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type AddressScopeEdge implements Edge {
+  "The item at the end of the edge."
+  node: AddressScope!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type AddressScopeConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AddressScopeEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all AddressScopes matching the given filter. Filters regarding relations can be set via header.
+  """
+  addressScopes(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  """
+  Queries all AddressScopes matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  addressScopesBulk(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): [AddressScopeConnection!]!
+  """
+  Return the AddressScope for the given id, if it exists
+  """
+  addressScope(id: ID!): AddressScope
+}
+extend type Mutation {
+  """
+  Creates a new AddressScope and returns it
+  """
+  addressScopeCreate: AddressScope!
+  """
+  Deletes an existing AddressScope and returns the success
+  """
+  addressScopeDelete(id: ID!): Boolean!
+  """
+  Deletes the existing AddressScopes and returns the success
+  """
+  addressScopeDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Article implements Thing & Content {
+  createdAt: DateTime!
+  id: ID!
+  intro: String
+  text: String!
+  title: String!
+  updatedAt: DateTime!
+  visibility: Visibility!
+  warning: String
+}
+
+input OrderArticlesBy {
+  createdAt: OrderArticlesByCreatedAt
+  title: OrderArticlesByTitle
+  updatedAt: OrderArticlesByUpdatedAt
+}
+input OrderArticlesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderArticlesByTitle {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderArticlesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewArticle {
+  intro: String
+  text: String!
+  title: String!
+  visibility: Visibility!
+  warning: String
+}
+
+"""
+Possible filter fields when the Article is queried
+"""
+input ArticlesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateArticle {
+  intro: String
+  text: String
+  title: String
+  visibility: Visibility
+  warning: String
+}
+input ClearArticleFields {
+  intro: Boolean
+  warning: Boolean
+}
+"""
+An edge in a connection.
+"""
+type ArticleEdge implements Edge {
+  "The item at the end of the edge."
+  node: Article!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ArticleConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ArticleEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Articles matching the given filter. Filters regarding relations can be set via header.
+  """
+  articles(pagination: Pagination, orderBy: OrderArticlesBy!, filter: ArticlesFilter): ArticleConnection!
+  """
+  Queries all Articles matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  articlesBulk(
+    pagination: Pagination
+    orderBy: OrderArticlesBy!
+    filter: ArticlesFilter
+  ): [ArticleConnection!]!
+  """
+  Return the Article for the given id, if it exists
+  """
+  article(id: ID!): Article
+}
+extend type Mutation {
+  """
+  Creates a new Article and returns it
+  """
+  articleCreate(input: NewArticle!): Article!
+  """
+  Modifies an existing Article and returns the result
+  """
+  articleModify(id: ID!, modification: UpdateArticle, deletion: ClearArticleFields): Article!
+  """
+  Deletes an existing Article and returns the success
+  """
+  articleDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Articles and returns the success
+  """
+  articleDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Category implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderCategoriesBy {
+  createdAt: OrderCategoriesByCreatedAt
+  name: OrderCategoriesByName
+  updatedAt: OrderCategoriesByUpdatedAt
+}
+input OrderCategoriesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderCategoriesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderCategoriesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewCategory {
+  name: String!
+}
+
+"""
+Possible filter fields when the Category is queried
+"""
+input CategoriesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateCategory {
+  name: String
+}
+"""
+An edge in a connection.
+"""
+type CategoryEdge implements Edge {
+  "The item at the end of the edge."
+  node: Category!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type CategoryConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CategoryEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Categories matching the given filter. Filters regarding relations can be set via header.
+  """
+  categories(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): CategoryConnection!
+  """
+  Queries all Categories matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  categoriesBulk(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): [CategoryConnection!]!
+  """
+  Return the Category for the given id, if it exists
+  """
+  category(id: ID!): Category
+}
+extend type Mutation {
+  """
+  Creates a new Category and returns it
+  """
+  categoryCreate(input: NewCategory!): Category!
+  """
+  Modifies an existing Category and returns the result
+  """
+  categoryModify(id: ID!, modification: UpdateCategory): Category!
+  """
+  Deletes an existing Category and returns the success
+  """
+  categoryDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Categories and returns the success
+  """
+  categoryDeleteBulk(ids: [ID!]!): Boolean!
+}
+type CollabText implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderCollabTextsBy {
+  createdAt: OrderCollabTextsByCreatedAt
+  updatedAt: OrderCollabTextsByUpdatedAt
+}
+input OrderCollabTextsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderCollabTextsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewCollabText {
+  info: String
+  name: String!
+}
+
+"""
+Possible filter fields when the CollabText is queried
+"""
+input CollabTextsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateCollabText {
+  info: String
+  name: String
+}
+input ClearCollabTextFields {
+  info: Boolean
+}
+"""
+An edge in a connection.
+"""
+type CollabTextEdge implements Edge {
+  "The item at the end of the edge."
+  node: CollabText!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type CollabTextConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CollabTextEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all CollabTexts matching the given filter. Filters regarding relations can be set via header.
+  """
+  collabTexts(
+    pagination: Pagination
+    orderBy: OrderCollabTextsBy!
+    filter: CollabTextsFilter
+  ): CollabTextConnection!
+  """
+  Queries all CollabTexts matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  collabTextsBulk(
+    pagination: Pagination
+    orderBy: OrderCollabTextsBy!
+    filter: CollabTextsFilter
+  ): [CollabTextConnection!]!
+  """
+  Return the CollabText for the given id, if it exists
+  """
+  collabText(id: ID!): CollabText
+}
+extend type Mutation {
+  """
+  Creates a new CollabText and returns it
+  """
+  collabTextCreate(input: NewCollabText!): CollabText!
+  """
+  Modifies an existing CollabText and returns the result
+  """
+  collabTextModify(id: ID!, modification: UpdateCollabText, deletion: ClearCollabTextFields): CollabText!
+  """
+  Deletes an existing CollabText and returns the success
+  """
+  collabTextDelete(id: ID!): Boolean!
+  """
+  Deletes the existing CollabTexts and returns the success
+  """
+  collabTextDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Comment implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  text: String!
+  updatedAt: DateTime!
+}
+
+input OrderCommentsBy {
+  createdAt: OrderCommentsByCreatedAt
+  updatedAt: OrderCommentsByUpdatedAt
+}
+input OrderCommentsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderCommentsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewComment {
+  text: String!
+}
+
+"""
+Possible filter fields when the Comment is queried
+"""
+input CommentsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type CommentEdge implements Edge {
+  "The item at the end of the edge."
+  node: Comment!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type CommentConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CommentEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Comments matching the given filter. Filters regarding relations can be set via header.
+  """
+  comments(pagination: Pagination, orderBy: OrderCommentsBy!, filter: CommentsFilter): CommentConnection!
+  """
+  Queries all Comments matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  commentsBulk(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+  ): [CommentConnection!]!
+  """
+  Return the Comment for the given id, if it exists
+  """
+  comment(id: ID!): Comment
+}
+extend type Mutation {
+  """
+  Creates a new Comment and returns it
+  """
+  commentCreate(input: NewComment!): Comment!
+  """
+  Deletes an existing Comment and returns the success
+  """
+  commentDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Comments and returns the success
+  """
+  commentDeleteBulk(ids: [ID!]!): Boolean!
+}
+type CommentRating implements Thing & Rating {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+input OrderCommentRatingsBy {
+  createdAt: OrderCommentRatingsByCreatedAt
+  updatedAt: OrderCommentRatingsByUpdatedAt
+}
+input OrderCommentRatingsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderCommentRatingsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+"""
+Possible filter fields when the CommentRating is queried
+"""
+input CommentRatingsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type CommentRatingEdge implements Edge {
+  "The item at the end of the edge."
+  node: CommentRating!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type CommentRatingConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [CommentRatingEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all CommentRatings matching the given filter. Filters regarding relations can be set via header.
+  """
+  commentRatings(
+    pagination: Pagination
+    orderBy: OrderCommentRatingsBy!
+    filter: CommentRatingsFilter
+  ): CommentRatingConnection!
+  """
+  Queries all CommentRatings matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  commentRatingsBulk(
+    pagination: Pagination
+    orderBy: OrderCommentRatingsBy!
+    filter: CommentRatingsFilter
+  ): [CommentRatingConnection!]!
+  """
+  Return the CommentRating for the given id, if it exists
+  """
+  commentRating(id: ID!): CommentRating
+}
+extend type Mutation {
+  """
+  Creates a new CommentRating and returns it
+  """
+  commentRatingCreate: CommentRating!
+  """
+  Deletes an existing CommentRating and returns the success
+  """
+  commentRatingDelete(id: ID!): Boolean!
+  """
+  Deletes the existing CommentRatings and returns the success
+  """
+  commentRatingDeleteBulk(ids: [ID!]!): Boolean!
+}
+type ContentRating implements Thing & Rating {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+input OrderContentRatingsBy {
+  createdAt: OrderContentRatingsByCreatedAt
+  updatedAt: OrderContentRatingsByUpdatedAt
+}
+input OrderContentRatingsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderContentRatingsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+"""
+Possible filter fields when the ContentRating is queried
+"""
+input ContentRatingsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type ContentRatingEdge implements Edge {
+  "The item at the end of the edge."
+  node: ContentRating!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ContentRatingConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ContentRatingEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all ContentRatings matching the given filter. Filters regarding relations can be set via header.
+  """
+  contentRatings(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): ContentRatingConnection!
+  """
+  Queries all ContentRatings matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  contentRatingsBulk(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): [ContentRatingConnection!]!
+  """
+  Return the ContentRating for the given id, if it exists
+  """
+  contentRating(id: ID!): ContentRating
+}
+extend type Mutation {
+  """
+  Creates a new ContentRating and returns it
+  """
+  contentRatingCreate: ContentRating!
+  """
+  Deletes an existing ContentRating and returns the success
+  """
+  contentRatingDelete(id: ID!): Boolean!
+  """
+  Deletes the existing ContentRatings and returns the success
+  """
+  contentRatingDeleteBulk(ids: [ID!]!): Boolean!
+}
+"""
+A random uploaded file
+"""
+type File implements Thing & Document {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  name: String!
+  resourceLocation: String
+  updatedAt: DateTime!
+}
+
+input OrderFilesBy {
+  createdAt: OrderFilesByCreatedAt
+  name: OrderFilesByName
+  updatedAt: OrderFilesByUpdatedAt
+}
+input OrderFilesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderFilesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderFilesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewFile {
+  info: String
+  name: String!
+}
+
+"""
+Possible filter fields when the File is queried
+"""
+input FilesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateFile {
+  info: String
+  name: String
+}
+input ClearFileFields {
+  info: Boolean
+}
+type CreatedFileData {
+  created: File!
+  signedID: String!
+}
+"""
+An edge in a connection.
+"""
+type FileEdge implements Edge {
+  "The item at the end of the edge."
+  node: File!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type FileConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [FileEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Files matching the given filter. Filters regarding relations can be set via header.
+  """
+  files(pagination: Pagination, orderBy: OrderFilesBy!, filter: FilesFilter): FileConnection!
+  """
+  Queries all Files matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  filesBulk(pagination: Pagination, orderBy: OrderFilesBy!, filter: FilesFilter): [FileConnection!]!
+  """
+  Return the File for the given id, if it exists
+  """
+  file(id: ID!): File
+}
+extend type Mutation {
+  """
+  Creates a new File and returns it
+  """
+  fileCreate(input: NewFile!): CreatedFileData!
+  """
+  Modifies an existing File and returns the result
+  """
+  fileModify(id: ID!, modification: UpdateFile, deletion: ClearFileFields): File!
+  """
+  Deletes an existing File and returns the success
+  """
+  fileDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Files and returns the success
+  """
+  fileDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Group implements Thing & Agent {
+  chatChannel: String
+  contactInfo: String
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  intro: String
+  name: String!
+  updatedAt: DateTime!
+  visibility: Visibility!
+}
+
+input OrderGroupsBy {
+  createdAt: OrderGroupsByCreatedAt
+  name: OrderGroupsByName
+  updatedAt: OrderGroupsByUpdatedAt
+}
+input OrderGroupsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderGroupsByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderGroupsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewGroup {
+  contactInfo: String
+  info: String
+  intro: String
+  name: String!
+  visibility: Visibility!
+}
+
+"""
+Possible filter fields when the Group is queried
+"""
+input GroupsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateGroup {
+  contactInfo: String
+  info: String
+  intro: String
+  name: String
+  visibility: Visibility
+}
+input ClearGroupFields {
+  contactInfo: Boolean
+  info: Boolean
+  intro: Boolean
+}
+"""
+An edge in a connection.
+"""
+type GroupEdge implements Edge {
+  "The item at the end of the edge."
+  node: Group!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type GroupConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [GroupEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Groups matching the given filter. Filters regarding relations can be set via header.
+  """
+  groups(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  """
+  Queries all Groups matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  groupsBulk(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): [GroupConnection!]!
+  """
+  Return the Group for the given id, if it exists
+  """
+  group(id: ID!): Group
+}
+extend type Mutation {
+  """
+  Creates a new Group and returns it
+  """
+  groupCreate(input: NewGroup!): Group!
+  """
+  Modifies an existing Group and returns the result
+  """
+  groupModify(id: ID!, modification: UpdateGroup, deletion: ClearGroupFields): Group!
+  """
+  Deletes an existing Group and returns the success
+  """
+  groupDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Groups and returns the success
+  """
+  groupDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Image implements Thing & Document {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  name: String!
+  resourceLocation: String
+  updatedAt: DateTime!
+}
+
+input OrderImagesBy {
+  createdAt: OrderImagesByCreatedAt
+  name: OrderImagesByName
+  updatedAt: OrderImagesByUpdatedAt
+}
+input OrderImagesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderImagesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderImagesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewImage {
+  info: String
+  name: String!
+}
+
+"""
+Possible filter fields when the Image is queried
+"""
+input ImagesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateImage {
+  info: String
+  name: String
+}
+input ClearImageFields {
+  info: Boolean
+}
+type CreatedImageData {
+  created: Image!
+  signedID: String!
+}
+"""
+An edge in a connection.
+"""
+type ImageEdge implements Edge {
+  "The item at the end of the edge."
+  node: Image!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ImageConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ImageEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Images matching the given filter. Filters regarding relations can be set via header.
+  """
+  images(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  """
+  Queries all Images matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  imagesBulk(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): [ImageConnection!]!
+  """
+  Return the Image for the given id, if it exists
+  """
+  image(id: ID!): Image
+}
+extend type Mutation {
+  """
+  Creates a new Image and returns it
+  """
+  imageCreate(input: NewImage!): CreatedImageData!
+  """
+  Modifies an existing Image and returns the result
+  """
+  imageModify(id: ID!, modification: UpdateImage, deletion: ClearImageFields): Image!
+  """
+  Deletes an existing Image and returns the success
+  """
+  imageDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Images and returns the success
+  """
+  imageDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Impulse implements Thing & Content {
+  createdAt: DateTime!
+  id: ID!
+  intro: String!
+  relevance: Float!
+  title: String!
+  updatedAt: DateTime!
+  visibility: Visibility!
+  warning: String
+}
+
+input OrderImpulsesBy {
+  createdAt: OrderImpulsesByCreatedAt
+  relevance: OrderImpulsesByRelevance
+  title: OrderImpulsesByTitle
+  updatedAt: OrderImpulsesByUpdatedAt
+}
+input OrderImpulsesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderImpulsesByRelevance {
+  ascending: Boolean!
+  threshold: Float
+  priority: Int!
+}
+input OrderImpulsesByTitle {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderImpulsesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewImpulse {
+  intro: String!
+  title: String!
+  visibility: Visibility!
+  warning: String
+}
+
+"""
+Possible filter fields when the Impulse is queried
+"""
+input ImpulsesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  relevance_eq: Float
+  relevance_not_eq: Float
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateImpulse {
+  intro: String
+  title: String
+  visibility: Visibility
+  warning: String
+}
+input ClearImpulseFields {
+  warning: Boolean
+}
+"""
+An edge in a connection.
+"""
+type ImpulseEdge implements Edge {
+  "The item at the end of the edge."
+  node: Impulse!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ImpulseConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ImpulseEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Impulses matching the given filter. Filters regarding relations can be set via header.
+  """
+  impulses(pagination: Pagination, orderBy: OrderImpulsesBy!, filter: ImpulsesFilter): ImpulseConnection!
+  """
+  Queries all Impulses matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  impulsesBulk(
+    pagination: Pagination
+    orderBy: OrderImpulsesBy!
+    filter: ImpulsesFilter
+  ): [ImpulseConnection!]!
+  """
+  Return the Impulse for the given id, if it exists
+  """
+  impulse(id: ID!): Impulse
+}
+extend type Mutation {
+  """
+  Creates a new Impulse and returns it
+  """
+  impulseCreate(input: NewImpulse!): Impulse!
+  """
+  Modifies an existing Impulse and returns the result
+  """
+  impulseModify(id: ID!, modification: UpdateImpulse, deletion: ClearImpulseFields): Impulse!
+  """
+  Deletes an existing Impulse and returns the success
+  """
+  impulseDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Impulses and returns the success
+  """
+  impulseDeleteBulk(ids: [ID!]!): Boolean!
+}
+"""
+Links an Account to a Group, i.e. tells which Access or Role an Account has in a specific Group
+"""
+type Membership implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+input OrderMembershipsBy {
+  createdAt: OrderMembershipsByCreatedAt
+  updatedAt: OrderMembershipsByUpdatedAt
+}
+input OrderMembershipsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderMembershipsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+"""
+Possible filter fields when the Membership is queried
+"""
+input MembershipsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type MembershipEdge implements Edge {
+  "The item at the end of the edge."
+  node: Membership!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type MembershipConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [MembershipEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Memberships matching the given filter. Filters regarding relations can be set via header.
+  """
+  memberships(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): MembershipConnection!
+  """
+  Queries all Memberships matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  membershipsBulk(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): [MembershipConnection!]!
+  """
+  Return the Membership for the given id, if it exists
+  """
+  membership(id: ID!): Membership
+}
+extend type Mutation {
+  """
+  Creates a new Membership and returns it
+  """
+  membershipCreate: Membership!
+  """
+  Deletes an existing Membership and returns the success
+  """
+  membershipDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Memberships and returns the success
+  """
+  membershipDeleteBulk(ids: [ID!]!): Boolean!
+}
+type MembershipInvite implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  "Allows accept or decline the invite. Accepted invites cannot be declined afterwards."
+  isAccepted: Boolean
+  text: String
+  updatedAt: DateTime!
+}
+
+input OrderMembershipInvitesBy {
+  createdAt: OrderMembershipInvitesByCreatedAt
+  updatedAt: OrderMembershipInvitesByUpdatedAt
+}
+input OrderMembershipInvitesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderMembershipInvitesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewMembershipInvite {
+  text: String
+}
+
+"""
+Possible filter fields when the MembershipInvite is queried
+"""
+input MembershipInvitesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  "Allows accept or decline the invite. Accepted invites cannot be declined afterwards."
+  isAccepted_eq: Boolean
+  "Allows accept or decline the invite. Accepted invites cannot be declined afterwards."
+  isAccepted_not_eq: Boolean
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateMembershipInvite {
+  "Allows accept or decline the invite. Accepted invites cannot be declined afterwards."
+  isAccepted: Boolean
+}
+input ClearMembershipInviteFields {
+  "Allows accept or decline the invite. Accepted invites cannot be declined afterwards."
+  isAccepted: Boolean
+}
+"""
+An edge in a connection.
+"""
+type MembershipInviteEdge implements Edge {
+  "The item at the end of the edge."
+  node: MembershipInvite!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type MembershipInviteConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [MembershipInviteEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all MembershipInvites matching the given filter. Filters regarding relations can be set via header.
+  """
+  membershipInvites(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+  ): MembershipInviteConnection!
+  """
+  Queries all MembershipInvites matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  membershipInvitesBulk(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+  ): [MembershipInviteConnection!]!
+  """
+  Return the MembershipInvite for the given id, if it exists
+  """
+  membershipInvite(id: ID!): MembershipInvite
+}
+extend type Mutation {
+  """
+  Creates a new MembershipInvite and returns it
+  """
+  membershipInviteCreate(input: NewMembershipInvite!): MembershipInvite!
+  """
+  Modifies an existing MembershipInvite and returns the result
+  """
+  membershipInviteModify(
+    id: ID!
+    modification: UpdateMembershipInvite
+    deletion: ClearMembershipInviteFields
+  ): MembershipInvite!
+  """
+  Deletes an existing MembershipInvite and returns the success
+  """
+  membershipInviteDelete(id: ID!): Boolean!
+  """
+  Deletes the existing MembershipInvites and returns the success
+  """
+  membershipInviteDeleteBulk(ids: [ID!]!): Boolean!
+}
+type MembershipRequest implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  "Allows accept or decline the request. Accepted requests cannot be declined afterwards."
+  isAccepted: Boolean
+  text: String
+  updatedAt: DateTime!
+}
+
+input OrderMembershipRequestsBy {
+  createdAt: OrderMembershipRequestsByCreatedAt
+  updatedAt: OrderMembershipRequestsByUpdatedAt
+}
+input OrderMembershipRequestsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderMembershipRequestsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewMembershipRequest {
+  text: String
+}
+
+"""
+Possible filter fields when the MembershipRequest is queried
+"""
+input MembershipRequestsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  "Allows accept or decline the request. Accepted requests cannot be declined afterwards."
+  isAccepted_eq: Boolean
+  "Allows accept or decline the request. Accepted requests cannot be declined afterwards."
+  isAccepted_not_eq: Boolean
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateMembershipRequest {
+  "Allows accept or decline the request. Accepted requests cannot be declined afterwards."
+  isAccepted: Boolean
+}
+input ClearMembershipRequestFields {
+  "Allows accept or decline the request. Accepted requests cannot be declined afterwards."
+  isAccepted: Boolean
+}
+"""
+An edge in a connection.
+"""
+type MembershipRequestEdge implements Edge {
+  "The item at the end of the edge."
+  node: MembershipRequest!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type MembershipRequestConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [MembershipRequestEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all MembershipRequests matching the given filter. Filters regarding relations can be set via header.
+  """
+  membershipRequests(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+  ): MembershipRequestConnection!
+  """
+  Queries all MembershipRequests matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  membershipRequestsBulk(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+  ): [MembershipRequestConnection!]!
+  """
+  Return the MembershipRequest for the given id, if it exists
+  """
+  membershipRequest(id: ID!): MembershipRequest
+}
+extend type Mutation {
+  """
+  Creates a new MembershipRequest and returns it
+  """
+  membershipRequestCreate(input: NewMembershipRequest!): MembershipRequest!
+  """
+  Modifies an existing MembershipRequest and returns the result
+  """
+  membershipRequestModify(
+    id: ID!
+    modification: UpdateMembershipRequest
+    deletion: ClearMembershipRequestFields
+  ): MembershipRequest!
+  """
+  Deletes an existing MembershipRequest and returns the success
+  """
+  membershipRequestDelete(id: ID!): Boolean!
+  """
+  Deletes the existing MembershipRequests and returns the success
+  """
+  membershipRequestDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Network implements Thing & Agent {
+  admittance: Admittance!
+  contactInfo: String
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  intro: String
+  name: String!
+  text: String
+  updatedAt: DateTime!
+  visibility: Visibility!
+}
+
+input OrderNetworksBy {
+  createdAt: OrderNetworksByCreatedAt
+  name: OrderNetworksByName
+  updatedAt: OrderNetworksByUpdatedAt
+}
+input OrderNetworksByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderNetworksByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderNetworksByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewNetwork {
+  admittance: Admittance!
+  contactInfo: String
+  info: String
+  intro: String
+  name: String!
+  text: String
+  visibility: Visibility!
+}
+
+"""
+Possible filter fields when the Network is queried
+"""
+input NetworksFilter {
+  admittance_contains: String
+  admittance_eq: String
+  admittance_in: [String!]
+  admittance_not_contains: String
+  admittance_not_eq: String
+  admittance_not_in: [String!]
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateNetwork {
+  contactInfo: String
+  info: String
+  intro: String
+  name: String
+  text: String
+  visibility: Visibility
+}
+input ClearNetworkFields {
+  contactInfo: Boolean
+  info: Boolean
+  intro: Boolean
+  text: Boolean
+}
+"""
+An edge in a connection.
+"""
+type NetworkEdge implements Edge {
+  "The item at the end of the edge."
+  node: Network!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type NetworkConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [NetworkEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Networks matching the given filter. Filters regarding relations can be set via header.
+  """
+  networks(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  """
+  Queries all Networks matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  networksBulk(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+  ): [NetworkConnection!]!
+  """
+  Return the Network for the given id, if it exists
+  """
+  network(id: ID!): Network
+}
+extend type Mutation {
+  """
+  Creates a new Network and returns it
+  """
+  networkCreate(input: NewNetwork!): Network!
+  """
+  Modifies an existing Network and returns the result
+  """
+  networkModify(id: ID!, modification: UpdateNetwork, deletion: ClearNetworkFields): Network!
+  """
+  Deletes an existing Network and returns the success
+  """
+  networkDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Networks and returns the success
+  """
+  networkDeleteBulk(ids: [ID!]!): Boolean!
+}
+type NetworkCategory implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderNetworkCategoriesBy {
+  createdAt: OrderNetworkCategoriesByCreatedAt
+  name: OrderNetworkCategoriesByName
+  updatedAt: OrderNetworkCategoriesByUpdatedAt
+}
+input OrderNetworkCategoriesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderNetworkCategoriesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderNetworkCategoriesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewNetworkCategory {
+  name: String!
+}
+
+"""
+Possible filter fields when the NetworkCategory is queried
+"""
+input NetworkCategoriesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateNetworkCategory {
+  name: String
+}
+"""
+An edge in a connection.
+"""
+type NetworkCategoryEdge implements Edge {
+  "The item at the end of the edge."
+  node: NetworkCategory!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type NetworkCategoryConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [NetworkCategoryEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all NetworkCategories matching the given filter. Filters regarding relations can be set via header.
+  """
+  networkCategories(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  """
+  Queries all NetworkCategories matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  networkCategoriesBulk(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): [NetworkCategoryConnection!]!
+  """
+  Return the NetworkCategory for the given id, if it exists
+  """
+  networkCategory(id: ID!): NetworkCategory
+}
+extend type Mutation {
+  """
+  Creates a new NetworkCategory and returns it
+  """
+  networkCategoryCreate(input: NewNetworkCategory!): NetworkCategory!
+  """
+  Modifies an existing NetworkCategory and returns the result
+  """
+  networkCategoryModify(id: ID!, modification: UpdateNetworkCategory): NetworkCategory!
+  """
+  Deletes an existing NetworkCategory and returns the success
+  """
+  networkCategoryDelete(id: ID!): Boolean!
+  """
+  Deletes the existing NetworkCategories and returns the success
+  """
+  networkCategoryDeleteBulk(ids: [ID!]!): Boolean!
+}
+type OnlineAccount implements Thing & Account {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+input OrderOnlineAccountsBy {
+  createdAt: OrderOnlineAccountsByCreatedAt
+  updatedAt: OrderOnlineAccountsByUpdatedAt
+}
+input OrderOnlineAccountsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderOnlineAccountsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+"""
+Possible filter fields when the OnlineAccount is queried
+"""
+input OnlineAccountsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type OnlineAccountEdge implements Edge {
+  "The item at the end of the edge."
+  node: OnlineAccount!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type OnlineAccountConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [OnlineAccountEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all OnlineAccounts matching the given filter. Filters regarding relations can be set via header.
+  """
+  onlineAccounts(
+    pagination: Pagination
+    orderBy: OrderOnlineAccountsBy!
+    filter: OnlineAccountsFilter
+  ): OnlineAccountConnection!
+  """
+  Queries all OnlineAccounts matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  onlineAccountsBulk(
+    pagination: Pagination
+    orderBy: OrderOnlineAccountsBy!
+    filter: OnlineAccountsFilter
+  ): [OnlineAccountConnection!]!
+  """
+  Return the OnlineAccount for the given id, if it exists
+  """
+  onlineAccount(id: ID!): OnlineAccount
+}
+extend type Mutation {
+  """
+  Creates a new OnlineAccount and returns it
+  """
+  onlineAccountCreate: OnlineAccount!
+  """
+  Deletes an existing OnlineAccount and returns the success
+  """
+  onlineAccountDelete(id: ID!): Boolean!
+  """
+  Deletes the existing OnlineAccounts and returns the success
+  """
+  onlineAccountDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Person implements Thing & Agent {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  intro: String
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderPersonsBy {
+  createdAt: OrderPersonsByCreatedAt
+  name: OrderPersonsByName
+  updatedAt: OrderPersonsByUpdatedAt
+}
+input OrderPersonsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderPersonsByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderPersonsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewPerson {
+  info: String
+  intro: String
+  name: String!
+}
+
+"""
+Possible filter fields when the Person is queried
+"""
+input PersonsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdatePerson {
+  info: String
+  intro: String
+  name: String
+}
+input ClearPersonFields {
+  info: Boolean
+  intro: Boolean
+}
+"""
+An edge in a connection.
+"""
+type PersonEdge implements Edge {
+  "The item at the end of the edge."
+  node: Person!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type PersonConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PersonEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Persons matching the given filter. Filters regarding relations can be set via header.
+  """
+  persons(pagination: Pagination, orderBy: OrderPersonsBy!, filter: PersonsFilter): PersonConnection!
+  """
+  Queries all Persons matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  personsBulk(pagination: Pagination, orderBy: OrderPersonsBy!, filter: PersonsFilter): [PersonConnection!]!
+  """
+  Return the Person for the given id, if it exists
+  """
+  person(id: ID!): Person
+}
+extend type Mutation {
+  """
+  Creates a new Person and returns it
+  """
+  personCreate(input: NewPerson!): Person!
+  """
+  Modifies an existing Person and returns the result
+  """
+  personModify(id: ID!, modification: UpdatePerson, deletion: ClearPersonFields): Person!
+  """
+  Deletes an existing Person and returns the success
+  """
+  personDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Persons and returns the success
+  """
+  personDeleteBulk(ids: [ID!]!): Boolean!
+}
+"""
+Wraps multiple Accesses
+"""
+type Role implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input OrderRolesBy {
+  createdAt: OrderRolesByCreatedAt
+  name: OrderRolesByName
+  updatedAt: OrderRolesByUpdatedAt
+}
+input OrderRolesByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderRolesByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderRolesByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+"""
+Possible filter fields when the Role is queried
+"""
+input RolesFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+"""
+An edge in a connection.
+"""
+type RoleEdge implements Edge {
+  "The item at the end of the edge."
+  node: Role!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type RoleConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [RoleEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Roles matching the given filter. Filters regarding relations can be set via header.
+  """
+  roles(pagination: Pagination, orderBy: OrderRolesBy!, filter: RolesFilter): RoleConnection!
+  """
+  Queries all Roles matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  rolesBulk(pagination: Pagination, orderBy: OrderRolesBy!, filter: RolesFilter): [RoleConnection!]!
+  """
+  Return the Role for the given id, if it exists
+  """
+  role(id: ID!): Role
+}
+extend type Mutation {
+  """
+  Creates a new Role and returns it
+  """
+  roleCreate: Role!
+  """
+  Deletes an existing Role and returns the success
+  """
+  roleDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Roles and returns the success
+  """
+  roleDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Task implements Thing {
+  completed: Boolean!
+  completedAt: DateTime
+  createdAt: DateTime!
+  id: ID!
+  title: String!
+  updatedAt: DateTime!
+}
+
+input OrderTasksBy {
+  completed: OrderTasksByCompleted
+  completedAt: OrderTasksByCompletedAt
+  createdAt: OrderTasksByCreatedAt
+  title: OrderTasksByTitle
+  updatedAt: OrderTasksByUpdatedAt
+}
+input OrderTasksByCompleted {
+  ascending: Boolean!
+  threshold: Boolean
+  priority: Int!
+}
+input OrderTasksByCompletedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderTasksByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderTasksByTitle {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderTasksByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewTask {
+  completed: Boolean!
+  title: String!
+}
+
+"""
+Possible filter fields when the Task is queried
+"""
+input TasksFilter {
+  completed_eq: Boolean
+  completed_not_eq: Boolean
+  completedAt_eq: DateTime
+  completedAt_gt: DateTime
+  completedAt_gte: DateTime
+  completedAt_in: [DateTime!]
+  completedAt_lt: DateTime
+  completedAt_lte: DateTime
+  completedAt_not_eq: DateTime
+  completedAt_not_in: [DateTime!]
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateTask {
+  completed: Boolean
+  title: String
+}
+"""
+An edge in a connection.
+"""
+type TaskEdge implements Edge {
+  "The item at the end of the edge."
+  node: Task!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type TaskConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TaskEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Tasks matching the given filter. Filters regarding relations can be set via header.
+  """
+  tasks(pagination: Pagination, orderBy: OrderTasksBy!, filter: TasksFilter): TaskConnection!
+  """
+  Queries all Tasks matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  tasksBulk(pagination: Pagination, orderBy: OrderTasksBy!, filter: TasksFilter): [TaskConnection!]!
+  """
+  Return the Task for the given id, if it exists
+  """
+  task(id: ID!): Task
+}
+extend type Mutation {
+  """
+  Creates a new Task and returns it
+  """
+  taskCreate(input: NewTask!): Task!
+  """
+  Modifies an existing Task and returns the result
+  """
+  taskModify(id: ID!, modification: UpdateTask): Task!
+  """
+  Deletes an existing Task and returns the success
+  """
+  taskDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Tasks and returns the success
+  """
+  taskDeleteBulk(ids: [ID!]!): Boolean!
+}
+type Topic implements Thing & Content {
+  createdAt: DateTime!
+  id: ID!
+  intro: String
+  title: String!
+  updatedAt: DateTime!
+  visibility: Visibility!
+  warning: String
+}
+
+input OrderTopicsBy {
+  createdAt: OrderTopicsByCreatedAt
+  title: OrderTopicsByTitle
+  updatedAt: OrderTopicsByUpdatedAt
+}
+input OrderTopicsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderTopicsByTitle {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderTopicsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewTopic {
+  intro: String
+  title: String!
+  visibility: Visibility!
+  warning: String
+}
+
+"""
+Possible filter fields when the Topic is queried
+"""
+input TopicsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateTopic {
+  intro: String
+  title: String
+  visibility: Visibility
+  warning: String
+}
+input ClearTopicFields {
+  intro: Boolean
+  warning: Boolean
+}
+"""
+An edge in a connection.
+"""
+type TopicEdge implements Edge {
+  "The item at the end of the edge."
+  node: Topic!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type TopicConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [TopicEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all Topics matching the given filter. Filters regarding relations can be set via header.
+  """
+  topics(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): TopicConnection!
+  """
+  Queries all Topics matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  topicsBulk(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): [TopicConnection!]!
+  """
+  Return the Topic for the given id, if it exists
+  """
+  topic(id: ID!): Topic
+}
+extend type Mutation {
+  """
+  Creates a new Topic and returns it
+  """
+  topicCreate(input: NewTopic!): Topic!
+  """
+  Modifies an existing Topic and returns the result
+  """
+  topicModify(id: ID!, modification: UpdateTopic, deletion: ClearTopicFields): Topic!
+  """
+  Deletes an existing Topic and returns the success
+  """
+  topicDelete(id: ID!): Boolean!
+  """
+  Deletes the existing Topics and returns the success
+  """
+  topicDeleteBulk(ids: [ID!]!): Boolean!
+}
+type VideoMeeting implements Thing {
+  createdAt: DateTime!
+  id: ID!
+  text: String
+  title: String!
+  updatedAt: DateTime!
+}
+
+input OrderVideoMeetingsBy {
+  createdAt: OrderVideoMeetingsByCreatedAt
+  updatedAt: OrderVideoMeetingsByUpdatedAt
+}
+input OrderVideoMeetingsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderVideoMeetingsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input NewVideoMeeting {
+  text: String
+  title: String!
+}
+
+"""
+Possible filter fields when the VideoMeeting is queried
+"""
+input VideoMeetingsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+input UpdateVideoMeeting {
+  text: String
+  title: String
+}
+input ClearVideoMeetingFields {
+  text: Boolean
+}
+"""
+An edge in a connection.
+"""
+type VideoMeetingEdge implements Edge {
+  "The item at the end of the edge."
+  node: VideoMeeting!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type VideoMeetingConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [VideoMeetingEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+extend type Query {
+  """
+  Queries all VideoMeetings matching the given filter. Filters regarding relations can be set via header.
+  """
+  videoMeetings(
+    pagination: Pagination
+    orderBy: OrderVideoMeetingsBy!
+    filter: VideoMeetingsFilter
+  ): VideoMeetingConnection!
+  """
+  Queries all VideoMeetings matching the given filter. Expect multiple relation filters set in the header, for each of them a connection will be returned (in the order of the relation filters).
+  """
+  videoMeetingsBulk(
+    pagination: Pagination
+    orderBy: OrderVideoMeetingsBy!
+    filter: VideoMeetingsFilter
+  ): [VideoMeetingConnection!]!
+  """
+  Return the VideoMeeting for the given id, if it exists
+  """
+  videoMeeting(id: ID!): VideoMeeting
+}
+extend type Mutation {
+  """
+  Creates a new VideoMeeting and returns it
+  """
+  videoMeetingCreate(input: NewVideoMeeting!): VideoMeeting!
+  """
+  Modifies an existing VideoMeeting and returns the result
+  """
+  videoMeetingModify(
+    id: ID!
+    modification: UpdateVideoMeeting
+    deletion: ClearVideoMeetingFields
+  ): VideoMeeting!
+  """
+  Deletes an existing VideoMeeting and returns the success
+  """
+  videoMeetingDelete(id: ID!): Boolean!
+  """
+  Deletes the existing VideoMeetings and returns the success
+  """
+  videoMeetingDeleteBulk(ids: [ID!]!): Boolean!
+}
+"""
+Date and time in RFC3339, e.g. 2006-01-02T15:04:05Z or 2006-01-02T15:02:05+02:00
+"""
+scalar DateTime
+scalar Date
+scalar Time
+scalar Duration
+scalar URL
+
+"""
+Determines the next items to be returned
+"""
+input Pagination {
+  "The number of items to return after the the given cursor. Can be negative for a negative number."
+  first: Int!
+  "Determines the start of the new page. It's not included itself. Can be empty for the first page."
+  afterCursor: String
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+interface Connection {
+  pageInfo: PageInfo!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+"""
+Holds the cursor of the current item, plus the item.
+"""
+interface Edge {
+  "Cursor of the item to be used for pagination"
+  cursor: String
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Permissions {
+  count: Boolean
+  find: Boolean
+  findOne: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+"""
+Allowed mutations for relations referring to more than one entity.
+"""
+enum CollectionRelationMutation {
+  ADD
+  DELETE
+  SET
+}
+
+union Feed = Article | Impulse | Topic
+
+enum FeedType {
+  ARTICLE
+  IMPULSE
+  TOPIC
+}
+
+input FeedsFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+An edge in a connection
+"""
+type FeedEdge implements Edge {
+  "The item at the end of the edge."
+  node: Feed!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type FeedConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [FeedEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+"""
+Aggregate RelationsFilter
+"""
+input FeedsRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Account is referenced
+"""
+input AccountsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Agent is referenced
+"""
+input AgentsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+}
+
+"""
+Possible filter fields when the Content is referenced
+"""
+input ContentsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Document is referenced
+"""
+input DocumentsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Rating is referenced
+"""
+input RatingsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  createdBy: PersonsRelationFilter
+}
+
+"""
+Possible filter fields when the Thing is referenced
+"""
+input ThingsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Address is referenced
+"""
+input AddressesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+
+"""
+Possible filter fields when the AddressScope is referenced
+"""
+input AddressScopesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+
+"""
+Possible filter fields when the Article is referenced
+"""
+input ArticlesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Category is referenced
+"""
+input CategoriesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the CollabText is referenced
+"""
+input CollabTextsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Comment is referenced
+"""
+input CommentsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  comments: ContentsRelationFilter
+  createdBy: PersonsRelationFilter
+}
+
+"""
+Possible filter fields when the CommentRating is referenced
+"""
+input CommentRatingsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  createdBy: PersonsRelationFilter
+  rates: CommentsRelationFilter
+}
+
+"""
+Possible filter fields when the ContentRating is referenced
+"""
+input ContentRatingsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  createdBy: PersonsRelationFilter
+  rates: ContentsRelationFilter
+}
+
+"""
+Possible filter fields when the File is referenced
+"""
+input FilesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Group is referenced
+"""
+input GroupsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  administeredBy: MembershipsRelationFilter
+  categorizedBy: CategoriesRelationFilter
+  covers: ImpulsesRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  managesContent: ContentsRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesFile: FilesRelationFilter
+  managesCollabText: CollabTextsRelationFilter
+  supervisedBy: NetworksRelationFilter
+}
+
+"""
+Possible filter fields when the Image is referenced
+"""
+input ImagesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Impulse is referenced
+"""
+input ImpulsesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  coveredBy: GroupsRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the Membership is referenced
+"""
+input MembershipsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  definedBy: RolesRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+
+"""
+Possible filter fields when the MembershipInvite is referenced
+"""
+input MembershipInvitesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+
+"""
+Possible filter fields when the MembershipRequest is referenced
+"""
+input MembershipRequestsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+
+"""
+Possible filter fields when the Network is referenced
+"""
+input NetworksRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  administeredBy: MembershipsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  logoedBy: ImagesRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesNetworkCategory: NetworkCategoriesRelationFilter
+}
+
+"""
+Possible filter fields when the NetworkCategory is referenced
+"""
+input NetworkCategoriesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managedBy: NetworksRelationFilter
+}
+
+"""
+Possible filter fields when the OnlineAccount is referenced
+"""
+input OnlineAccountsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  managesMembership: MembershipsRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+}
+
+"""
+Possible filter fields when the Person is referenced
+"""
+input PersonsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  createsContent: ContentsRelationFilter
+  createsComment: CommentsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  representedBy: OnlineAccountsRelationFilter
+}
+
+"""
+Possible filter fields when the Role is referenced
+"""
+input RolesRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Task is referenced
+"""
+input TasksRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+
+"""
+Possible filter fields when the Topic is referenced
+"""
+input TopicsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  curates: ContentsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+"""
+Possible filter fields when the VideoMeeting is referenced
+"""
+input VideoMeetingsRelationFilter {
+  id_in: [ID!]
+  id_not_in: [ID!]
+}
+"""
+RelationsFilter
+"""
+input AgentsRelationsFilter {
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+}
+"""
+RelationsFilter
+"""
+input ContentsRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input RatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input AddressesRelationsFilter {
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input AddressScopesRelationsFilter {
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input ArticlesRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input CollabTextsRelationsFilter {
+  managedBy: GroupsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input CommentsRelationsFilter {
+  comments: ContentsRelationFilter
+  createdBy: PersonsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input CommentRatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+  rates: CommentsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input ContentRatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+  rates: ContentsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input FilesRelationsFilter {
+  managedBy: GroupsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input GroupsRelationsFilter {
+  administeredBy: MembershipsRelationFilter
+  categorizedBy: CategoriesRelationFilter
+  covers: ImpulsesRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  managesContent: ContentsRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesFile: FilesRelationFilter
+  managesCollabText: CollabTextsRelationFilter
+  supervisedBy: NetworksRelationFilter
+}
+"""
+RelationsFilter
+"""
+input ImpulsesRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  coveredBy: GroupsRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input MembershipsRelationsFilter {
+  definedBy: RolesRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input MembershipInvitesRelationsFilter {
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input MembershipRequestsRelationsFilter {
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input NetworksRelationsFilter {
+  administeredBy: MembershipsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  logoedBy: ImagesRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesNetworkCategory: NetworkCategoriesRelationFilter
+}
+"""
+RelationsFilter
+"""
+input NetworkCategoriesRelationsFilter {
+  managedBy: NetworksRelationFilter
+}
+"""
+RelationsFilter
+"""
+input OnlineAccountsRelationsFilter {
+  managesMembership: MembershipsRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+}
+"""
+RelationsFilter
+"""
+input PersonsRelationsFilter {
+  createsContent: ContentsRelationFilter
+  createsComment: CommentsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  representedBy: OnlineAccountsRelationFilter
+}
+"""
+RelationsFilter
+"""
+input TopicsRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  curates: ContentsRelationFilter
+  displayedBy: NetworksRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+}
+
+enum AccountType {
+  ONLINE_ACCOUNT
+}
+
+interface Account {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type AccountEdge implements Edge {
+  "The item at the end of the edge."
+  node: Account!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type AccountConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AccountEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderAccountsBy {
+  createdAt: OrderAccountsByCreatedAt
+  updatedAt: OrderAccountsByUpdatedAt
+}
+input OrderAccountsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderAccountsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input AccountsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+
+enum AgentType {
+  GROUP
+  NETWORK
+  PERSON
+}
+
+interface Agent {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  intro: String
+  name: String!
+  updatedAt: DateTime!
+  imagedBy: Image
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  locatedByAddress: Address
+  _viewer: AgentViewer!
+  _permissions: Permissions
+}
+
+type AgentEdge implements Edge {
+  "The item at the end of the edge."
+  node: Agent!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type AgentConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AgentEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderAgentsBy {
+  createdAt: OrderAgentsByCreatedAt
+  name: OrderAgentsByName
+  updatedAt: OrderAgentsByUpdatedAt
+}
+input OrderAgentsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderAgentsByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderAgentsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input AgentsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+
+interface AgentViewer {
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+}
+
+enum ContentType {
+  ARTICLE
+  IMPULSE
+  TOPIC
+}
+
+interface Content {
+  createdAt: DateTime!
+  id: ID!
+  title: String!
+  updatedAt: DateTime!
+  visibility: Visibility!
+  warning: String
+  categorizedByCategory(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): CategoryConnection!
+  categorizedByNetworkCategory(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  commentedBy(pagination: Pagination, orderBy: OrderCommentsBy!, filter: CommentsFilter): CommentConnection!
+  createdByGroup: Group
+  createdByPerson: Person
+  curatedBy(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): TopicConnection!
+  displayedBy(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  locatedByAddress: Address
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): ContentRatingConnection!
+  _viewer: ContentViewer!
+  _permissions: Permissions
+}
+
+type ContentEdge implements Edge {
+  "The item at the end of the edge."
+  node: Content!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ContentConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ContentEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderContentsBy {
+  createdAt: OrderContentsByCreatedAt
+  title: OrderContentsByTitle
+  updatedAt: OrderContentsByUpdatedAt
+}
+input OrderContentsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderContentsByTitle {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderContentsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input ContentsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  title_contains: String
+  title_eq: String
+  title_in: [String!]
+  title_not_contains: String
+  title_not_eq: String
+  title_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+
+interface ContentViewer {
+  commentedBy(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  curatedBy(
+    pagination: Pagination
+    orderBy: OrderTopicsBy!
+    filter: TopicsFilter
+    relationsFilter: TopicsRelationsFilter
+  ): TopicConnection!
+  displayedBy(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+    relationsFilter: ContentRatingsRelationsFilter
+  ): ContentRatingConnection!
+}
+
+enum DocumentType {
+  FILE
+  IMAGE
+}
+
+interface Document {
+  createdAt: DateTime!
+  id: ID!
+  info: String
+  name: String!
+  resourceLocation: String
+  updatedAt: DateTime!
+}
+
+type DocumentEdge implements Edge {
+  "The item at the end of the edge."
+  node: Document!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type DocumentConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [DocumentEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderDocumentsBy {
+  createdAt: OrderDocumentsByCreatedAt
+  name: OrderDocumentsByName
+  updatedAt: OrderDocumentsByUpdatedAt
+}
+input OrderDocumentsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderDocumentsByName {
+  ascending: Boolean!
+  threshold: String
+  priority: Int!
+}
+input OrderDocumentsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input DocumentsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  name_contains: String
+  name_eq: String
+  name_in: [String!]
+  name_not_contains: String
+  name_not_eq: String
+  name_not_in: [String!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+
+enum RatingType {
+  COMMENT_RATING
+  CONTENT_RATING
+}
+
+interface Rating {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+  createdBy: Person
+}
+
+type RatingEdge implements Edge {
+  "The item at the end of the edge."
+  node: Rating!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type RatingConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [RatingEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderRatingsBy {
+  createdAt: OrderRatingsByCreatedAt
+  updatedAt: OrderRatingsByUpdatedAt
+}
+input OrderRatingsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderRatingsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input RatingsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+
+enum ThingType {
+  ONLINE_ACCOUNT
+  ADDRESS
+  ADDRESS_SCOPE
+  GROUP
+  NETWORK
+  PERSON
+  CATEGORY
+  COLLAB_TEXT
+  COMMENT
+  ARTICLE
+  IMPULSE
+  TOPIC
+  FILE
+  IMAGE
+  MEMBERSHIP
+  MEMBERSHIP_INVITE
+  MEMBERSHIP_REQUEST
+  NETWORK_CATEGORY
+  COMMENT_RATING
+  CONTENT_RATING
+  ROLE
+  TASK
+  VIDEO_MEETING
+}
+
+interface Thing {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+type ThingEdge implements Edge {
+  "The item at the end of the edge."
+  node: Thing!
+  "A cursor for use in pagination."
+  cursor: String
+}
+
+type ThingConnection implements Connection {
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ThingEdge!]!
+  "Count of filtered result set without considering pagination arguments"
+  count: Int!
+}
+
+input OrderThingsBy {
+  createdAt: OrderThingsByCreatedAt
+  updatedAt: OrderThingsByUpdatedAt
+}
+input OrderThingsByCreatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+input OrderThingsByUpdatedAt {
+  ascending: Boolean!
+  threshold: DateTime
+  priority: Int!
+}
+
+input ThingsFilter {
+  createdAt_eq: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_not_eq: DateTime
+  createdAt_not_in: [DateTime!]
+  id_eq: ID
+  id_in: [ID!]
+  id_not_eq: ID
+  id_not_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_not_eq: DateTime
+  updatedAt_not_in: [DateTime!]
+}
+extend type Query {
+  """
+  Queries all Feeds matching the given filter. The order is inherent to the Feed aggregate.
+  """
+  feeds(
+    type: [FeedType!]
+    pagination: Pagination
+    filter: FeedsFilter
+    relationsFilter: FeedsRelationsFilter
+  ): FeedConnection!
+  """
+  Return the Feed for the given id, if it exists
+  """
+  feed(id: ID!): Feed
+
+  """
+  Queries all Accounts matching the given filter
+  """
+  accounts(
+    type: [AccountType!]
+    pagination: Pagination
+    orderBy: OrderAccountsBy!
+    filter: AccountsFilter
+  ): AccountConnection!
+  """
+  Return the Account for the given id, if it exists
+  """
+  account(id: ID!): Account
+
+  """
+  Queries all Agents matching the given filter
+  """
+  agents(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  """
+  Return the Agent for the given id, if it exists
+  """
+  agent(id: ID!): Agent
+
+  """
+  Queries all Contents matching the given filter
+  """
+  contents(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  """
+  Return the Content for the given id, if it exists
+  """
+  content(id: ID!): Content
+
+  """
+  Queries all Documents matching the given filter
+  """
+  documents(
+    type: [DocumentType!]
+    pagination: Pagination
+    orderBy: OrderDocumentsBy!
+    filter: DocumentsFilter
+  ): DocumentConnection!
+  """
+  Return the Document for the given id, if it exists
+  """
+  document(id: ID!): Document
+
+  """
+  Queries all Ratings matching the given filter
+  """
+  ratings(
+    type: [RatingType!]
+    pagination: Pagination
+    orderBy: OrderRatingsBy!
+    filter: RatingsFilter
+    relationsFilter: RatingsRelationsFilter
+  ): RatingConnection!
+  """
+  Return the Rating for the given id, if it exists
+  """
+  rating(id: ID!): Rating
+
+  """
+  Queries all Things matching the given filter
+  """
+  things(
+    type: [ThingType!]
+    pagination: Pagination
+    orderBy: OrderThingsBy!
+    filter: ThingsFilter
+  ): ThingConnection!
+  """
+  Return the Thing for the given id, if it exists
+  """
+  thing(id: ID!): Thing
+}
+type AddressViewer {
+  locatesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  locatesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+}
+
+extend type Address {
+  locatesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  _viewer: AddressViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Addresses matching the given filters
+  """
+  addresses(
+    pagination: Pagination
+    orderBy: OrderAddressesBy!
+    filter: AddressesFilter
+    relationsFilter: AddressesRelationsFilter
+  ): AddressConnection!
+  """
+  Return the Address for the given id, if it exists
+  """
+  address(id: ID!): Address
+}
+type AddressScopeViewer {
+  locatesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  locatesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+}
+
+extend type AddressScope {
+  locatesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  _viewer: AddressScopeViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all AddressScopes matching the given filters
+  """
+  addressScopes(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+    relationsFilter: AddressScopesRelationsFilter
+  ): AddressScopeConnection!
+  """
+  Return the AddressScope for the given id, if it exists
+  """
+  addressScope(id: ID!): AddressScope
+}
+type ArticleViewer implements ContentViewer {
+  commentedBy(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  curatedBy(
+    pagination: Pagination
+    orderBy: OrderTopicsBy!
+    filter: TopicsFilter
+    relationsFilter: TopicsRelationsFilter
+  ): TopicConnection!
+  displayedBy(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+    relationsFilter: ContentRatingsRelationsFilter
+  ): ContentRatingConnection!
+}
+input NewArticleRelations {
+  createdByGroup: ID
+  createdByPerson: ID
+  managedBy: [ID!]!
+}
+
+extend type Article implements Content {
+  categorizedByCategory(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): CategoryConnection!
+  categorizedByNetworkCategory(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  commentedBy(pagination: Pagination, orderBy: OrderCommentsBy!, filter: CommentsFilter): CommentConnection!
+  createdByGroup: Group
+  createdByPerson: Person
+  curatedBy(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): TopicConnection!
+  displayedBy(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  locatedByAddress: Address
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): ContentRatingConnection!
+  _viewer: ArticleViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Articles matching the given filters
+  """
+  articles(
+    pagination: Pagination
+    orderBy: OrderArticlesBy!
+    filter: ArticlesFilter
+    relationsFilter: ArticlesRelationsFilter
+  ): ArticleConnection!
+  """
+  Return the Article for the given id, if it exists
+  """
+  article(id: ID!): Article
+}
+extend type Mutation {
+  articleModifyCategorizedByCategoryRelation(
+    "The Article item with the 'categorizedBy' relation referring to the Category item"
+    source: ID!
+    "The Category items to referred from Article.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Article!
+
+  articleModifyCategorizedByNetworkCategoryRelation(
+    "The Article item with the 'categorizedBy' relation referring to the NetworkCategory item"
+    source: ID!
+    "The NetworkCategory items to referred from Article.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Article!
+
+  articleSetCreatedByGroupRelation(
+    "The Article item with the 'createdBy' relation referring to the Group item"
+    source: ID!
+    "The Group item to referred from Article.createdBy"
+    target: ID
+  ): Article!
+
+  articleSetCreatedByPersonRelation(
+    "The Article item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from Article.createdBy"
+    target: ID
+  ): Article!
+
+  articleModifyDisplayedByNetworkRelation(
+    "The Article item with the 'displayedBy' relation referring to the Network item"
+    source: ID!
+    "The Network items to referred from Article.displayedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Article!
+
+  articleModifyImagedByImageRelation(
+    "The Article item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image items to referred from Article.imagedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Article!
+
+  articleSetLocatedByAddressRelation(
+    "The Article item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Article.locatedBy"
+    target: ID
+  ): Article!
+
+  articleModifyManagedByGroupRelation(
+    "The Article item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from Article.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Article!
+
+  """
+  Creates a new Article and returns it
+  """
+  articleCreate(input: NewArticle!, relationInput: NewArticleRelations!): Article!
+}
+type CategoryViewer {
+  categorizesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  categorizesGroup(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+}
+
+extend type Category {
+  categorizesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  categorizesGroup(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  _viewer: CategoryViewer!
+  _permissions: Permissions
+}
+type CollabTextViewer {
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+}
+input NewCollabTextRelations {
+  managedBy: [ID!]!
+}
+
+extend type CollabText {
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  _viewer: CollabTextViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all CollabTexts matching the given filters
+  """
+  collabTexts(
+    pagination: Pagination
+    orderBy: OrderCollabTextsBy!
+    filter: CollabTextsFilter
+    relationsFilter: CollabTextsRelationsFilter
+  ): CollabTextConnection!
+  """
+  Return the CollabText for the given id, if it exists
+  """
+  collabText(id: ID!): CollabText
+}
+extend type Mutation {
+  collabTextModifyManagedByGroupRelation(
+    "The CollabText item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from CollabText.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): CollabText!
+
+  """
+  Creates a new CollabText and returns it
+  """
+  collabTextCreate(input: NewCollabText!, relationInput: NewCollabTextRelations!): CollabText!
+}
+type CommentViewer {
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderCommentRatingsBy!
+    filter: CommentRatingsFilter
+    relationsFilter: CommentRatingsRelationsFilter
+  ): CommentRatingConnection!
+}
+input NewCommentRelations {
+  comments: ID
+  createdBy: ID
+}
+
+extend type Comment {
+  comments: Content
+  createdBy: Person
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderCommentRatingsBy!
+    filter: CommentRatingsFilter
+  ): CommentRatingConnection!
+  _viewer: CommentViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Comments matching the given filters
+  """
+  comments(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  """
+  Return the Comment for the given id, if it exists
+  """
+  comment(id: ID!): Comment
+}
+extend type Mutation {
+  commentSetCommentsContentRelation(
+    "The Comment item with the 'comments' relation referring to the Content item"
+    source: ID!
+    "The Content item to referred from Comment.comments"
+    target: ID
+  ): Comment!
+
+  commentSetCreatedByPersonRelation(
+    "The Comment item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from Comment.createdBy"
+    target: ID
+  ): Comment!
+
+  """
+  Creates a new Comment and returns it
+  """
+  commentCreate(input: NewComment!, relationInput: NewCommentRelations!): Comment!
+}
+input NewCommentRatingRelations {
+  createdBy: ID
+  rates: ID
+}
+
+extend type CommentRating implements Rating {
+  createdBy: Person
+  rates: Comment
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all CommentRatings matching the given filters
+  """
+  commentRatings(
+    pagination: Pagination
+    orderBy: OrderCommentRatingsBy!
+    filter: CommentRatingsFilter
+    relationsFilter: CommentRatingsRelationsFilter
+  ): CommentRatingConnection!
+  """
+  Return the CommentRating for the given id, if it exists
+  """
+  commentRating(id: ID!): CommentRating
+}
+extend type Mutation {
+  commentRatingSetCreatedByPersonRelation(
+    "The CommentRating item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from CommentRating.createdBy"
+    target: ID
+  ): CommentRating!
+
+  commentRatingSetRatesCommentRelation(
+    "The CommentRating item with the 'rates' relation referring to the Comment item"
+    source: ID!
+    "The Comment item to referred from CommentRating.rates"
+    target: ID
+  ): CommentRating!
+
+  """
+  Creates a new CommentRating and returns it
+  """
+  commentRatingCreate(relationInput: NewCommentRatingRelations!): CommentRating!
+}
+input NewContentRatingRelations {
+  createdBy: ID
+  rates: ID
+}
+
+extend type ContentRating implements Rating {
+  createdBy: Person
+  rates: Content
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all ContentRatings matching the given filters
+  """
+  contentRatings(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+    relationsFilter: ContentRatingsRelationsFilter
+  ): ContentRatingConnection!
+  """
+  Return the ContentRating for the given id, if it exists
+  """
+  contentRating(id: ID!): ContentRating
+}
+extend type Mutation {
+  contentRatingSetCreatedByPersonRelation(
+    "The ContentRating item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from ContentRating.createdBy"
+    target: ID
+  ): ContentRating!
+
+  contentRatingSetRatesContentRelation(
+    "The ContentRating item with the 'rates' relation referring to the Content item"
+    source: ID!
+    "The Content item to referred from ContentRating.rates"
+    target: ID
+  ): ContentRating!
+
+  """
+  Creates a new ContentRating and returns it
+  """
+  contentRatingCreate(relationInput: NewContentRatingRelations!): ContentRating!
+}
+type FileViewer {
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+}
+input NewFileRelations {
+  managedBy: [ID!]!
+}
+
+extend type File implements Document {
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  _viewer: FileViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Files matching the given filters
+  """
+  files(
+    pagination: Pagination
+    orderBy: OrderFilesBy!
+    filter: FilesFilter
+    relationsFilter: FilesRelationsFilter
+  ): FileConnection!
+  """
+  Return the File for the given id, if it exists
+  """
+  file(id: ID!): File
+}
+extend type Mutation {
+  fileModifyManagedByGroupRelation(
+    "The File item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from File.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): File!
+
+  """
+  Creates a new File and returns it
+  """
+  fileCreate(input: NewFile!, relationInput: NewFileRelations!): CreatedFileData!
+}
+type GroupViewer implements AgentViewer {
+  administeredBy(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+    relationsFilter: MembershipsRelationsFilter
+  ): MembershipConnection!
+  creates(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  managesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+    relationsFilter: MembershipInvitesRelationsFilter
+  ): MembershipInviteConnection!
+  managesMembershipRequest(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+    relationsFilter: MembershipRequestsRelationsFilter
+  ): MembershipRequestConnection!
+  managesFile(
+    pagination: Pagination
+    orderBy: OrderFilesBy!
+    filter: FilesFilter
+    relationsFilter: FilesRelationsFilter
+  ): FileConnection!
+}
+input NewGroupRelations {
+  covers: ID
+}
+
+extend type Group implements Agent {
+  administeredBy(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): MembershipConnection!
+  categorizedBy: Category
+  covers: Impulse
+  creates(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  imagedBy: Image
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatedByAddress: Address
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  managesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+  ): MembershipInviteConnection!
+  managesMembershipRequest(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+  ): MembershipRequestConnection!
+  managesTask(pagination: Pagination, orderBy: OrderTasksBy!, filter: TasksFilter): TaskConnection!
+  managesVideoMeeting(
+    pagination: Pagination
+    orderBy: OrderVideoMeetingsBy!
+    filter: VideoMeetingsFilter
+  ): VideoMeetingConnection!
+  managesFile(pagination: Pagination, orderBy: OrderFilesBy!, filter: FilesFilter): FileConnection!
+  managesCollabText(
+    pagination: Pagination
+    orderBy: OrderCollabTextsBy!
+    filter: CollabTextsFilter
+  ): CollabTextConnection!
+  supervisedBy: Network
+  _viewer: GroupViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Groups matching the given filters
+  """
+  groups(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  """
+  Return the Group for the given id, if it exists
+  """
+  group(id: ID!): Group
+}
+extend type Mutation {
+  groupSetCategorizedByCategoryRelation(
+    "The Group item with the 'categorizedBy' relation referring to the Category item"
+    source: ID!
+    "The Category item to referred from Group.categorizedBy"
+    target: ID
+  ): Group!
+
+  groupSetCoversImpulseRelation(
+    "The Group item with the 'covers' relation referring to the Impulse item"
+    source: ID!
+    "The Impulse item to referred from Group.covers"
+    target: ID
+  ): Group!
+
+  groupSetImagedByImageRelation(
+    "The Group item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image item to referred from Group.imagedBy"
+    target: ID
+  ): Group!
+
+  groupModifyKnowsAgentRelation(
+    "The Group item with the 'knows' relation referring to the Agent item"
+    source: ID!
+    "The Agent items to referred from Group.knows"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Group!
+
+  groupSetLocatedByAddressRelation(
+    "The Group item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Group.locatedBy"
+    target: ID
+  ): Group!
+
+  groupSetSupervisedByNetworkRelation(
+    "The Group item with the 'supervisedBy' relation referring to the Network item"
+    source: ID!
+    "The Network item to referred from Group.supervisedBy"
+    target: ID
+  ): Group!
+
+  """
+  Creates a new Group and returns it
+  """
+  groupCreate(input: NewGroup!, relationInput: NewGroupRelations!): Group!
+}
+type ImageViewer {
+  imagesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  imagesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  logos(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+}
+
+extend type Image implements Document {
+  imagesAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  imagesContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  logos(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  _viewer: ImageViewer!
+  _permissions: Permissions
+}
+type ImpulseViewer implements ContentViewer {
+  commentedBy(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  coveredBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  curatedBy(
+    pagination: Pagination
+    orderBy: OrderTopicsBy!
+    filter: TopicsFilter
+    relationsFilter: TopicsRelationsFilter
+  ): TopicConnection!
+  displayedBy(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+    relationsFilter: ContentRatingsRelationsFilter
+  ): ContentRatingConnection!
+}
+input NewImpulseRelations {
+  createdByGroup: ID
+  createdByPerson: ID
+  managedBy: [ID!]!
+}
+
+extend type Impulse implements Content {
+  categorizedByCategory(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): CategoryConnection!
+  categorizedByNetworkCategory(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  commentedBy(pagination: Pagination, orderBy: OrderCommentsBy!, filter: CommentsFilter): CommentConnection!
+  coveredBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  createdByPerson: Person
+  createdByGroup: Group
+  curatedBy(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): TopicConnection!
+  displayedBy(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  locatedByAddress: Address
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): ContentRatingConnection!
+  _viewer: ImpulseViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Impulses matching the given filters
+  """
+  impulses(
+    pagination: Pagination
+    orderBy: OrderImpulsesBy!
+    filter: ImpulsesFilter
+    relationsFilter: ImpulsesRelationsFilter
+  ): ImpulseConnection!
+  """
+  Return the Impulse for the given id, if it exists
+  """
+  impulse(id: ID!): Impulse
+}
+extend type Mutation {
+  impulseModifyCategorizedByCategoryRelation(
+    "The Impulse item with the 'categorizedBy' relation referring to the Category item"
+    source: ID!
+    "The Category items to referred from Impulse.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Impulse!
+
+  impulseModifyCategorizedByNetworkCategoryRelation(
+    "The Impulse item with the 'categorizedBy' relation referring to the NetworkCategory item"
+    source: ID!
+    "The NetworkCategory items to referred from Impulse.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Impulse!
+
+  impulseSetCreatedByGroupRelation(
+    "The Impulse item with the 'createdBy' relation referring to the Group item"
+    source: ID!
+    "The Group item to referred from Impulse.createdBy"
+    target: ID
+  ): Impulse!
+
+  impulseSetCreatedByPersonRelation(
+    "The Impulse item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from Impulse.createdBy"
+    target: ID
+  ): Impulse!
+
+  impulseModifyDisplayedByNetworkRelation(
+    "The Impulse item with the 'displayedBy' relation referring to the Network item"
+    source: ID!
+    "The Network items to referred from Impulse.displayedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Impulse!
+
+  impulseModifyImagedByImageRelation(
+    "The Impulse item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image items to referred from Impulse.imagedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Impulse!
+
+  impulseSetLocatedByAddressRelation(
+    "The Impulse item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Impulse.locatedBy"
+    target: ID
+  ): Impulse!
+
+  impulseModifyManagedByGroupRelation(
+    "The Impulse item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from Impulse.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Impulse!
+
+  """
+  Creates a new Impulse and returns it
+  """
+  impulseCreate(input: NewImpulse!, relationInput: NewImpulseRelations!): Impulse!
+}
+extend type Membership {
+  administersGroup: Group
+  administersNetwork: Network
+  definedBy: Role
+  managedByGroup: Group
+  managedByNetwork: Network
+  managedByOnlineAccount: OnlineAccount
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Memberships matching the given filters
+  """
+  memberships(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+    relationsFilter: MembershipsRelationsFilter
+  ): MembershipConnection!
+  """
+  Return the Membership for the given id, if it exists
+  """
+  membership(id: ID!): Membership
+}
+extend type Mutation {
+  membershipSetDefinedByRoleRelation(
+    "The Membership item with the 'definedBy' relation referring to the Role item"
+    source: ID!
+    "The Role item to referred from Membership.definedBy"
+    target: ID
+  ): Membership!
+}
+input NewMembershipInviteRelations {
+  managedByGroup: ID
+  managedByNetwork: ID
+  managedByOnlineAccount: ID
+}
+
+extend type MembershipInvite {
+  managedByGroup: Group
+  managedByNetwork: Network
+  managedByOnlineAccount: OnlineAccount
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all MembershipInvites matching the given filters
+  """
+  membershipInvites(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+    relationsFilter: MembershipInvitesRelationsFilter
+  ): MembershipInviteConnection!
+  """
+  Return the MembershipInvite for the given id, if it exists
+  """
+  membershipInvite(id: ID!): MembershipInvite
+}
+extend type Mutation {
+  """
+  Creates a new MembershipInvite and returns it
+  """
+  membershipInviteCreate(
+    input: NewMembershipInvite!
+    relationInput: NewMembershipInviteRelations!
+  ): MembershipInvite!
+}
+input NewMembershipRequestRelations {
+  managedByGroup: ID
+  managedByNetwork: ID
+  managedByOnlineAccount: ID
+}
+
+extend type MembershipRequest {
+  managedByGroup: Group
+  managedByNetwork: Network
+  managedByOnlineAccount: OnlineAccount
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all MembershipRequests matching the given filters
+  """
+  membershipRequests(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+    relationsFilter: MembershipRequestsRelationsFilter
+  ): MembershipRequestConnection!
+  """
+  Return the MembershipRequest for the given id, if it exists
+  """
+  membershipRequest(id: ID!): MembershipRequest
+}
+extend type Mutation {
+  """
+  Creates a new MembershipRequest and returns it
+  """
+  membershipRequestCreate(
+    input: NewMembershipRequest!
+    relationInput: NewMembershipRequestRelations!
+  ): MembershipRequest!
+}
+type NetworkViewer implements AgentViewer {
+  administeredBy(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+    relationsFilter: MembershipsRelationsFilter
+  ): MembershipConnection!
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+    relationsFilter: MembershipInvitesRelationsFilter
+  ): MembershipInviteConnection!
+  managesMembershipRequest(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+    relationsFilter: MembershipRequestsRelationsFilter
+  ): MembershipRequestConnection!
+  supervises(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+}
+
+extend type Network implements Agent {
+  administeredBy(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): MembershipConnection!
+  displaysFeed(
+    type: [FeedType!]
+    pagination: Pagination
+    filter: FeedsFilter
+    relationsFilter: FeedsRelationsFilter
+  ): FeedConnection!
+  imagedBy: Image
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  locatedByAddress: Address
+  logoedBy: Image
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+  ): MembershipInviteConnection!
+  managesMembershipRequest(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+  ): MembershipRequestConnection!
+  managesNetworkCategory(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  supervises(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  _viewer: NetworkViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Networks matching the given filters
+  """
+  networks(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+  """
+  Return the Network for the given id, if it exists
+  """
+  network(id: ID!): Network
+}
+extend type Mutation {
+  networkSetImagedByImageRelation(
+    "The Network item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image item to referred from Network.imagedBy"
+    target: ID
+  ): Network!
+
+  networkModifyKnowsAgentRelation(
+    "The Network item with the 'knows' relation referring to the Agent item"
+    source: ID!
+    "The Agent items to referred from Network.knows"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Network!
+
+  networkSetLocatedByAddressRelation(
+    "The Network item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Network.locatedBy"
+    target: ID
+  ): Network!
+
+  networkSetLogoedByImageRelation(
+    "The Network item with the 'logoedBy' relation referring to the Image item"
+    source: ID!
+    "The Image item to referred from Network.logoedBy"
+    target: ID
+  ): Network!
+}
+type NetworkCategoryViewer {
+  categorizes(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+}
+input NewNetworkCategoryRelations {
+  managedBy: ID
+}
+
+extend type NetworkCategory {
+  categorizes(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  managedBy: Network
+  _viewer: NetworkCategoryViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all NetworkCategories matching the given filters
+  """
+  networkCategories(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+    relationsFilter: NetworkCategoriesRelationsFilter
+  ): NetworkCategoryConnection!
+  """
+  Return the NetworkCategory for the given id, if it exists
+  """
+  networkCategory(id: ID!): NetworkCategory
+}
+extend type Mutation {
+  """
+  Creates a new NetworkCategory and returns it
+  """
+  networkCategoryCreate(
+    input: NewNetworkCategory!
+    relationInput: NewNetworkCategoryRelations!
+  ): NetworkCategory!
+}
+extend type OnlineAccount implements Account {
+  managesMembership(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): MembershipConnection!
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+  ): MembershipInviteConnection!
+  represents: Person
+
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all OnlineAccounts matching the given filters
+  """
+  onlineAccounts(
+    pagination: Pagination
+    orderBy: OrderOnlineAccountsBy!
+    filter: OnlineAccountsFilter
+    relationsFilter: OnlineAccountsRelationsFilter
+  ): OnlineAccountConnection!
+  """
+  Return the OnlineAccount for the given id, if it exists
+  """
+  onlineAccount(id: ID!): OnlineAccount
+}
+type PersonViewer implements AgentViewer {
+  createsContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  createsRating(
+    type: [RatingType!]
+    pagination: Pagination
+    orderBy: OrderRatingsBy!
+    filter: RatingsFilter
+    relationsFilter: RatingsRelationsFilter
+  ): RatingConnection!
+  createsComment(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: AgentsRelationsFilter
+  ): AgentConnection!
+}
+
+extend type Person implements Agent {
+  createsContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  createsRating(
+    type: [RatingType!]
+    pagination: Pagination
+    orderBy: OrderRatingsBy!
+    filter: RatingsFilter
+  ): RatingConnection!
+  createsComment(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+  ): CommentConnection!
+  imagedBy: Image
+  knownBy(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  knows(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+  ): AgentConnection!
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  locatedByAddress: Address
+  representedBy: OnlineAccount
+  _viewer: PersonViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Persons matching the given filters
+  """
+  persons(
+    pagination: Pagination
+    orderBy: OrderPersonsBy!
+    filter: PersonsFilter
+    relationsFilter: PersonsRelationsFilter
+  ): PersonConnection!
+  """
+  Return the Person for the given id, if it exists
+  """
+  person(id: ID!): Person
+}
+extend type Mutation {
+  personSetImagedByImageRelation(
+    "The Person item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image item to referred from Person.imagedBy"
+    target: ID
+  ): Person!
+
+  personModifyKnowsAgentRelation(
+    "The Person item with the 'knows' relation referring to the Agent item"
+    source: ID!
+    "The Agent items to referred from Person.knows"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Person!
+
+  personSetLocatedByAddressRelation(
+    "The Person item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Person.locatedBy"
+    target: ID
+  ): Person!
+}
+type RoleViewer {
+  defines(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+    relationsFilter: MembershipsRelationsFilter
+  ): MembershipConnection!
+}
+
+extend type Role {
+  defines(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+  ): MembershipConnection!
+  _viewer: RoleViewer!
+  _permissions: Permissions
+}
+type TaskViewer {
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+}
+input NewTaskRelations {
+  managedBy: [ID!]!
+}
+
+extend type Task {
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  _viewer: TaskViewer!
+  _permissions: Permissions
+}
+
+extend type Mutation {
+  taskModifyManagedByGroupRelation(
+    "The Task item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from Task.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Task!
+
+  """
+  Creates a new Task and returns it
+  """
+  taskCreate(input: NewTask!, relationInput: NewTaskRelations!): Task!
+}
+type TopicViewer implements ContentViewer {
+  commentedBy(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: CommentsRelationsFilter
+  ): CommentConnection!
+  curatedBy(
+    pagination: Pagination
+    orderBy: OrderTopicsBy!
+    filter: TopicsFilter
+    relationsFilter: TopicsRelationsFilter
+  ): TopicConnection!
+  curates(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: ContentsRelationsFilter
+  ): ContentConnection!
+  displayedBy(
+    pagination: Pagination
+    orderBy: OrderNetworksBy!
+    filter: NetworksFilter
+    relationsFilter: NetworksRelationsFilter
+  ): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  managedBy(
+    pagination: Pagination
+    orderBy: OrderGroupsBy!
+    filter: GroupsFilter
+    relationsFilter: GroupsRelationsFilter
+  ): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+    relationsFilter: ContentRatingsRelationsFilter
+  ): ContentRatingConnection!
+}
+input NewTopicRelations {
+  createdByGroup: ID
+  createdByPerson: ID
+  managedBy: [ID!]!
+}
+
+extend type Topic implements Content {
+  categorizedByCategory(
+    pagination: Pagination
+    orderBy: OrderCategoriesBy!
+    filter: CategoriesFilter
+  ): CategoryConnection!
+  categorizedByNetworkCategory(
+    pagination: Pagination
+    orderBy: OrderNetworkCategoriesBy!
+    filter: NetworkCategoriesFilter
+  ): NetworkCategoryConnection!
+  commentedBy(pagination: Pagination, orderBy: OrderCommentsBy!, filter: CommentsFilter): CommentConnection!
+  createdByPerson: Person
+  createdByGroup: Group
+  curatedBy(pagination: Pagination, orderBy: OrderTopicsBy!, filter: TopicsFilter): TopicConnection!
+  curates(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+  ): ContentConnection!
+  displayedBy(pagination: Pagination, orderBy: OrderNetworksBy!, filter: NetworksFilter): NetworkConnection!
+  imagedBy(pagination: Pagination, orderBy: OrderImagesBy!, filter: ImagesFilter): ImageConnection!
+  locatedByAddress: Address
+  locatedByAddressScope(
+    pagination: Pagination
+    orderBy: OrderAddressScopesBy!
+    filter: AddressScopesFilter
+  ): AddressScopeConnection!
+  managedBy(pagination: Pagination, orderBy: OrderGroupsBy!, filter: GroupsFilter): GroupConnection!
+  ratedBy(
+    pagination: Pagination
+    orderBy: OrderContentRatingsBy!
+    filter: ContentRatingsFilter
+  ): ContentRatingConnection!
+  _viewer: TopicViewer!
+  _permissions: Permissions
+}
+
+extend type Query {
+  """
+  Queries all Topics matching the given filters
+  """
+  topics(
+    pagination: Pagination
+    orderBy: OrderTopicsBy!
+    filter: TopicsFilter
+    relationsFilter: TopicsRelationsFilter
+  ): TopicConnection!
+  """
+  Return the Topic for the given id, if it exists
+  """
+  topic(id: ID!): Topic
+}
+extend type Mutation {
+  topicModifyCategorizedByCategoryRelation(
+    "The Topic item with the 'categorizedBy' relation referring to the Category item"
+    source: ID!
+    "The Category items to referred from Topic.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  topicModifyCategorizedByNetworkCategoryRelation(
+    "The Topic item with the 'categorizedBy' relation referring to the NetworkCategory item"
+    source: ID!
+    "The NetworkCategory items to referred from Topic.categorizedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  topicSetCreatedByGroupRelation(
+    "The Topic item with the 'createdBy' relation referring to the Group item"
+    source: ID!
+    "The Group item to referred from Topic.createdBy"
+    target: ID
+  ): Topic!
+
+  topicSetCreatedByPersonRelation(
+    "The Topic item with the 'createdBy' relation referring to the Person item"
+    source: ID!
+    "The Person item to referred from Topic.createdBy"
+    target: ID
+  ): Topic!
+
+  topicModifyCuratesContentRelation(
+    "The Topic item with the 'curates' relation referring to the Content item"
+    source: ID!
+    "The Content items to referred from Topic.curates"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  topicModifyDisplayedByNetworkRelation(
+    "The Topic item with the 'displayedBy' relation referring to the Network item"
+    source: ID!
+    "The Network items to referred from Topic.displayedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  topicModifyImagedByImageRelation(
+    "The Topic item with the 'imagedBy' relation referring to the Image item"
+    source: ID!
+    "The Image items to referred from Topic.imagedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  topicSetLocatedByAddressRelation(
+    "The Topic item with the 'locatedBy' relation referring to the Address item"
+    source: ID!
+    "The Address item to referred from Topic.locatedBy"
+    target: ID
+  ): Topic!
+
+  topicModifyManagedByGroupRelation(
+    "The Topic item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group items to referred from Topic.managedBy"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): Topic!
+
+  """
+  Creates a new Topic and returns it
+  """
+  topicCreate(input: NewTopic!, relationInput: NewTopicRelations!): Topic!
+}
+input NewVideoMeetingRelations {
+  managedBy: ID
+}
+
+extend type VideoMeeting {
+  managedBy: Group
+
+  _permissions: Permissions
+}
+
+extend type Mutation {
+  videoMeetingSetManagedByGroupRelation(
+    "The VideoMeeting item with the 'managedBy' relation referring to the Group item"
+    source: ID!
+    "The Group item to referred from VideoMeeting.managedBy"
+    target: ID
+  ): VideoMeeting!
+
+  """
+  Creates a new VideoMeeting and returns it
+  """
+  videoMeetingCreate(input: NewVideoMeeting!, relationInput: NewVideoMeetingRelations!): VideoMeeting!
+}
+type MyOnlineAccount implements Thing & Account {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  updatedAt: DateTime!
+  follows(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: MyContentsRelationsFilter
+  ): ContentConnection!
+  managesMembership(
+    pagination: Pagination
+    orderBy: OrderMembershipsBy!
+    filter: MembershipsFilter
+    relationsFilter: MyMembershipsRelationsFilter
+  ): MembershipConnection!
+  managesMembershipInvite(
+    pagination: Pagination
+    orderBy: OrderMembershipInvitesBy!
+    filter: MembershipInvitesFilter
+    relationsFilter: MyMembershipInvitesRelationsFilter
+  ): MembershipInviteConnection!
+  managesMembershipRequest(
+    pagination: Pagination
+    orderBy: OrderMembershipRequestsBy!
+    filter: MembershipRequestsFilter
+    relationsFilter: MyMembershipRequestsRelationsFilter
+  ): MembershipRequestConnection!
+  ownsAgent(
+    type: [AgentType!]
+    pagination: Pagination
+    orderBy: OrderAgentsBy!
+    filter: AgentsFilter
+    relationsFilter: MyAgentsRelationsFilter
+  ): AgentConnection!
+  ownsComment(
+    pagination: Pagination
+    orderBy: OrderCommentsBy!
+    filter: CommentsFilter
+    relationsFilter: MyCommentsRelationsFilter
+  ): CommentConnection!
+  ownsContent(
+    type: [ContentType!]
+    pagination: Pagination
+    orderBy: OrderContentsBy!
+    filter: ContentsFilter
+    relationsFilter: MyContentsRelationsFilter
+  ): ContentConnection!
+  ownsDocument(
+    type: [DocumentType!]
+    pagination: Pagination
+    orderBy: OrderDocumentsBy!
+    filter: DocumentsFilter
+    relationsFilter: MyDocumentsRelationsFilter
+  ): DocumentConnection!
+  ownsRating(
+    type: [RatingType!]
+    pagination: Pagination
+    orderBy: OrderRatingsBy!
+    filter: RatingsFilter
+    relationsFilter: MyRatingsRelationsFilter
+  ): RatingConnection!
+  represents: Person
+}
+
+"""
+MeRelationsFilter
+"""
+input MyAgentsRelationsFilter {
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyContentsRelationsFilter {
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  categorizedByCategory: CategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  followedBy: OnlineAccountsRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyDocumentsRelationsFilter {
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyRatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyAddressesRelationsFilter {
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyAddressScopesRelationsFilter {
+  locatesAgent: AgentsRelationFilter
+  locatesContent: ContentsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyArticlesRelationsFilter {
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  categorizedByCategory: CategoriesRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  followedBy: OnlineAccountsRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyCollabTextsRelationsFilter {
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyCommentsRelationsFilter {
+  comments: ContentsRelationFilter
+  createdBy: PersonsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyCommentRatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+  rates: CommentsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyContentRatingsRelationsFilter {
+  createdBy: PersonsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+  rates: ContentsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyFilesRelationsFilter {
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyGroupsRelationsFilter {
+  administeredBy: MembershipsRelationFilter
+  categorizedBy: CategoriesRelationFilter
+  covers: ImpulsesRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  managesCollabText: CollabTextsRelationFilter
+  managesFile: FilesRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesContent: ContentsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+  supervisedBy: NetworksRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyImagesRelationsFilter {
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyImpulsesRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  coveredBy: GroupsRelationFilter
+  createdByGroup: GroupsRelationFilter
+  createdByPerson: PersonsRelationFilter
+  curatedBy: TopicsRelationFilter
+  displayedBy: NetworksRelationFilter
+  followedBy: OnlineAccountsRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyMembershipsRelationsFilter {
+  definedBy: RolesRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyMembershipInvitesRelationsFilter {
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyMembershipRequestsRelationsFilter {
+  managedByGroup: GroupsRelationFilter
+  managedByNetwork: NetworksRelationFilter
+  managedByOnlineAccount: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyNetworksRelationsFilter {
+  administeredBy: MembershipsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  logoedBy: ImagesRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+  managesMembershipRequest: MembershipRequestsRelationFilter
+  managesNetworkCategory: NetworkCategoriesRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyNetworkCategoriesRelationsFilter {
+  managedBy: NetworksRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyOnlineAccountsRelationsFilter {
+  follows: ContentsRelationFilter
+  managesMembership: MembershipsRelationFilter
+  managesMembershipInvite: MembershipInvitesRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyPersonsRelationsFilter {
+  createsComment: CommentsRelationFilter
+  createsContent: ContentsRelationFilter
+  imagedBy: ImagesRelationFilter
+  knownBy: AgentsRelationFilter
+  knows: AgentsRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+  representedBy: OnlineAccountsRelationFilter
+}
+"""
+MeRelationsFilter
+"""
+input MyTopicsRelationsFilter {
+  categorizedByCategory: CategoriesRelationFilter
+  categorizedByNetworkCategory: NetworkCategoriesRelationFilter
+  createdByPerson: PersonsRelationFilter
+  createdByGroup: GroupsRelationFilter
+  curatedBy: TopicsRelationFilter
+  curates: ContentsRelationFilter
+  displayedBy: NetworksRelationFilter
+  followedBy: OnlineAccountsRelationFilter
+  imagedBy: ImagesRelationFilter
+  locatedByAddress: AddressesRelationFilter
+  locatedByAddressScope: AddressScopesRelationFilter
+  managedBy: GroupsRelationFilter
+  ownedBy: OnlineAccountsRelationFilter
+}
+
+extend type Query {
+  """
+  Return the own OnlineAccount, if it exists
+  """
+  me: MyOnlineAccount!
+}
+
+extend type Mutation {
+  myOnlineAccountModifyFollowsContentRelation(
+    "The Content items to referred from OnlineAccount.follows"
+    target: [ID!]!
+    "The mutation type to be run"
+    operation: CollectionRelationMutation!
+  ): MyOnlineAccount!
+  articleSetOwnedByMyOnlineAccountRelation(
+    "The Article item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Article!
+  collabTextSetOwnedByMyOnlineAccountRelation(
+    "The CollabText item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): CollabText!
+  commentSetOwnedByMyOnlineAccountRelation(
+    "The Comment item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Comment!
+  commentRatingSetOwnedByMyOnlineAccountRelation(
+    "The CommentRating item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): CommentRating!
+  contentRatingSetOwnedByMyOnlineAccountRelation(
+    "The ContentRating item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): ContentRating!
+  fileSetOwnedByMyOnlineAccountRelation(
+    "The File item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): File!
+  groupSetOwnedByMyOnlineAccountRelation(
+    "The Group item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Group!
+  imageSetOwnedByMyOnlineAccountRelation(
+    "The Image item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Image!
+  impulseSetOwnedByMyOnlineAccountRelation(
+    "The Impulse item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Impulse!
+
+  networkSetOwnedByMyOnlineAccountRelation(
+    "The Network item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Network!
+  personSetOwnedByMyOnlineAccountRelation(
+    "The Person item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Person!
+  topicSetOwnedByMyOnlineAccountRelation(
+    "The Topic item with the 'ownedBy' relation referring to the OnlineAccount item"
+    source: ID
+  ): Topic!
+}
+input AddressMatchesCriteria {
+  "The term address matches shall be found for"
+  searchString: String
+  "Maximum number of results"
+  limit: Int
+  """
+  Country to filter for, e.g. ["de", "gb"]
+  """
+  countryCodes: [String!]
+  "Allows to query new results."
+  nextPageParams: PaginationDataInput
+}
+
+type AddressMatches {
+  matches: [AddressMatch!]!
+  nextPageParams: PaginationData!
+}
+
+"""
+Allows to query more results.
+"""
+input PaginationDataInput {
+  "Place ids not to be returned again. Can be taken from the recent results pageState."
+  excludePlaceIds: [String!]!
+  "All street framgents from the recent result, including those which have been filtered out"
+  streets: [PaginationMatchInput!]!
+  "The place ids of the representatives of a street fragment cluster"
+  streetRepresentatives: [String!]!
+}
+
+"""
+Get be set as pagination data for the next request to receive more results.
+"""
+type PaginationData {
+  "Place ids not to be returned again. Can be taken from the recent results pageState."
+  excludePlaceIds: [String!]!
+  "All street framgents from the recent result, including those which have been filtered out"
+  streets: [PaginationMatch!]!
+  "The place ids of the representatives of a street fragment cluster"
+  streetRepresentatives: [String!]!
+}
+
+type PaginationMatch {
+  placeId: String!
+  id: String!
+  box: BoundingBox!
+}
+
+input PaginationMatchInput {
+  placeId: String!
+  id: String!
+  box: BoundingBoxInput!
+}
+
+input BoundingBoxInput {
+  x1: Float!
+  y1: Float!
+  x2: Float!
+  y2: Float!
+}
+
+type BoundingBox {
+  x1: Float!
+  y1: Float!
+  x2: Float!
+  y2: Float!
+}
+
+type AddressMatch {
+  id: String!
+  placeRank: Int!
+  displayName: String!
+  addressCategory: String!
+  addressType: AddressType!
+  longitude: Float!
+  latitude: Float!
+}
+
+enum AddressType {
+  APARTMENTS
+  RESIDENTIAL
+  SUBURB
+  ADMINISTRATIVE
+  VILLAGE
+  CONTINENT
+  UNKNOWN
+}
+
+extend type Query {
+  """
+  Returns possible matches for the given criteria.
+  NOTE: If you plan query more results/to paginate, you MUST query AddressMatches.nextPageParams with ALL nested
+  fields and put the complete received data into the criteria (AddressMatchesCriteria.matches) of the next query.
+  """
+  addressMatches(criteria: AddressMatchesCriteria): AddressMatches
+  addressMatch(id: ID!): AddressMatch
+}
