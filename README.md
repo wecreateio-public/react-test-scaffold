@@ -25,22 +25,15 @@ where-ever you feel it's appropriate.
   would be very welcome! ;)
 - In case you want to write tests, `jest` is already set up.
 - The dependency versions resemble that our productive one's and are a bit outdated for that matter.
-- A bonus would be a separate branch where the project got upgraded to MaterialUI 5 (with `Emotion` style and
-  the css properties coming from  `react-tss` or the manual `sx` approach), since that's something
-  we are aiming at in our real project. But an example running with MaterialUI 4 takes precedence! Especially
-  if you don't understand a word of the specs given in the previous sentence, it's totally fine to skip this
-  bonus part.
-
 
 ## Figma Design
 
-Here you can find the Figma Design
-https://www.figma.com/file/zGRUByoo1mN1h9uPAnjmmf/WeCreate-Screen
+You can find the Figma design [here](https://www.figma.com/file/zGRUByoo1mN1h9uPAnjmmf/WeCreate-Screen).
 
-A working UI/UX prototype will be shown here
-https://www.figma.com/proto/zGRUByoo1mN1h9uPAnjmmf/WeCreate-Screen?page-id=0%3A1&node-id=7%3A242&viewport=395%2C472%2C0.17&scaling=scale-down&starting-point-node-id=7%3A242
+A working UI/UX prototype can be
+found [here](https://www.figma.com/proto/zGRUByoo1mN1h9uPAnjmmf/WeCreate-Screen?page-id=0%3A1&node-id=7%3A242&viewport=395%2C472%2C0.17&scaling=scale-down&starting-point-node-id=7%3A242)
 
-** You dont have to use this design, feel free!**
+You don't have to use this design, feel free to implement improvements and changes!
 
 ## Getting Started
 
@@ -57,16 +50,18 @@ You can start editing the page by modifying `pages/_app.tsx`. The page auto-upda
 We're looking forward your ideas!
 
 ## Tasks that should be done
-* Based on the data you will get from the graphql query, you have to create a slider that can run without user interaction
+
+* Create a slider which runs without user interaction and displays the `Topic` and `Aticle` data received
+  from the according GraphQL queries.
 * Please use for each big step of your work a git commit
-* Implement a QR Code, any react lib could be used. The QR Code should link to the following page: https://dev.we-create.io/article/{articleID}
-* There should be a time based progress bar, that the user see when the next item will be shown
-  <img width="1285" alt="image" src="https://user-images.githubusercontent.com/2462953/200390328-f46e5d36-b7f0-44f3-8807-dcf3344d4742.png">
+* Implement QR codes support with library of your choice. The QR codes should link to a page with the following pattern: `https://dev.we-create.io/article/[articleId]`,
+  e.g. `https://www.dev.we-create.io/en/article/ff016437-5711-42fe-9419-fec0156be61e`
+* Add a time-based progress bar displaying when the next item will be shown: ![](https://user-images.githubusercontent.com/2462953/200390328-f46e5d36-b7f0-44f3-8807-dcf3344d4742.png)
 
+## Optional Tasks in case you want to prove some experience in other (but related) fields
 
-## Optional Tasks, does not have to be done
 * Write a test
 * Build a Docker container
-* GitHub Action that will run some steps (Tests, Build Container)
-* Sketch an upgrade to MaterialUI 5
-
+* Create a GitHub Action that will run some steps (e.g. runs tests or builds a container)
+* Sketch an upgrade to MaterialUI 5 (in a separate branch) with `Emotion` style and
+  the css properties defined with `react-tss` or manually with `sx`.
