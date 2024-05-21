@@ -71,7 +71,7 @@ We're looking forward your ideas!
 
 ## Optional Tasks in case you want to prove some experience in other (but related) fields
 
-- Utilize the Next.js 13 `api` or Next.js 14 server actions, where feasible 
+- Utilize the Next.js 13 `api` or Next.js 14 server actions, where feasible
 - Write a test (`jest` is set up)
 - Build a Docker container
 - Create a GitHub Action that will run some steps (e.g. runs tests or builds a container)

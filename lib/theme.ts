@@ -1,4 +1,4 @@
-import { alpha, createTheme as createMuiTheme} from '@mui/material/styles';
+import { alpha, createTheme as createMuiTheme } from '@mui/material/styles';
 import mediaQuery from 'css-mediaquery';
 import { generateTypography } from '../util/theme';
 
@@ -244,6 +244,6 @@ export const createTheme = (expectDesktop = false) => {
         },
       },
     },
-    theme,
+    theme
   );
 };

@@ -42,7 +42,6 @@ fragment Topic on Topic {
   __typename
 }
 
-
 fragment TopicTeaser on Topic {
   ...ContentSummary
   __typename

@@ -1,273 +1,271 @@
 fragment ContentMeta on Content {
-    ...ContentState
-    __typename
-    id
-    createdAt
-    updatedAt
+  ...ContentState
+  __typename
+  id
+  createdAt
+  updatedAt
 }
 
 fragment ContentState on Content {
-    _viewer {
-        ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-            count
-            __typename
-        }
-        commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-            count
-            __typename
-        }
-        __typename
+  _viewer {
+    ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
+    }
+    commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+      count
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment ContentAuthor on Content {
-    ownedByOnlineAccount {
-        represents {
-            ...AgentSignature
-            __typename
-        }
-        __typename
-    }
-    createdByGroup {
-        ...AgentSignature
-        __typename
+  ownedByOnlineAccount {
+    represents {
+      ...AgentSignature
+      __typename
     }
     __typename
+  }
+  createdByGroup {
+    ...AgentSignature
+    __typename
+  }
+  __typename
 }
 
 fragment AgentSignature on Agent {
-    ...AgentAvatar
-    info
-    __typename
+  ...AgentAvatar
+  info
+  __typename
 }
 
 fragment AgentAvatar on Agent {
+  __typename
+  id
+  name
+  imagedByImage {
+    ...Document
     __typename
-    id
-    name
-    imagedByImage {
-        ...Document
-        __typename
-    }
+  }
 }
 
 fragment Document on Document {
-    id
-    resourceLocation
-    __typename
+  id
+  resourceLocation
+  __typename
 }
 
 fragment ContentImages on Content {
-    imagedByImage(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
-        edges {
-            node {
-                ...Document
-                __typename
-            }
-            __typename
-        }
+  imagedByImage(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Document
         __typename
+      }
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment ContentCategories on Content {
-    categorizedByCategory(orderBy: { name: { ascending: true, priority: 1 } }) {
-        edges {
-            node {
-                ...Category
-                __typename
-            }
-            __typename
-        }
+  categorizedByCategory(orderBy: { name: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        ...Category
         __typename
+      }
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment Category on Category {
-    id
-    name
-    __typename
+  id
+  name
+  __typename
 }
 
 fragment ContentLocation on Content {
-    locatedByAddress {
-        ...Address
-        __typename
-    }
+  locatedByAddress {
+    ...Address
     __typename
+  }
+  __typename
 }
 
 fragment Address on Address {
-    id
-    name
-    __typename
+  id
+  name
+  __typename
 }
 
 fragment ContentPermissions on Content {
-    _permissions {
-        update
-        __typename
-    }
+  _permissions {
+    update
     __typename
+  }
+  __typename
 }
 
 fragment ContentSummary on Content {
-    ...ContentMeta
-    ...ContentImages
-    ...ContentAuthor
-    ...ContentStats
-    ...ContentNetworks
-    ...ContentCategories
-    ...ContentLocation
-    title
-    warning
-    visibility
-    displayedByNetwork(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        edges {
-            node {
-                ...MinimalNetworkInfo
-                __typename
-            }
-            __typename
-        }
-        ...PageInfo
+  ...ContentMeta
+  ...ContentImages
+  ...ContentAuthor
+  ...ContentStats
+  ...ContentNetworks
+  ...ContentCategories
+  ...ContentLocation
+  title
+  warning
+  visibility
+  displayedByNetwork(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...MinimalNetworkInfo
         __typename
+      }
+      __typename
     }
+    ...PageInfo
     __typename
+  }
+  __typename
 }
 
 fragment ContentStats on Content {
-    ratingStats: ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        count
-        __typename
-    }
-    commentStats: commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        count
-        __typename
-    }
+  ratingStats: ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
     __typename
+  }
+  commentStats: commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    __typename
+  }
+  __typename
 }
 
 fragment ContentNetworks on Content {
-    managedByAgent(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
-        edges {
-            node {
-                id
-                name
-                slug
-                imagedByImage {
-                    id
-                    name
-                    __typename
-                }
-                __typename
-            }
-            __typename
+  managedByAgent(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
+    edges {
+      node {
+        id
+        name
+        slug
+        imagedByImage {
+          id
+          name
+          __typename
         }
         __typename
+      }
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment MinimalNetworkInfo on Network {
-    id
-    name
-    __typename
+  id
+  name
+  __typename
 }
 
 fragment PageInfo on Connection {
-    pageInfo {
-        endCursor
-        hasNextPage
-        __typename
-    }
+  pageInfo {
+    endCursor
+    hasNextPage
     __typename
+  }
+  __typename
 }
 
-
 fragment ContentRatings on Content {
-    ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        count
-        edges {
-            node {
-                ...Rating
-                __typename
-            }
-            __typename
-        }
+  ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
+    count
+    edges {
+      node {
+        ...Rating
         __typename
+      }
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment Rating on Rating {
-    id
-    ownedByOnlineAccount {
-        represents {
-            ...AgentAvatar
-            __typename
-        }
-        __typename
+  id
+  ownedByOnlineAccount {
+    represents {
+      ...AgentAvatar
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment ContentComments on Content {
-    commentedByComment(
-        orderBy: { createdAt: { ascending: false, priority: 1 } }
-        pagination: { first: 4, afterCursor: $commentedByCursor }
-    ) {
-        count
-        edges {
-            node {
-                ...Comment
-                __typename
-            }
-            __typename
-        }
-        pageInfo {
-            endCursor
-            hasNextPage
-            __typename
-        }
+  commentedByComment(
+    orderBy: { createdAt: { ascending: false, priority: 1 } }
+    pagination: { first: 4, afterCursor: $commentedByCursor }
+  ) {
+    count
+    edges {
+      node {
+        ...Comment
         __typename
+      }
+      __typename
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
-
 fragment Comment on Comment {
-    ...CommentAuthor
-    id
-    createdAt
-    text
-    __typename
+  ...CommentAuthor
+  id
+  createdAt
+  text
+  __typename
 }
 
 fragment CommentAuthor on Comment {
-    ownedBy {
-        represents {
-            ...AgentSignature
-            __typename
-        }
-        __typename
+  ownedBy {
+    represents {
+      ...AgentSignature
+      __typename
     }
     __typename
+  }
+  __typename
 }
 
 fragment ContentTopics on Content {
-    curatedByTopic(orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
-        edges {
-            node {
-                ...TopicTeaser
-                __typename
-            }
-            __typename
-        }
+  curatedByTopic(orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
+    edges {
+      node {
+        ...TopicTeaser
         __typename
+      }
+      __typename
     }
     __typename
+  }
+  __typename
 }

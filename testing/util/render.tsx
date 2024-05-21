@@ -11,7 +11,7 @@ import { i18n } from './i18n';
 export const TestingContext: React.FC<{
   path?: string;
   query?: ParsedUrlQuery;
-  children?:React.ReactNode;
+  children?: React.ReactNode;
 }> = ({ children, path = '/', query = {} }) => (
   <RouterContext.Provider
     value={

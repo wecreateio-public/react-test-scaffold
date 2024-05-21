@@ -6,7 +6,7 @@ import { createTheme } from 'lib/theme';
 import { DataProvider } from 'components/common/misc';
 import App, { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
-import {Welcome} from '../components/view/welcome/Welcome';
+import { Welcome } from '../components/view/welcome/Welcome';
 
 type Props = {
   expectDesktop?: boolean;
@@ -17,16 +17,16 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   expectDesktop,
 }: AppLayoutProps & Props) => {
   return (
-      <ThemeProvider theme={createTheme(expectDesktop)}>
-        <DataProvider state={pageProps.initialApolloState}>
-          <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-            <title>WeCreate UI Scaffold </title>
-          </Head>
-          <CssBaseline />
-          <Welcome />
-        </DataProvider>
-      </ThemeProvider>
+    <ThemeProvider theme={createTheme(expectDesktop)}>
+      <DataProvider state={pageProps.initialApolloState}>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+          <title>WeCreate UI Scaffold </title>
+        </Head>
+        <CssBaseline />
+        <Welcome />
+      </DataProvider>
+    </ThemeProvider>
   );
 };
 
