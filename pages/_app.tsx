@@ -5,7 +5,6 @@ import { NextComponentType } from 'next';
 import { createTheme } from 'lib/theme';
 import { DataProvider } from 'components/common/misc';
 import App, { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
-import { appWithTranslation } from 'next-i18next';
 import { Welcome } from '../components/view/welcome/Welcome';
 
 type Props = {
@@ -47,4 +46,4 @@ MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps 
   };
 };
 
-export default appWithTranslation(MyApp);
+export default MyApp;
