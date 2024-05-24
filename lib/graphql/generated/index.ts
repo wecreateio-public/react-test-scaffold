@@ -6,24 +6,22 @@ export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K]
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  Date: { input: any; output: any };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
   /** Date and time in RFC3339, e.g. 2006-01-02T15:04:05Z or 2006-01-02T15:02:05+02:00 */
-  DateTime: { input: Date; output: Date };
-  Duration: { input: any; output: any };
-  Int64: { input: any; output: any };
-  Time: { input: any; output: any };
-  URL: { input: any; output: any };
+  DateTime: { input: Date; output: Date; }
+  Duration: { input: any; output: any; }
+  Int64: { input: any; output: any; }
+  Time: { input: any; output: any; }
+  URL: { input: any; output: any; }
 };
 
 export type Account = {
@@ -50,7 +48,7 @@ export type AccountEdge = Edge & {
 };
 
 export enum AccountType {
-  OnlineAccount = 'ONLINE_ACCOUNT',
+  OnlineAccount = 'ONLINE_ACCOUNT'
 }
 
 export type AccountsFilter = {
@@ -96,12 +94,14 @@ export type Address = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type AddressLocatesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AddressLocatesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -168,12 +168,14 @@ export type AddressScope = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type AddressScopeLocatesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AddressScopeLocatesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -206,6 +208,7 @@ export type AddressScopeViewer = {
   locatesContent: ContentConnection;
 };
 
+
 export type AddressScopeViewerLocatesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -213,6 +216,7 @@ export type AddressScopeViewerLocatesAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AddressScopeViewerLocatesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -267,7 +271,7 @@ export enum AddressType {
   Residential = 'RESIDENTIAL',
   Suburb = 'SUBURB',
   Unknown = 'UNKNOWN',
-  Village = 'VILLAGE',
+  Village = 'VILLAGE'
 }
 
 export type AddressViewer = {
@@ -276,6 +280,7 @@ export type AddressViewer = {
   locatesContent: ContentConnection;
 };
 
+
 export type AddressViewerLocatesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -283,6 +288,7 @@ export type AddressViewerLocatesAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AddressViewerLocatesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -354,7 +360,7 @@ export enum Admittance {
   /** To join a collective, a confirmation of an admin is required. */
   Closed = 'CLOSED',
   /** Everybody can join the collective without a confirmation required. */
-  Open = 'OPEN',
+  Open = 'OPEN'
 }
 
 export type Agent = {
@@ -375,12 +381,14 @@ export type Agent = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type AgentKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AgentKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -389,11 +397,13 @@ export type AgentKnowsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type AgentLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type AgentManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -422,7 +432,7 @@ export type AgentEdge = Edge & {
 export enum AgentType {
   Group = 'GROUP',
   Network = 'NETWORK',
-  Person = 'PERSON',
+  Person = 'PERSON'
 }
 
 export type AgentViewer = {
@@ -430,6 +440,7 @@ export type AgentViewer = {
   knowsAgent: AgentConnection;
   managesContent: ContentConnection;
 };
+
 
 export type AgentViewerKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -439,6 +450,7 @@ export type AgentViewerKnownByAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type AgentViewerKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -446,6 +458,7 @@ export type AgentViewerKnowsAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type AgentViewerManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -510,36 +523,36 @@ export type AgentsRelationsFilter = {
   managesContent?: InputMaybe<ContentsRelationFilter>;
 };
 
-export type Article = Content &
-  Thing & {
-    __typename?: 'Article';
-    _permissions?: Maybe<Permissions>;
-    _viewer: ArticleViewer;
-    categorizedByCategory: CategoryConnection;
-    categorizedByChannel: ChannelConnection;
-    categorizedByNetworkCategory: NetworkCategoryConnection;
-    commentedByComment: CommentConnection;
-    createdAt: Scalars['DateTime']['output'];
-    createdByGroup?: Maybe<Group>;
-    curatedByTopic: TopicConnection;
-    displayedByNetwork: NetworkConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage: ImageConnection;
-    intro?: Maybe<Scalars['String']['output']>;
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    managedByAgent: AgentConnection;
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    /** Affects the ordering in Feeds */
-    publishedSince?: Maybe<Scalars['DateTime']['output']>;
-    ratedByContentRating: ContentRatingConnection;
-    slug?: Maybe<Scalars['ID']['output']>;
-    text: Scalars['String']['output'];
-    title: Scalars['String']['output'];
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-    warning?: Maybe<Scalars['String']['output']>;
-  };
+export type Article = Content & Thing & {
+  __typename?: 'Article';
+  _permissions?: Maybe<Permissions>;
+  _viewer: ArticleViewer;
+  categorizedByCategory: CategoryConnection;
+  categorizedByChannel: ChannelConnection;
+  categorizedByNetworkCategory: NetworkCategoryConnection;
+  commentedByComment: CommentConnection;
+  createdAt: Scalars['DateTime']['output'];
+  createdByGroup?: Maybe<Group>;
+  curatedByTopic: TopicConnection;
+  displayedByNetwork: NetworkConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage: ImageConnection;
+  intro?: Maybe<Scalars['String']['output']>;
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  managedByAgent: AgentConnection;
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  /** Affects the ordering in Feeds */
+  publishedSince?: Maybe<Scalars['DateTime']['output']>;
+  ratedByContentRating: ContentRatingConnection;
+  slug?: Maybe<Scalars['ID']['output']>;
+  text: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+  warning?: Maybe<Scalars['String']['output']>;
+};
+
 
 export type ArticleCategorizedByCategoryArgs = {
   filter?: InputMaybe<CategoriesFilter>;
@@ -547,11 +560,13 @@ export type ArticleCategorizedByCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ArticleCategorizedByChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
   orderBy: OrderChannelsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ArticleCategorizedByNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
@@ -559,11 +574,13 @@ export type ArticleCategorizedByNetworkCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ArticleCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ArticleCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
@@ -571,11 +588,13 @@ export type ArticleCuratedByTopicArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ArticleDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ArticleImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
@@ -583,11 +602,13 @@ export type ArticleImagedByImageArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ArticleLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ArticleManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -595,6 +616,7 @@ export type ArticleManagedByAgentArgs = {
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ArticleRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -630,12 +652,14 @@ export type ArticleViewer = ContentViewer & {
   ratedByContentRating: ContentRatingConnection;
 };
 
+
 export type ArticleViewerCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
+
 
 export type ArticleViewerCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
@@ -644,6 +668,7 @@ export type ArticleViewerCuratedByTopicArgs = {
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
 
+
 export type ArticleViewerDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
@@ -651,11 +676,13 @@ export type ArticleViewerDisplayedByNetworkArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type ArticleViewerImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ArticleViewerManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -664,6 +691,7 @@ export type ArticleViewerManagedByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ArticleViewerRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -831,12 +859,14 @@ export type Category = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type CategoryCategorizesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type CategoryCategorizesGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -868,6 +898,7 @@ export type CategoryViewer = {
   categorizesGroup: GroupConnection;
 };
 
+
 export type CategoryViewerCategorizesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
@@ -875,6 +906,7 @@ export type CategoryViewerCategorizesContentArgs = {
   relationsFilter?: InputMaybe<ContentsRelationsFilter>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type CategoryViewerCategorizesGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -896,12 +928,14 @@ export type Channel = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type ChannelCategorizesArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type ChannelManagedByArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -933,6 +967,7 @@ export type ChannelViewer = {
   managedBy: NetworkConnection;
 };
 
+
 export type ChannelViewerCategorizesArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
@@ -940,6 +975,7 @@ export type ChannelViewerCategorizesArgs = {
   relationsFilter?: InputMaybe<ContentsRelationsFilter>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type ChannelViewerManagedByArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -1081,6 +1117,7 @@ export type CollabText = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type CollabTextManagedByArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
@@ -1109,6 +1146,7 @@ export type CollabTextViewer = {
   __typename?: 'CollabTextViewer';
   managedBy: GroupConnection;
 };
+
 
 export type CollabTextViewerManagedByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -1167,7 +1205,7 @@ export type CollabTextsRelationsFilter = {
 export enum CollectionRelationMutation {
   Add = 'ADD',
   Delete = 'DELETE',
-  Set = 'SET',
+  Set = 'SET'
 }
 
 export type Comment = Thing & {
@@ -1183,6 +1221,7 @@ export type Comment = Thing & {
   text: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
+
 
 export type CommentRatedByArgs = {
   filter?: InputMaybe<CommentRatingsFilter>;
@@ -1208,16 +1247,15 @@ export type CommentEdge = Edge & {
   node: Comment;
 };
 
-export type CommentRating = Rating &
-  Thing & {
-    __typename?: 'CommentRating';
-    _permissions?: Maybe<Permissions>;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    rates?: Maybe<Comment>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type CommentRating = Rating & Thing & {
+  __typename?: 'CommentRating';
+  _permissions?: Maybe<Permissions>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  rates?: Maybe<Comment>;
+  updatedAt: Scalars['DateTime']['output'];
+};
 
 export type CommentRatingConnection = Connection & {
   __typename?: 'CommentRatingConnection';
@@ -1279,6 +1317,7 @@ export type CommentViewer = {
   __typename?: 'CommentViewer';
   ratedBy: CommentRatingConnection;
 };
+
 
 export type CommentViewerRatedByArgs = {
   filter?: InputMaybe<CommentRatingsFilter>;
@@ -1359,11 +1398,13 @@ export type Content = {
   warning?: Maybe<Scalars['String']['output']>;
 };
 
+
 export type ContentCategorizedByCategoryArgs = {
   filter?: InputMaybe<CategoriesFilter>;
   orderBy: OrderCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ContentCategorizedByChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
@@ -1371,11 +1412,13 @@ export type ContentCategorizedByChannelArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ContentCategorizedByNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
   orderBy: OrderNetworkCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ContentCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
@@ -1383,11 +1426,13 @@ export type ContentCommentedByCommentArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ContentCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ContentDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -1395,11 +1440,13 @@ export type ContentDisplayedByNetworkArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ContentImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ContentLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
@@ -1407,12 +1454,14 @@ export type ContentLocatedByAddressScopeArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ContentManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ContentRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -1437,16 +1486,15 @@ export type ContentEdge = Edge & {
   node: Content;
 };
 
-export type ContentRating = Rating &
-  Thing & {
-    __typename?: 'ContentRating';
-    _permissions?: Maybe<Permissions>;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    rates?: Maybe<Content>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type ContentRating = Rating & Thing & {
+  __typename?: 'ContentRating';
+  _permissions?: Maybe<Permissions>;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  rates?: Maybe<Content>;
+  updatedAt: Scalars['DateTime']['output'];
+};
 
 export type ContentRatingConnection = Connection & {
   __typename?: 'ContentRatingConnection';
@@ -1508,7 +1556,7 @@ export enum ContentType {
   Article = 'ARTICLE',
   Event = 'EVENT',
   Impulse = 'IMPULSE',
-  Topic = 'TOPIC',
+  Topic = 'TOPIC'
 }
 
 export type ContentViewer = {
@@ -1520,12 +1568,14 @@ export type ContentViewer = {
   ratedByContentRating: ContentRatingConnection;
 };
 
+
 export type ContentViewerCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
+
 
 export type ContentViewerCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
@@ -1534,6 +1584,7 @@ export type ContentViewerCuratedByTopicArgs = {
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
 
+
 export type ContentViewerDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
@@ -1541,11 +1592,13 @@ export type ContentViewerDisplayedByNetworkArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type ContentViewerImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ContentViewerManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -1554,6 +1607,7 @@ export type ContentViewerManagedByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ContentViewerRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -1685,7 +1739,7 @@ export type DocumentEdge = Edge & {
 
 export enum DocumentType {
   File = 'FILE',
-  Image = 'IMAGE',
+  Image = 'IMAGE'
 }
 
 export type DocumentsFilter = {
@@ -1733,39 +1787,39 @@ export type Edge = {
   cursor?: Maybe<Scalars['String']['output']>;
 };
 
-export type Event = Content &
-  Thing & {
-    __typename?: 'Event';
-    _permissions?: Maybe<Permissions>;
-    _viewer: EventViewer;
-    attendedBy: OnlineAccountConnection;
-    categorizedByCategory: CategoryConnection;
-    categorizedByChannel: ChannelConnection;
-    categorizedByNetworkCategory: NetworkCategoryConnection;
-    commentedByComment: CommentConnection;
-    createdAt: Scalars['DateTime']['output'];
-    createdByGroup?: Maybe<Group>;
-    curatedByTopic: TopicConnection;
-    displayedByNetwork: NetworkConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage: ImageConnection;
-    intro: Scalars['String']['output'];
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    locationDescription?: Maybe<Scalars['String']['output']>;
-    managedByAgent: AgentConnection;
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    /** Affects the ordering in Feeds */
-    publishedSince?: Maybe<Scalars['DateTime']['output']>;
-    ratedByContentRating: ContentRatingConnection;
-    slug?: Maybe<Scalars['ID']['output']>;
-    startTime: Scalars['DateTime']['output'];
-    text: Scalars['String']['output'];
-    title: Scalars['String']['output'];
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-    warning?: Maybe<Scalars['String']['output']>;
-  };
+export type Event = Content & Thing & {
+  __typename?: 'Event';
+  _permissions?: Maybe<Permissions>;
+  _viewer: EventViewer;
+  attendedBy: OnlineAccountConnection;
+  categorizedByCategory: CategoryConnection;
+  categorizedByChannel: ChannelConnection;
+  categorizedByNetworkCategory: NetworkCategoryConnection;
+  commentedByComment: CommentConnection;
+  createdAt: Scalars['DateTime']['output'];
+  createdByGroup?: Maybe<Group>;
+  curatedByTopic: TopicConnection;
+  displayedByNetwork: NetworkConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage: ImageConnection;
+  intro: Scalars['String']['output'];
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  locationDescription?: Maybe<Scalars['String']['output']>;
+  managedByAgent: AgentConnection;
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  /** Affects the ordering in Feeds */
+  publishedSince?: Maybe<Scalars['DateTime']['output']>;
+  ratedByContentRating: ContentRatingConnection;
+  slug?: Maybe<Scalars['ID']['output']>;
+  startTime: Scalars['DateTime']['output'];
+  text: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+  warning?: Maybe<Scalars['String']['output']>;
+};
+
 
 export type EventAttendedByArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
@@ -1773,11 +1827,13 @@ export type EventAttendedByArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type EventCategorizedByCategoryArgs = {
   filter?: InputMaybe<CategoriesFilter>;
   orderBy: OrderCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type EventCategorizedByChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
@@ -1785,11 +1841,13 @@ export type EventCategorizedByChannelArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type EventCategorizedByNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
   orderBy: OrderNetworkCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type EventCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
@@ -1797,11 +1855,13 @@ export type EventCommentedByCommentArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type EventCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type EventDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -1809,11 +1869,13 @@ export type EventDisplayedByNetworkArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type EventImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type EventLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
@@ -1821,12 +1883,14 @@ export type EventLocatedByAddressScopeArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type EventManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type EventRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -1862,12 +1926,14 @@ export type EventViewer = ContentViewer & {
   ratedByContentRating: ContentRatingConnection;
 };
 
+
 export type EventViewerCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
+
 
 export type EventViewerCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
@@ -1876,6 +1942,7 @@ export type EventViewerCuratedByTopicArgs = {
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
 
+
 export type EventViewerDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
@@ -1883,11 +1950,13 @@ export type EventViewerDisplayedByNetworkArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type EventViewerImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type EventViewerManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -1896,6 +1965,7 @@ export type EventViewerManagedByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type EventViewerRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -2028,7 +2098,7 @@ export enum FeedType {
   Article = 'ARTICLE',
   Event = 'EVENT',
   Impulse = 'IMPULSE',
-  Topic = 'TOPIC',
+  Topic = 'TOPIC'
 }
 
 export type FeedsFilter = {
@@ -2098,20 +2168,20 @@ export type FeedsRelationsFilter = {
 };
 
 /** A random uploaded file */
-export type File = Document &
-  Thing & {
-    __typename?: 'File';
-    _permissions?: Maybe<Permissions>;
-    _viewer: FileViewer;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    info?: Maybe<Scalars['String']['output']>;
-    managedBy: GroupConnection;
-    name: Scalars['String']['output'];
-    path?: Maybe<Scalars['String']['output']>;
-    resourceLocation?: Maybe<Scalars['String']['output']>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type File = Document & Thing & {
+  __typename?: 'File';
+  _permissions?: Maybe<Permissions>;
+  _viewer: FileViewer;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  info?: Maybe<Scalars['String']['output']>;
+  managedBy: GroupConnection;
+  name: Scalars['String']['output'];
+  path?: Maybe<Scalars['String']['output']>;
+  resourceLocation?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 /** A random uploaded file */
 export type FileManagedByArgs = {
@@ -2142,6 +2212,7 @@ export type FileViewer = {
   __typename?: 'FileViewer';
   managedBy: GroupConnection;
 };
+
 
 export type FileViewerManagedByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -2206,41 +2277,41 @@ export type FilesRelationsFilter = {
   managedBy?: InputMaybe<GroupsRelationFilter>;
 };
 
-export type Group = Agent &
-  Thing & {
-    __typename?: 'Group';
-    _permissions?: Maybe<Permissions>;
-    _viewer: GroupViewer;
-    administeredBy: MembershipConnection;
-    blockedBy: OnlineAccountConnection;
-    blocks: OnlineAccountConnection;
-    categorizedBy?: Maybe<Category>;
-    chatChannel?: Maybe<Scalars['String']['output']>;
-    contactInfo?: Maybe<Scalars['String']['output']>;
-    covers?: Maybe<Impulse>;
-    createdAt: Scalars['DateTime']['output'];
-    creates: ContentConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage?: Maybe<Image>;
-    info?: Maybe<Scalars['String']['output']>;
-    intro?: Maybe<Scalars['String']['output']>;
-    knownByAgent: AgentConnection;
-    knowsAgent: AgentConnection;
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    managesCollabText: CollabTextConnection;
-    managesContent: ContentConnection;
-    managesFile: FileConnection;
-    managesMembershipInvite: MembershipInviteConnection;
-    managesMembershipRequest: MembershipRequestConnection;
-    managesTask: TaskConnection;
-    managesVideoMeeting: VideoMeetingConnection;
-    name: Scalars['String']['output'];
-    slug?: Maybe<Scalars['ID']['output']>;
-    supervisedBy: NetworkConnection;
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-  };
+export type Group = Agent & Thing & {
+  __typename?: 'Group';
+  _permissions?: Maybe<Permissions>;
+  _viewer: GroupViewer;
+  administeredBy: MembershipConnection;
+  blockedBy: OnlineAccountConnection;
+  blocks: OnlineAccountConnection;
+  categorizedBy?: Maybe<Category>;
+  chatChannel?: Maybe<Scalars['String']['output']>;
+  contactInfo?: Maybe<Scalars['String']['output']>;
+  covers?: Maybe<Impulse>;
+  createdAt: Scalars['DateTime']['output'];
+  creates: ContentConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage?: Maybe<Image>;
+  info?: Maybe<Scalars['String']['output']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  knownByAgent: AgentConnection;
+  knowsAgent: AgentConnection;
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  managesCollabText: CollabTextConnection;
+  managesContent: ContentConnection;
+  managesFile: FileConnection;
+  managesMembershipInvite: MembershipInviteConnection;
+  managesMembershipRequest: MembershipRequestConnection;
+  managesTask: TaskConnection;
+  managesVideoMeeting: VideoMeetingConnection;
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['ID']['output']>;
+  supervisedBy: NetworkConnection;
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+};
+
 
 export type GroupAdministeredByArgs = {
   filter?: InputMaybe<MembershipsFilter>;
@@ -2248,17 +2319,20 @@ export type GroupAdministeredByArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type GroupBlockedByArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
   orderBy: OrderOnlineAccountsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type GroupBlocksArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
   orderBy: OrderOnlineAccountsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type GroupCreatesArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -2267,12 +2341,14 @@ export type GroupCreatesArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type GroupKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type GroupKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -2281,17 +2357,20 @@ export type GroupKnowsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type GroupLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type GroupManagesCollabTextArgs = {
   filter?: InputMaybe<CollabTextsFilter>;
   orderBy: OrderCollabTextsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type GroupManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -2300,11 +2379,13 @@ export type GroupManagesContentArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type GroupManagesFileArgs = {
   filter?: InputMaybe<FilesFilter>;
   orderBy: OrderFilesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type GroupManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
@@ -2312,11 +2393,13 @@ export type GroupManagesMembershipInviteArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type GroupManagesMembershipRequestArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
   orderBy: OrderMembershipRequestsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type GroupManagesTaskArgs = {
   filter?: InputMaybe<TasksFilter>;
@@ -2324,11 +2407,13 @@ export type GroupManagesTaskArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type GroupManagesVideoMeetingArgs = {
   filter?: InputMaybe<VideoMeetingsFilter>;
   orderBy: OrderVideoMeetingsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type GroupSupervisedByArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2367,12 +2452,14 @@ export type GroupViewer = AgentViewer & {
   supervisedBy: NetworkConnection;
 };
 
+
 export type GroupViewerAdministeredByArgs = {
   filter?: InputMaybe<MembershipsFilter>;
   orderBy: OrderMembershipsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MembershipsRelationsFilter>;
 };
+
 
 export type GroupViewerCreatesArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -2382,6 +2469,7 @@ export type GroupViewerCreatesArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type GroupViewerKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -2389,6 +2477,7 @@ export type GroupViewerKnownByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type GroupViewerKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -2398,6 +2487,7 @@ export type GroupViewerKnowsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type GroupViewerManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
@@ -2406,12 +2496,14 @@ export type GroupViewerManagesContentArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type GroupViewerManagesFileArgs = {
   filter?: InputMaybe<FilesFilter>;
   orderBy: OrderFilesBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<FilesRelationsFilter>;
 };
+
 
 export type GroupViewerManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
@@ -2420,12 +2512,14 @@ export type GroupViewerManagesMembershipInviteArgs = {
   relationsFilter?: InputMaybe<MembershipInvitesRelationsFilter>;
 };
 
+
 export type GroupViewerManagesMembershipRequestArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
   orderBy: OrderMembershipRequestsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MembershipRequestsRelationsFilter>;
 };
+
 
 export type GroupViewerSupervisedByArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2510,21 +2604,21 @@ export type GroupsRelationsFilter = {
   supervisedBy?: InputMaybe<NetworksRelationFilter>;
 };
 
-export type Image = Document &
-  Thing & {
-    __typename?: 'Image';
-    _permissions?: Maybe<Permissions>;
-    _viewer: ImageViewer;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    imagesAgent: AgentConnection;
-    imagesContent: ContentConnection;
-    info?: Maybe<Scalars['String']['output']>;
-    logos: NetworkConnection;
-    name: Scalars['String']['output'];
-    resourceLocation?: Maybe<Scalars['String']['output']>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type Image = Document & Thing & {
+  __typename?: 'Image';
+  _permissions?: Maybe<Permissions>;
+  _viewer: ImageViewer;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  imagesAgent: AgentConnection;
+  imagesContent: ContentConnection;
+  info?: Maybe<Scalars['String']['output']>;
+  logos: NetworkConnection;
+  name: Scalars['String']['output'];
+  resourceLocation?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 export type ImageImagesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -2533,12 +2627,14 @@ export type ImageImagesAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type ImageImagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type ImageLogosArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2571,6 +2667,7 @@ export type ImageViewer = {
   logos: NetworkConnection;
 };
 
+
 export type ImageViewerImagesAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -2579,6 +2676,7 @@ export type ImageViewerImagesAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type ImageViewerImagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
@@ -2586,6 +2684,7 @@ export type ImageViewerImagesContentArgs = {
   relationsFilter?: InputMaybe<ContentsRelationsFilter>;
   type?: InputMaybe<Array<ContentType>>;
 };
+
 
 export type ImageViewerLogosArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2634,37 +2733,37 @@ export type ImagesRelationFilter = {
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
-export type Impulse = Content &
-  Thing & {
-    __typename?: 'Impulse';
-    _permissions?: Maybe<Permissions>;
-    _viewer: ImpulseViewer;
-    categorizedByCategory: CategoryConnection;
-    categorizedByChannel: ChannelConnection;
-    categorizedByNetworkCategory: NetworkCategoryConnection;
-    commentedByComment: CommentConnection;
-    coveredBy: GroupConnection;
-    createdAt: Scalars['DateTime']['output'];
-    createdByGroup?: Maybe<Group>;
-    curatedByTopic: TopicConnection;
-    displayedByNetwork: NetworkConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage: ImageConnection;
-    intro: Scalars['String']['output'];
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    managedByAgent: AgentConnection;
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    /** Affects the ordering in Feeds */
-    publishedSince?: Maybe<Scalars['DateTime']['output']>;
-    ratedByContentRating: ContentRatingConnection;
-    relevance: Scalars['Float']['output'];
-    slug?: Maybe<Scalars['ID']['output']>;
-    title: Scalars['String']['output'];
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-    warning?: Maybe<Scalars['String']['output']>;
-  };
+export type Impulse = Content & Thing & {
+  __typename?: 'Impulse';
+  _permissions?: Maybe<Permissions>;
+  _viewer: ImpulseViewer;
+  categorizedByCategory: CategoryConnection;
+  categorizedByChannel: ChannelConnection;
+  categorizedByNetworkCategory: NetworkCategoryConnection;
+  commentedByComment: CommentConnection;
+  coveredBy: GroupConnection;
+  createdAt: Scalars['DateTime']['output'];
+  createdByGroup?: Maybe<Group>;
+  curatedByTopic: TopicConnection;
+  displayedByNetwork: NetworkConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage: ImageConnection;
+  intro: Scalars['String']['output'];
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  managedByAgent: AgentConnection;
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  /** Affects the ordering in Feeds */
+  publishedSince?: Maybe<Scalars['DateTime']['output']>;
+  ratedByContentRating: ContentRatingConnection;
+  relevance: Scalars['Float']['output'];
+  slug?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+  warning?: Maybe<Scalars['String']['output']>;
+};
+
 
 export type ImpulseCategorizedByCategoryArgs = {
   filter?: InputMaybe<CategoriesFilter>;
@@ -2672,11 +2771,13 @@ export type ImpulseCategorizedByCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ImpulseCategorizedByChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
   orderBy: OrderChannelsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ImpulseCategorizedByNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
@@ -2684,11 +2785,13 @@ export type ImpulseCategorizedByNetworkCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ImpulseCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ImpulseCoveredByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -2696,11 +2799,13 @@ export type ImpulseCoveredByArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ImpulseCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ImpulseDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2708,11 +2813,13 @@ export type ImpulseDisplayedByNetworkArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ImpulseImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ImpulseLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
@@ -2720,12 +2827,14 @@ export type ImpulseLocatedByAddressScopeArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type ImpulseManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ImpulseRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -2762,12 +2871,14 @@ export type ImpulseViewer = ContentViewer & {
   ratedByContentRating: ContentRatingConnection;
 };
 
+
 export type ImpulseViewerCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
+
 
 export type ImpulseViewerCoveredByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -2776,12 +2887,14 @@ export type ImpulseViewerCoveredByArgs = {
   relationsFilter?: InputMaybe<GroupsRelationsFilter>;
 };
 
+
 export type ImpulseViewerCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
+
 
 export type ImpulseViewerDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -2790,11 +2903,13 @@ export type ImpulseViewerDisplayedByNetworkArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type ImpulseViewerImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type ImpulseViewerManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -2803,6 +2918,7 @@ export type ImpulseViewerManagedByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type ImpulseViewerRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -3428,17 +3544,21 @@ export type Mutation = {
   videoMeetingSetManagedByGroupRelation: VideoMeeting;
 };
 
+
 export type MutationAddressCreateArgs = {
   input: NewAddress;
 };
+
 
 export type MutationAddressDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationAddressDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationAddressModifyArgs = {
   deletion?: InputMaybe<ClearAddressFields>;
@@ -3446,35 +3566,43 @@ export type MutationAddressModifyArgs = {
   modification?: InputMaybe<UpdateAddress>;
 };
 
+
 export type MutationAddressScopeCreateArgs = {
   input: NewAddressScope;
 };
+
 
 export type MutationAddressScopeDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationAddressScopeDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationAddressScopeModifyArgs = {
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateAddressScope>;
 };
 
+
 export type MutationArticleCreateArgs = {
   input: NewArticle;
   relationInput: NewArticleRelations;
 };
 
+
 export type MutationArticleDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationArticleDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleModifyArgs = {
   deletion?: InputMaybe<ClearArticleFields>;
@@ -3482,11 +3610,13 @@ export type MutationArticleModifyArgs = {
   modification?: InputMaybe<UpdateArticle>;
 };
 
+
 export type MutationArticleModifyCategorizedByCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleModifyCategorizedByChannelRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3494,11 +3624,13 @@ export type MutationArticleModifyCategorizedByChannelRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationArticleModifyCategorizedByNetworkCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleModifyDisplayedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3506,11 +3638,13 @@ export type MutationArticleModifyDisplayedByNetworkRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationArticleModifyImagedByImageRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3518,60 +3652,73 @@ export type MutationArticleModifyLocatedByAddressScopeRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationArticleModifyManagedByAgentRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationArticleSetCreatedByGroupRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationArticleSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationArticleSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationCategoryCreateArgs = {
   input: NewCategory;
 };
+
 
 export type MutationCategoryDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationCategoryDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationCategoryModifyArgs = {
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateCategory>;
 };
 
+
 export type MutationChannelCreateArgs = {
   input: NewChannel;
   relationInput: NewChannelRelations;
 };
 
+
 export type MutationChannelDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationChannelDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationChannelModifyManagedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3579,18 +3726,22 @@ export type MutationChannelModifyManagedByNetworkRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationCollabTextCreateArgs = {
   input: NewCollabText;
   relationInput: NewCollabTextRelations;
 };
 
+
 export type MutationCollabTextDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationCollabTextDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationCollabTextModifyArgs = {
   deletion?: InputMaybe<ClearCollabTextFields>;
@@ -3598,107 +3749,131 @@ export type MutationCollabTextModifyArgs = {
   modification?: InputMaybe<UpdateCollabText>;
 };
 
+
 export type MutationCollabTextModifyManagedByGroupRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationCollabTextSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationCommentCreateArgs = {
   input: NewComment;
   relationInput: NewCommentRelations;
 };
 
+
 export type MutationCommentDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationCommentDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationCommentModifyArgs = {
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateComment>;
 };
 
+
 export type MutationCommentRatingCreateArgs = {
   relationInput: NewCommentRatingRelations;
 };
+
 
 export type MutationCommentRatingDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationCommentRatingDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationCommentRatingSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationCommentRatingSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationCommentRatingSetRatesCommentRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationCommentSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationCommentSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationContentRatingCreateArgs = {
   relationInput: NewContentRatingRelations;
 };
+
 
 export type MutationContentRatingDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationContentRatingDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationContentRatingSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationContentRatingSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationContentRatingSetRatesContentRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventCreateArgs = {
   input: NewEvent;
   relationInput: NewEventRelations;
 };
 
+
 export type MutationEventDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationEventDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventModifyArgs = {
   deletion?: InputMaybe<ClearEventFields>;
@@ -3706,11 +3881,13 @@ export type MutationEventModifyArgs = {
   modification?: InputMaybe<UpdateEvent>;
 };
 
+
 export type MutationEventModifyCategorizedByCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventModifyCategorizedByChannelRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3718,11 +3895,13 @@ export type MutationEventModifyCategorizedByChannelRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationEventModifyCategorizedByNetworkCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventModifyDisplayedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3730,11 +3909,13 @@ export type MutationEventModifyDisplayedByNetworkRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationEventModifyImagedByImageRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3742,43 +3923,52 @@ export type MutationEventModifyLocatedByAddressScopeRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationEventModifyManagedByAgentRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationEventSetCreatedByGroupRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationEventSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationEventSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationFileCreateArgs = {
   input: NewFile;
   relationInput: NewFileRelations;
 };
 
+
 export type MutationFileDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationFileDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationFileModifyArgs = {
   deletion?: InputMaybe<ClearFileFields>;
@@ -3786,28 +3976,34 @@ export type MutationFileModifyArgs = {
   modification?: InputMaybe<UpdateFile>;
 };
 
+
 export type MutationFileModifyManagedByGroupRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationFileSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupCreateArgs = {
   input: NewGroup;
   relationInput: NewGroupRelations;
 };
 
+
 export type MutationGroupDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationGroupDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupModifyArgs = {
   deletion?: InputMaybe<ClearGroupFields>;
@@ -3815,11 +4011,13 @@ export type MutationGroupModifyArgs = {
   modification?: InputMaybe<UpdateGroup>;
 };
 
+
 export type MutationGroupModifyBlocksOnlineAccountRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupModifyKnowsAgentRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3827,11 +4025,13 @@ export type MutationGroupModifyKnowsAgentRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationGroupModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupModifySupervisedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3839,41 +4039,50 @@ export type MutationGroupModifySupervisedByNetworkRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationGroupSetCategorizedByCategoryRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupSetCoversImpulseRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationGroupSetImagedByImageRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationGroupSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationGroupSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationImageCreateArgs = {
   input: NewImage;
 };
 
+
 export type MutationImageDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationImageDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationImageModifyArgs = {
   deletion?: InputMaybe<ClearImageFields>;
@@ -3881,22 +4090,27 @@ export type MutationImageModifyArgs = {
   modification?: InputMaybe<UpdateImage>;
 };
 
+
 export type MutationImageSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseCreateArgs = {
   input: NewImpulse;
   relationInput: NewImpulseRelations;
 };
 
+
 export type MutationImpulseDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationImpulseDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseModifyArgs = {
   deletion?: InputMaybe<ClearImpulseFields>;
@@ -3904,11 +4118,13 @@ export type MutationImpulseModifyArgs = {
   modification?: InputMaybe<UpdateImpulse>;
 };
 
+
 export type MutationImpulseModifyCategorizedByCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseModifyCategorizedByChannelRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3916,11 +4132,13 @@ export type MutationImpulseModifyCategorizedByChannelRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationImpulseModifyCategorizedByNetworkCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseModifyDisplayedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3928,11 +4146,13 @@ export type MutationImpulseModifyDisplayedByNetworkRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationImpulseModifyImagedByImageRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
@@ -3940,55 +4160,67 @@ export type MutationImpulseModifyLocatedByAddressScopeRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationImpulseModifyManagedByAgentRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationImpulseSetCreatedByGroupRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationImpulseSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationImpulseSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationMembershipCreateArgs = {
   relationInput: NewMembershipRelations;
 };
+
 
 export type MutationMembershipDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationMembershipDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationMembershipInviteCreateArgs = {
   input: NewMembershipInvite;
   relationInput: NewMembershipInviteRelations;
 };
 
+
 export type MutationMembershipInviteDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationMembershipInviteDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationMembershipInviteModifyArgs = {
   deletion?: InputMaybe<ClearMembershipInviteFields>;
@@ -3996,18 +4228,22 @@ export type MutationMembershipInviteModifyArgs = {
   modification?: InputMaybe<UpdateMembershipInvite>;
 };
 
+
 export type MutationMembershipRequestCreateArgs = {
   input: NewMembershipRequest;
   relationInput: NewMembershipRequestRelations;
 };
 
+
 export type MutationMembershipRequestDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationMembershipRequestDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationMembershipRequestModifyArgs = {
   deletion?: InputMaybe<ClearMembershipRequestFields>;
@@ -4015,64 +4251,78 @@ export type MutationMembershipRequestModifyArgs = {
   modification?: InputMaybe<UpdateMembershipRequest>;
 };
 
+
 export type MutationMembershipSetDefinedByRoleRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationMyOnlineAccountModifyAttendsToEventRelationArgs = {
   operation: CollectionRelationMutation;
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationMyOnlineAccountModifyBlocksGroupRelationArgs = {
   operation: CollectionRelationMutation;
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationMyOnlineAccountModifyBlocksOnlineAccountRelationArgs = {
   operation: CollectionRelationMutation;
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationMyOnlineAccountModifyFollowsContentRelationArgs = {
   operation: CollectionRelationMutation;
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationMyOnlineAccountSetRepresentsPersonRelationArgs = {
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationNetworkCategoryCreateArgs = {
   input: NewNetworkCategory;
   relationInput: NewNetworkCategoryRelations;
 };
 
+
 export type MutationNetworkCategoryDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationNetworkCategoryDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationNetworkCategoryModifyArgs = {
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateNetworkCategory>;
 };
 
+
 export type MutationNetworkCreateArgs = {
   input: NewNetwork;
 };
+
 
 export type MutationNetworkDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationNetworkDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationNetworkModifyArgs = {
   deletion?: InputMaybe<ClearNetworkFields>;
@@ -4080,11 +4330,13 @@ export type MutationNetworkModifyArgs = {
   modification?: InputMaybe<UpdateNetwork>;
 };
 
+
 export type MutationNetworkModifyKnowsAgentRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationNetworkModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4092,32 +4344,39 @@ export type MutationNetworkModifyLocatedByAddressScopeRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationNetworkSetImagedByImageRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationNetworkSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationNetworkSetLogoedByImageRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationNetworkSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationOnlineAccountDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationOnlineAccountDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationOnlineAccountModifyAttendsToEventRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4125,11 +4384,13 @@ export type MutationOnlineAccountModifyAttendsToEventRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationOnlineAccountModifyBlocksGroupRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationOnlineAccountModifyBlocksOnlineAccountRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4137,22 +4398,27 @@ export type MutationOnlineAccountModifyBlocksOnlineAccountRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationOnlineAccountSetRepresentsPersonRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationPersonCreateArgs = {
   input: NewPerson;
 };
+
 
 export type MutationPersonDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationPersonDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationPersonModifyArgs = {
   deletion?: InputMaybe<ClearPersonFields>;
@@ -4160,11 +4426,13 @@ export type MutationPersonModifyArgs = {
   modification?: InputMaybe<UpdatePerson>;
 };
 
+
 export type MutationPersonModifyKnowsAgentRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationPersonModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4172,70 +4440,86 @@ export type MutationPersonModifyLocatedByAddressScopeRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationPersonSetImagedByImageRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationPersonSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationPersonSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationPreferenceCreateArgs = {
   relationInput: NewPreferenceRelations;
 };
 
+
 export type MutationPreferenceDeleteArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type MutationPreferenceDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationPreferenceSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationPreferenceSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationRoleCreateArgs = {
   input: NewRole;
 };
+
 
 export type MutationRoleDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationRoleDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationRoleModifyArgs = {
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateRole>;
 };
 
+
 export type MutationTaskCreateArgs = {
   input: NewTask;
   relationInput: NewTaskRelations;
 };
 
+
 export type MutationTaskDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationTaskDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTaskModifyArgs = {
   deletion?: InputMaybe<ClearTaskFields>;
@@ -4243,11 +4527,13 @@ export type MutationTaskModifyArgs = {
   modification?: InputMaybe<UpdateTask>;
 };
 
+
 export type MutationTaskModifyImplementedByOnlineAccountRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTaskModifyManagedByGroupRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4255,18 +4541,22 @@ export type MutationTaskModifyManagedByGroupRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicCreateArgs = {
   input: NewTopic;
   relationInput: NewTopicRelations;
 };
 
+
 export type MutationTopicDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationTopicDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicModifyArgs = {
   deletion?: InputMaybe<ClearTopicFields>;
@@ -4274,11 +4564,13 @@ export type MutationTopicModifyArgs = {
   modification?: InputMaybe<UpdateTopic>;
 };
 
+
 export type MutationTopicModifyCategorizedByCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicModifyCategorizedByChannelRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4286,11 +4578,13 @@ export type MutationTopicModifyCategorizedByChannelRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicModifyCategorizedByNetworkCategoryRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicModifyCuratesContentRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4298,11 +4592,13 @@ export type MutationTopicModifyCuratesContentRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicModifyDisplayedByNetworkRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicModifyImagedByImageRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4310,11 +4606,13 @@ export type MutationTopicModifyImagedByImageRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicModifyLocatedByAddressScopeRelationArgs = {
   operation: CollectionRelationMutation;
   source: Scalars['ID']['input'];
   target: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicModifyManagedByAgentRelationArgs = {
   operation: CollectionRelationMutation;
@@ -4322,43 +4620,52 @@ export type MutationTopicModifyManagedByAgentRelationArgs = {
   target: Array<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicSetCreatedByGroupRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicSetLocatedByAddressRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationTopicSetOwnedByMyOnlineAccountRelationArgs = {
   source?: InputMaybe<Scalars['ID']['input']>;
 };
+
 
 export type MutationTopicSetOwnedByOnlineAccountRelationArgs = {
   source: Scalars['ID']['input'];
   target?: InputMaybe<Scalars['ID']['input']>;
 };
 
+
 export type MutationVideoMeetingCreateArgs = {
   input: NewVideoMeeting;
   relationInput: NewVideoMeetingRelations;
 };
 
+
 export type MutationVideoMeetingDeleteArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type MutationVideoMeetingDeleteBulkArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
+
 
 export type MutationVideoMeetingModifyArgs = {
   deletion?: InputMaybe<ClearVideoMeetingFields>;
   id: Scalars['ID']['input'];
   modification?: InputMaybe<UpdateVideoMeeting>;
 };
+
 
 export type MutationVideoMeetingSetManagedByGroupRelationArgs = {
   source: Scalars['ID']['input'];
@@ -4564,31 +4871,31 @@ export type MyNetworksRelationsFilter = {
   ownedBy?: InputMaybe<OnlineAccountsRelationFilter>;
 };
 
-export type MyOnlineAccount = Account &
-  Thing & {
-    __typename?: 'MyOnlineAccount';
-    attendsTo: EventConnection;
-    blockedByGroup: GroupConnection;
-    blockedByOnlineAccount: OnlineAccountConnection;
-    blocksGroup: GroupConnection;
-    blocksOnlineAccount: OnlineAccountConnection;
-    createdAt: Scalars['DateTime']['output'];
-    email: Scalars['String']['output'];
-    follows: ContentConnection;
-    id: Scalars['ID']['output'];
-    implements: TaskConnection;
-    managesMembership: MembershipConnection;
-    managesMembershipInvite: MembershipInviteConnection;
-    managesMembershipRequest: MembershipRequestConnection;
-    owns?: Maybe<Preference>;
-    ownsAgent: AgentConnection;
-    ownsComment: CommentConnection;
-    ownsContent: ContentConnection;
-    ownsDocument: DocumentConnection;
-    ownsRating: RatingConnection;
-    represents?: Maybe<Person>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type MyOnlineAccount = Account & Thing & {
+  __typename?: 'MyOnlineAccount';
+  attendsTo: EventConnection;
+  blockedByGroup: GroupConnection;
+  blockedByOnlineAccount: OnlineAccountConnection;
+  blocksGroup: GroupConnection;
+  blocksOnlineAccount: OnlineAccountConnection;
+  createdAt: Scalars['DateTime']['output'];
+  email: Scalars['String']['output'];
+  follows: ContentConnection;
+  id: Scalars['ID']['output'];
+  implements: TaskConnection;
+  managesMembership: MembershipConnection;
+  managesMembershipInvite: MembershipInviteConnection;
+  managesMembershipRequest: MembershipRequestConnection;
+  owns?: Maybe<Preference>;
+  ownsAgent: AgentConnection;
+  ownsComment: CommentConnection;
+  ownsContent: ContentConnection;
+  ownsDocument: DocumentConnection;
+  ownsRating: RatingConnection;
+  represents?: Maybe<Person>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 export type MyOnlineAccountAttendsToArgs = {
   filter?: InputMaybe<EventsFilter>;
@@ -4597,12 +4904,14 @@ export type MyOnlineAccountAttendsToArgs = {
   relationsFilter?: InputMaybe<MyEventsRelationsFilter>;
 };
 
+
 export type MyOnlineAccountBlockedByGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MyGroupsRelationsFilter>;
 };
+
 
 export type MyOnlineAccountBlockedByOnlineAccountArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
@@ -4611,6 +4920,7 @@ export type MyOnlineAccountBlockedByOnlineAccountArgs = {
   relationsFilter?: InputMaybe<MyOnlineAccountsRelationsFilter>;
 };
 
+
 export type MyOnlineAccountBlocksGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
@@ -4618,12 +4928,14 @@ export type MyOnlineAccountBlocksGroupArgs = {
   relationsFilter?: InputMaybe<MyGroupsRelationsFilter>;
 };
 
+
 export type MyOnlineAccountBlocksOnlineAccountArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
   orderBy: OrderOnlineAccountsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MyOnlineAccountsRelationsFilter>;
 };
+
 
 export type MyOnlineAccountFollowsArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -4633,12 +4945,14 @@ export type MyOnlineAccountFollowsArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type MyOnlineAccountImplementsArgs = {
   filter?: InputMaybe<TasksFilter>;
   orderBy: OrderTasksBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MyTasksRelationsFilter>;
 };
+
 
 export type MyOnlineAccountManagesMembershipArgs = {
   filter?: InputMaybe<MembershipsFilter>;
@@ -4647,6 +4961,7 @@ export type MyOnlineAccountManagesMembershipArgs = {
   relationsFilter?: InputMaybe<MyMembershipsRelationsFilter>;
 };
 
+
 export type MyOnlineAccountManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
   orderBy: OrderMembershipInvitesBy;
@@ -4654,12 +4969,14 @@ export type MyOnlineAccountManagesMembershipInviteArgs = {
   relationsFilter?: InputMaybe<MyMembershipInvitesRelationsFilter>;
 };
 
+
 export type MyOnlineAccountManagesMembershipRequestArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
   orderBy: OrderMembershipRequestsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MyMembershipRequestsRelationsFilter>;
 };
+
 
 export type MyOnlineAccountOwnsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -4669,12 +4986,14 @@ export type MyOnlineAccountOwnsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type MyOnlineAccountOwnsCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MyCommentsRelationsFilter>;
 };
+
 
 export type MyOnlineAccountOwnsContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -4684,6 +5003,7 @@ export type MyOnlineAccountOwnsContentArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type MyOnlineAccountOwnsDocumentArgs = {
   filter?: InputMaybe<DocumentsFilter>;
   orderBy: OrderDocumentsBy;
@@ -4691,6 +5011,7 @@ export type MyOnlineAccountOwnsDocumentArgs = {
   relationsFilter?: InputMaybe<MyDocumentsRelationsFilter>;
   type?: InputMaybe<Array<DocumentType>>;
 };
+
 
 export type MyOnlineAccountOwnsRatingArgs = {
   filter?: InputMaybe<RatingsFilter>;
@@ -4753,43 +5074,44 @@ export type MyTopicsRelationsFilter = {
   ownedBy?: InputMaybe<OnlineAccountsRelationFilter>;
 };
 
-export type Network = Agent &
-  Thing & {
-    __typename?: 'Network';
-    _permissions?: Maybe<Permissions>;
-    _viewer: NetworkViewer;
-    administeredBy: MembershipConnection;
-    admittance: Admittance;
-    contactInfo?: Maybe<Scalars['String']['output']>;
-    createdAt: Scalars['DateTime']['output'];
-    displaysFeed: FeedConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage?: Maybe<Image>;
-    info?: Maybe<Scalars['String']['output']>;
-    intro?: Maybe<Scalars['String']['output']>;
-    knownByAgent: AgentConnection;
-    knowsAgent: AgentConnection;
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    logoedBy?: Maybe<Image>;
-    managesChannel: ChannelConnection;
-    managesContent: ContentConnection;
-    managesMembershipInvite: MembershipInviteConnection;
-    managesMembershipRequest: MembershipRequestConnection;
-    managesNetworkCategory: NetworkCategoryConnection;
-    name: Scalars['String']['output'];
-    slug?: Maybe<Scalars['ID']['output']>;
-    supervises: GroupConnection;
-    text?: Maybe<Scalars['String']['output']>;
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-  };
+export type Network = Agent & Thing & {
+  __typename?: 'Network';
+  _permissions?: Maybe<Permissions>;
+  _viewer: NetworkViewer;
+  administeredBy: MembershipConnection;
+  admittance: Admittance;
+  contactInfo?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  displaysFeed: FeedConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage?: Maybe<Image>;
+  info?: Maybe<Scalars['String']['output']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  knownByAgent: AgentConnection;
+  knowsAgent: AgentConnection;
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  logoedBy?: Maybe<Image>;
+  managesChannel: ChannelConnection;
+  managesContent: ContentConnection;
+  managesMembershipInvite: MembershipInviteConnection;
+  managesMembershipRequest: MembershipRequestConnection;
+  managesNetworkCategory: NetworkCategoryConnection;
+  name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['ID']['output']>;
+  supervises: GroupConnection;
+  text?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+};
+
 
 export type NetworkAdministeredByArgs = {
   filter?: InputMaybe<MembershipsFilter>;
   orderBy: OrderMembershipsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type NetworkDisplaysFeedArgs = {
   filter?: InputMaybe<FeedsFilter>;
@@ -4798,12 +5120,14 @@ export type NetworkDisplaysFeedArgs = {
   type?: InputMaybe<Array<FeedType>>;
 };
 
+
 export type NetworkKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type NetworkKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -4812,17 +5136,20 @@ export type NetworkKnowsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type NetworkLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type NetworkManagesChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
   orderBy: OrderChannelsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type NetworkManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -4831,11 +5158,13 @@ export type NetworkManagesContentArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type NetworkManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
   orderBy: OrderMembershipInvitesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type NetworkManagesMembershipRequestArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
@@ -4843,11 +5172,13 @@ export type NetworkManagesMembershipRequestArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type NetworkManagesNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
   orderBy: OrderNetworkCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type NetworkSupervisesArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -4913,6 +5244,7 @@ export type NetworkCategory = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type NetworkCategoryCategorizesArgs = {
   filter?: InputMaybe<ContentsFilter>;
   orderBy: OrderContentsBy;
@@ -4942,6 +5274,7 @@ export type NetworkCategoryViewer = {
   __typename?: 'NetworkCategoryViewer';
   categorizes: ContentConnection;
 };
+
 
 export type NetworkCategoryViewerCategorizesArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -4980,12 +5313,14 @@ export type NetworkViewer = AgentViewer & {
   supervises: GroupConnection;
 };
 
+
 export type NetworkViewerAdministeredByArgs = {
   filter?: InputMaybe<MembershipsFilter>;
   orderBy: OrderMembershipsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MembershipsRelationsFilter>;
 };
+
 
 export type NetworkViewerKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -4995,6 +5330,7 @@ export type NetworkViewerKnownByAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type NetworkViewerKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -5002,6 +5338,7 @@ export type NetworkViewerKnowsAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type NetworkViewerManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -5011,6 +5348,7 @@ export type NetworkViewerManagesContentArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type NetworkViewerManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
   orderBy: OrderMembershipInvitesBy;
@@ -5018,12 +5356,14 @@ export type NetworkViewerManagesMembershipInviteArgs = {
   relationsFilter?: InputMaybe<MembershipInvitesRelationsFilter>;
 };
 
+
 export type NetworkViewerManagesMembershipRequestArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
   orderBy: OrderMembershipRequestsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<MembershipRequestsRelationsFilter>;
 };
+
 
 export type NetworkViewerSupervisesArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -5332,23 +5672,23 @@ export type NewVideoMeetingRelations = {
   managedBy?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type OnlineAccount = Account &
-  Thing & {
-    __typename?: 'OnlineAccount';
-    _permissions?: Maybe<Permissions>;
-    attendsTo: EventConnection;
-    blockedByGroup: GroupConnection;
-    blockedByOnlineAccount: OnlineAccountConnection;
-    blocksGroup: GroupConnection;
-    blocksOnlineAccount: OnlineAccountConnection;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    implements: TaskConnection;
-    managesMembership: MembershipConnection;
-    managesMembershipInvite: MembershipInviteConnection;
-    represents?: Maybe<Person>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type OnlineAccount = Account & Thing & {
+  __typename?: 'OnlineAccount';
+  _permissions?: Maybe<Permissions>;
+  attendsTo: EventConnection;
+  blockedByGroup: GroupConnection;
+  blockedByOnlineAccount: OnlineAccountConnection;
+  blocksGroup: GroupConnection;
+  blocksOnlineAccount: OnlineAccountConnection;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  implements: TaskConnection;
+  managesMembership: MembershipConnection;
+  managesMembershipInvite: MembershipInviteConnection;
+  represents?: Maybe<Person>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 export type OnlineAccountAttendsToArgs = {
   filter?: InputMaybe<EventsFilter>;
@@ -5356,11 +5696,13 @@ export type OnlineAccountAttendsToArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type OnlineAccountBlockedByGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type OnlineAccountBlockedByOnlineAccountArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
@@ -5368,11 +5710,13 @@ export type OnlineAccountBlockedByOnlineAccountArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type OnlineAccountBlocksGroupArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type OnlineAccountBlocksOnlineAccountArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
@@ -5380,17 +5724,20 @@ export type OnlineAccountBlocksOnlineAccountArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type OnlineAccountImplementsArgs = {
   filter?: InputMaybe<TasksFilter>;
   orderBy: OrderTasksBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type OnlineAccountManagesMembershipArgs = {
   filter?: InputMaybe<MembershipsFilter>;
   orderBy: OrderMembershipsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type OnlineAccountManagesMembershipInviteArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
@@ -6240,26 +6587,26 @@ export type Permissions = {
   update?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type Person = Agent &
-  Thing & {
-    __typename?: 'Person';
-    _permissions?: Maybe<Permissions>;
-    _viewer: PersonViewer;
-    createdAt: Scalars['DateTime']['output'];
-    id: Scalars['ID']['output'];
-    imagedByImage?: Maybe<Image>;
-    info?: Maybe<Scalars['String']['output']>;
-    intro?: Maybe<Scalars['String']['output']>;
-    knownByAgent: AgentConnection;
-    knowsAgent: AgentConnection;
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    managesContent: ContentConnection;
-    name: Scalars['String']['output'];
-    representedBy?: Maybe<OnlineAccount>;
-    slug?: Maybe<Scalars['ID']['output']>;
-    updatedAt: Scalars['DateTime']['output'];
-  };
+export type Person = Agent & Thing & {
+  __typename?: 'Person';
+  _permissions?: Maybe<Permissions>;
+  _viewer: PersonViewer;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  imagedByImage?: Maybe<Image>;
+  info?: Maybe<Scalars['String']['output']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  knownByAgent: AgentConnection;
+  knowsAgent: AgentConnection;
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  managesContent: ContentConnection;
+  name: Scalars['String']['output'];
+  representedBy?: Maybe<OnlineAccount>;
+  slug?: Maybe<Scalars['ID']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 
 export type PersonKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -6268,6 +6615,7 @@ export type PersonKnownByAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type PersonKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -6275,11 +6623,13 @@ export type PersonKnowsAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type PersonLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type PersonManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -6313,6 +6663,7 @@ export type PersonViewer = AgentViewer & {
   managesContent: ContentConnection;
 };
 
+
 export type PersonViewerKnownByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -6321,6 +6672,7 @@ export type PersonViewerKnownByAgentArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type PersonViewerKnowsAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
   orderBy: OrderAgentsBy;
@@ -6328,6 +6680,7 @@ export type PersonViewerKnowsAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type PersonViewerManagesContentArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -6659,9 +7012,11 @@ export type Query = {
   videoMeetingsBulk: Array<VideoMeetingConnection>;
 };
 
+
 export type QueryAccountArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryAccountsArgs = {
   filter?: InputMaybe<AccountsFilter>;
@@ -6670,21 +7025,26 @@ export type QueryAccountsArgs = {
   type?: InputMaybe<Array<AccountType>>;
 };
 
+
 export type QueryAddressArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryAddressMatchArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryAddressMatchesArgs = {
   criteria?: InputMaybe<AddressMatchesCriteria>;
 };
 
+
 export type QueryAddressScopeArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryAddressScopesArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
@@ -6693,11 +7053,13 @@ export type QueryAddressScopesArgs = {
   relationsFilter?: InputMaybe<AddressScopesRelationsFilter>;
 };
 
+
 export type QueryAddressScopesBulkArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type QueryAddressesArgs = {
   filter?: InputMaybe<AddressesFilter>;
@@ -6706,15 +7068,18 @@ export type QueryAddressesArgs = {
   relationsFilter?: InputMaybe<AddressesRelationsFilter>;
 };
 
+
 export type QueryAddressesBulkArgs = {
   filter?: InputMaybe<AddressesFilter>;
   orderBy: OrderAddressesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryAgentArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryAgentsArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -6724,13 +7089,16 @@ export type QueryAgentsArgs = {
   type?: InputMaybe<Array<AgentType>>;
 };
 
+
 export type QueryArticleArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryArticleBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryArticlesArgs = {
   filter?: InputMaybe<ArticlesFilter>;
@@ -6739,11 +7107,13 @@ export type QueryArticlesArgs = {
   relationsFilter?: InputMaybe<ArticlesRelationsFilter>;
 };
 
+
 export type QueryArticlesBulkArgs = {
   filter?: InputMaybe<ArticlesFilter>;
   orderBy: OrderArticlesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type QueryCategoriesArgs = {
   filter?: InputMaybe<CategoriesFilter>;
@@ -6751,23 +7121,28 @@ export type QueryCategoriesArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryCategoriesBulkArgs = {
   filter?: InputMaybe<CategoriesFilter>;
   orderBy: OrderCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryCategoryArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryChannelArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryChannelBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryChannelsArgs = {
   filter?: InputMaybe<ChannelsFilter>;
@@ -6776,15 +7151,18 @@ export type QueryChannelsArgs = {
   relationsFilter?: InputMaybe<ChannelsRelationsFilter>;
 };
 
+
 export type QueryChannelsBulkArgs = {
   filter?: InputMaybe<ChannelsFilter>;
   orderBy: OrderChannelsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryCollabTextArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryCollabTextsArgs = {
   filter?: InputMaybe<CollabTextsFilter>;
@@ -6793,15 +7171,18 @@ export type QueryCollabTextsArgs = {
   relationsFilter?: InputMaybe<CollabTextsRelationsFilter>;
 };
 
+
 export type QueryCollabTextsBulkArgs = {
   filter?: InputMaybe<CollabTextsFilter>;
   orderBy: OrderCollabTextsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryCommentRatingArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryCommentRatingsArgs = {
   filter?: InputMaybe<CommentRatingsFilter>;
@@ -6810,19 +7191,23 @@ export type QueryCommentRatingsArgs = {
   relationsFilter?: InputMaybe<CommentRatingsRelationsFilter>;
 };
 
+
 export type QueryCommentRatingsBulkArgs = {
   filter?: InputMaybe<CommentRatingsFilter>;
   orderBy: OrderCommentRatingsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryContentArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryContentRatingArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryContentRatingsArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -6831,11 +7216,13 @@ export type QueryContentRatingsArgs = {
   relationsFilter?: InputMaybe<ContentRatingsRelationsFilter>;
 };
 
+
 export type QueryContentRatingsBulkArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
   orderBy: OrderContentRatingsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type QueryContentsArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -6845,9 +7232,11 @@ export type QueryContentsArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type QueryDocumentArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryDocumentsArgs = {
   filter?: InputMaybe<DocumentsFilter>;
@@ -6856,13 +7245,16 @@ export type QueryDocumentsArgs = {
   type?: InputMaybe<Array<DocumentType>>;
 };
 
+
 export type QueryEventArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryEventBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryEventsArgs = {
   filter?: InputMaybe<EventsFilter>;
@@ -6871,15 +7263,18 @@ export type QueryEventsArgs = {
   relationsFilter?: InputMaybe<EventsRelationsFilter>;
 };
 
+
 export type QueryEventsBulkArgs = {
   filter?: InputMaybe<EventsFilter>;
   orderBy: OrderEventsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryFeedArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryFeedsArgs = {
   filter?: InputMaybe<FeedsFilter>;
@@ -6888,9 +7283,11 @@ export type QueryFeedsArgs = {
   type?: InputMaybe<Array<FeedType>>;
 };
 
+
 export type QueryFileArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryFilesArgs = {
   filter?: InputMaybe<FilesFilter>;
@@ -6899,19 +7296,23 @@ export type QueryFilesArgs = {
   relationsFilter?: InputMaybe<FilesRelationsFilter>;
 };
 
+
 export type QueryFilesBulkArgs = {
   filter?: InputMaybe<FilesFilter>;
   orderBy: OrderFilesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryGroupArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryGroupBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryGroupsArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -6920,15 +7321,18 @@ export type QueryGroupsArgs = {
   relationsFilter?: InputMaybe<GroupsRelationsFilter>;
 };
 
+
 export type QueryGroupsBulkArgs = {
   filter?: InputMaybe<GroupsFilter>;
   orderBy: OrderGroupsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryImageArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryImagesArgs = {
   filter?: InputMaybe<ImagesFilter>;
@@ -6936,19 +7340,23 @@ export type QueryImagesArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryImagesBulkArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryImpulseArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryImpulseBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryImpulsesArgs = {
   filter?: InputMaybe<ImpulsesFilter>;
@@ -6957,19 +7365,23 @@ export type QueryImpulsesArgs = {
   relationsFilter?: InputMaybe<ImpulsesRelationsFilter>;
 };
 
+
 export type QueryImpulsesBulkArgs = {
   filter?: InputMaybe<ImpulsesFilter>;
   orderBy: OrderImpulsesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryMembershipArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryMembershipInviteArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryMembershipInvitesArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
@@ -6978,15 +7390,18 @@ export type QueryMembershipInvitesArgs = {
   relationsFilter?: InputMaybe<MembershipInvitesRelationsFilter>;
 };
 
+
 export type QueryMembershipInvitesBulkArgs = {
   filter?: InputMaybe<MembershipInvitesFilter>;
   orderBy: OrderMembershipInvitesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryMembershipRequestArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryMembershipRequestsArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
@@ -6995,11 +7410,13 @@ export type QueryMembershipRequestsArgs = {
   relationsFilter?: InputMaybe<MembershipRequestsRelationsFilter>;
 };
 
+
 export type QueryMembershipRequestsBulkArgs = {
   filter?: InputMaybe<MembershipRequestsFilter>;
   orderBy: OrderMembershipRequestsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type QueryMembershipsArgs = {
   filter?: InputMaybe<MembershipsFilter>;
@@ -7008,19 +7425,23 @@ export type QueryMembershipsArgs = {
   relationsFilter?: InputMaybe<MembershipsRelationsFilter>;
 };
 
+
 export type QueryMembershipsBulkArgs = {
   filter?: InputMaybe<MembershipsFilter>;
   orderBy: OrderMembershipsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryNetworkArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryNetworkBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryNetworkCategoriesArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
@@ -7029,15 +7450,18 @@ export type QueryNetworkCategoriesArgs = {
   relationsFilter?: InputMaybe<NetworkCategoriesRelationsFilter>;
 };
 
+
 export type QueryNetworkCategoriesBulkArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
   orderBy: OrderNetworkCategoriesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryNetworkCategoryArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryNetworksArgs = {
   filter?: InputMaybe<NetworksFilter>;
@@ -7046,15 +7470,18 @@ export type QueryNetworksArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type QueryNetworksBulkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryOnlineAccountArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryOnlineAccountsArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
@@ -7063,19 +7490,23 @@ export type QueryOnlineAccountsArgs = {
   relationsFilter?: InputMaybe<OnlineAccountsRelationsFilter>;
 };
 
+
 export type QueryOnlineAccountsBulkArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
   orderBy: OrderOnlineAccountsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryPersonArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryPersonBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryPersonsArgs = {
   filter?: InputMaybe<PersonsFilter>;
@@ -7084,15 +7515,18 @@ export type QueryPersonsArgs = {
   relationsFilter?: InputMaybe<PersonsRelationsFilter>;
 };
 
+
 export type QueryPersonsBulkArgs = {
   filter?: InputMaybe<PersonsFilter>;
   orderBy: OrderPersonsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryPreferenceArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryPreferencesArgs = {
   filter?: InputMaybe<PreferencesFilter>;
@@ -7100,15 +7534,18 @@ export type QueryPreferencesArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryPreferencesBulkArgs = {
   filter?: InputMaybe<PreferencesFilter>;
   orderBy: OrderPreferencesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryRatingArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryRatingsArgs = {
   filter?: InputMaybe<RatingsFilter>;
@@ -7118,9 +7555,11 @@ export type QueryRatingsArgs = {
   type?: InputMaybe<Array<RatingType>>;
 };
 
+
 export type QueryRoleArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryRolesArgs = {
   filter?: InputMaybe<RolesFilter>;
@@ -7128,15 +7567,18 @@ export type QueryRolesArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryRolesBulkArgs = {
   filter?: InputMaybe<RolesFilter>;
   orderBy: OrderRolesBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryTaskArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryTasksArgs = {
   filter?: InputMaybe<TasksFilter>;
@@ -7145,15 +7587,18 @@ export type QueryTasksArgs = {
   relationsFilter?: InputMaybe<TasksRelationsFilter>;
 };
 
+
 export type QueryTasksBulkArgs = {
   filter?: InputMaybe<TasksFilter>;
   orderBy: OrderTasksBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryThingArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryThingsArgs = {
   filter?: InputMaybe<ThingsFilter>;
@@ -7162,13 +7607,16 @@ export type QueryThingsArgs = {
   type?: InputMaybe<Array<ThingType>>;
 };
 
+
 export type QueryTopicArgs = {
   id: Scalars['ID']['input'];
 };
 
+
 export type QueryTopicBySlugArgs = {
   slug: Scalars['ID']['input'];
 };
+
 
 export type QueryTopicsArgs = {
   filter?: InputMaybe<TopicsFilter>;
@@ -7177,21 +7625,25 @@ export type QueryTopicsArgs = {
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
 
+
 export type QueryTopicsBulkArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type QueryVideoMeetingArgs = {
   id: Scalars['ID']['input'];
 };
+
 
 export type QueryVideoMeetingsArgs = {
   filter?: InputMaybe<VideoMeetingsFilter>;
   orderBy: OrderVideoMeetingsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type QueryVideoMeetingsBulkArgs = {
   filter?: InputMaybe<VideoMeetingsFilter>;
@@ -7225,7 +7677,7 @@ export type RatingEdge = Edge & {
 
 export enum RatingType {
   CommentRating = 'COMMENT_RATING',
-  ContentRating = 'CONTENT_RATING',
+  ContentRating = 'CONTENT_RATING'
 }
 
 export type RatingsFilter = {
@@ -7275,6 +7727,7 @@ export type Role = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 /** Wraps multiple Accesses */
 export type RoleDefinesArgs = {
   filter?: InputMaybe<MembershipsFilter>;
@@ -7304,6 +7757,7 @@ export type RoleViewer = {
   __typename?: 'RoleViewer';
   defines: MembershipConnection;
 };
+
 
 export type RoleViewerDefinesArgs = {
   filter?: InputMaybe<MembershipsFilter>;
@@ -7370,17 +7824,20 @@ export type Task = Thing & {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+
 export type TaskCommentedByArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type TaskImplementedByArgs = {
   filter?: InputMaybe<OnlineAccountsFilter>;
   orderBy: OrderOnlineAccountsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TaskManagedByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -7412,12 +7869,14 @@ export type TaskViewer = {
   managedBy: GroupConnection;
 };
 
+
 export type TaskViewerCommentedByArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
+
 
 export type TaskViewerManagedByArgs = {
   filter?: InputMaybe<GroupsFilter>;
@@ -7551,7 +8010,7 @@ export enum ThingType {
   Role = 'ROLE',
   Task = 'TASK',
   Topic = 'TOPIC',
-  VideoMeeting = 'VIDEO_MEETING',
+  VideoMeeting = 'VIDEO_MEETING'
 }
 
 export type ThingsFilter = {
@@ -7583,36 +8042,36 @@ export type ThingsRelationFilter = {
   id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
-export type Topic = Content &
-  Thing & {
-    __typename?: 'Topic';
-    _permissions?: Maybe<Permissions>;
-    _viewer: TopicViewer;
-    categorizedByCategory: CategoryConnection;
-    categorizedByChannel: ChannelConnection;
-    categorizedByNetworkCategory: NetworkCategoryConnection;
-    commentedByComment: CommentConnection;
-    createdAt: Scalars['DateTime']['output'];
-    createdByGroup?: Maybe<Group>;
-    curatedByTopic: TopicConnection;
-    curates: ContentConnection;
-    displayedByNetwork: NetworkConnection;
-    id: Scalars['ID']['output'];
-    imagedByImage: ImageConnection;
-    intro?: Maybe<Scalars['String']['output']>;
-    locatedByAddress?: Maybe<Address>;
-    locatedByAddressScope: AddressScopeConnection;
-    managedByAgent: AgentConnection;
-    ownedByOnlineAccount?: Maybe<OnlineAccount>;
-    /** Affects the ordering in Feeds */
-    publishedSince?: Maybe<Scalars['DateTime']['output']>;
-    ratedByContentRating: ContentRatingConnection;
-    slug?: Maybe<Scalars['ID']['output']>;
-    title: Scalars['String']['output'];
-    updatedAt: Scalars['DateTime']['output'];
-    visibility: Visibility;
-    warning?: Maybe<Scalars['String']['output']>;
-  };
+export type Topic = Content & Thing & {
+  __typename?: 'Topic';
+  _permissions?: Maybe<Permissions>;
+  _viewer: TopicViewer;
+  categorizedByCategory: CategoryConnection;
+  categorizedByChannel: ChannelConnection;
+  categorizedByNetworkCategory: NetworkCategoryConnection;
+  commentedByComment: CommentConnection;
+  createdAt: Scalars['DateTime']['output'];
+  createdByGroup?: Maybe<Group>;
+  curatedByTopic: TopicConnection;
+  curates: ContentConnection;
+  displayedByNetwork: NetworkConnection;
+  id: Scalars['ID']['output'];
+  imagedByImage: ImageConnection;
+  intro?: Maybe<Scalars['String']['output']>;
+  locatedByAddress?: Maybe<Address>;
+  locatedByAddressScope: AddressScopeConnection;
+  managedByAgent: AgentConnection;
+  ownedByOnlineAccount?: Maybe<OnlineAccount>;
+  /** Affects the ordering in Feeds */
+  publishedSince?: Maybe<Scalars['DateTime']['output']>;
+  ratedByContentRating: ContentRatingConnection;
+  slug?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  visibility: Visibility;
+  warning?: Maybe<Scalars['String']['output']>;
+};
+
 
 export type TopicCategorizedByCategoryArgs = {
   filter?: InputMaybe<CategoriesFilter>;
@@ -7620,11 +8079,13 @@ export type TopicCategorizedByCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type TopicCategorizedByChannelArgs = {
   filter?: InputMaybe<ChannelsFilter>;
   orderBy: OrderChannelsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TopicCategorizedByNetworkCategoryArgs = {
   filter?: InputMaybe<NetworkCategoriesFilter>;
@@ -7632,17 +8093,20 @@ export type TopicCategorizedByNetworkCategoryArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type TopicCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type TopicCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TopicCuratesArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -7651,11 +8115,13 @@ export type TopicCuratesArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type TopicDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TopicImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
@@ -7663,11 +8129,13 @@ export type TopicImagedByImageArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
 export type TopicLocatedByAddressScopeArgs = {
   filter?: InputMaybe<AddressScopesFilter>;
   orderBy: OrderAddressScopesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TopicManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -7675,6 +8143,7 @@ export type TopicManagedByAgentArgs = {
   pagination?: InputMaybe<Pagination>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type TopicRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -7711,6 +8180,7 @@ export type TopicViewer = ContentViewer & {
   ratedByContentRating: ContentRatingConnection;
 };
 
+
 export type TopicViewerCommentedByCommentArgs = {
   filter?: InputMaybe<CommentsFilter>;
   orderBy: OrderCommentsBy;
@@ -7718,12 +8188,14 @@ export type TopicViewerCommentedByCommentArgs = {
   relationsFilter?: InputMaybe<CommentsRelationsFilter>;
 };
 
+
 export type TopicViewerCuratedByTopicArgs = {
   filter?: InputMaybe<TopicsFilter>;
   orderBy: OrderTopicsBy;
   pagination?: InputMaybe<Pagination>;
   relationsFilter?: InputMaybe<TopicsRelationsFilter>;
 };
+
 
 export type TopicViewerCuratesArgs = {
   filter?: InputMaybe<ContentsFilter>;
@@ -7733,6 +8205,7 @@ export type TopicViewerCuratesArgs = {
   type?: InputMaybe<Array<ContentType>>;
 };
 
+
 export type TopicViewerDisplayedByNetworkArgs = {
   filter?: InputMaybe<NetworksFilter>;
   orderBy: OrderNetworksBy;
@@ -7740,11 +8213,13 @@ export type TopicViewerDisplayedByNetworkArgs = {
   relationsFilter?: InputMaybe<NetworksRelationsFilter>;
 };
 
+
 export type TopicViewerImagedByImageArgs = {
   filter?: InputMaybe<ImagesFilter>;
   orderBy: OrderImagesBy;
   pagination?: InputMaybe<Pagination>;
 };
+
 
 export type TopicViewerManagedByAgentArgs = {
   filter?: InputMaybe<AgentsFilter>;
@@ -7753,6 +8228,7 @@ export type TopicViewerManagedByAgentArgs = {
   relationsFilter?: InputMaybe<AgentsRelationsFilter>;
   type?: InputMaybe<Array<AgentType>>;
 };
+
 
 export type TopicViewerRatedByContentRatingArgs = {
   filter?: InputMaybe<ContentRatingsFilter>;
@@ -8058,7 +8534,7 @@ export type VideoMeetingsRelationFilter = {
 export enum Visibility {
   Network = 'NETWORK',
   Private = 'PRIVATE',
-  Public = 'PUBLIC',
+  Public = 'PUBLIC'
 }
 
 export type ArticleQueryVariables = Exact<{
@@ -8066,3442 +8542,442 @@ export type ArticleQueryVariables = Exact<{
   commentedByCursor?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type ArticleQuery = {
-  __typename?: 'Query';
-  article?: {
-    __typename: 'Article';
-    title: string;
-    intro?: string | null;
-    text: string;
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    ownedByOnlineAccount?: {
-      __typename: 'OnlineAccount';
-      represents?: {
-        __typename: 'Person';
-        info?: string | null;
-        id: string;
-        name: string;
-        imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-      } | null;
-    } | null;
-    createdByGroup?: {
-      __typename: 'Group';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-    imagedByImage: {
-      __typename: 'ImageConnection';
-      edges: Array<{
-        __typename: 'ImageEdge';
-        node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-      }>;
-    };
-    categorizedByCategory: {
-      __typename: 'CategoryConnection';
-      edges: Array<{
-        __typename: 'CategoryEdge';
-        node: { __typename: 'Category'; id: string; name: string };
-      }>;
-    };
-    locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-    ratedByContentRating: {
-      __typename: 'ContentRatingConnection';
-      count: number;
-      edges: Array<{
-        __typename: 'ContentRatingEdge';
-        node: {
-          __typename: 'ContentRating';
-          id: string;
-          ownedByOnlineAccount?: {
-            __typename: 'OnlineAccount';
-            represents?: {
-              __typename: 'Person';
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-          } | null;
-        };
-      }>;
-    };
-    commentedByComment: {
-      __typename: 'CommentConnection';
-      count: number;
-      edges: Array<{
-        __typename: 'CommentEdge';
-        node: {
-          __typename: 'Comment';
-          id: string;
-          createdAt: Date;
-          text: string;
-          ownedBy?: {
-            __typename: 'OnlineAccount';
-            represents?: {
-              __typename: 'Person';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-          } | null;
-        };
-      }>;
-      pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-    };
-    curatedByTopic: {
-      __typename: 'TopicConnection';
-      edges: Array<{
-        __typename: 'TopicEdge';
-        node: {
-          __typename: 'Topic';
-          title: string;
-          warning?: string | null;
-          visibility: Visibility;
-          id: string;
-          createdAt: Date;
-          updatedAt: Date;
-          displayedByNetwork: {
-            __typename: 'NetworkConnection';
-            edges: Array<{
-              __typename: 'NetworkEdge';
-              node: { __typename: 'Network'; id: string; name: string };
-            }>;
-            pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-          };
-          imagedByImage: {
-            __typename: 'ImageConnection';
-            edges: Array<{
-              __typename: 'ImageEdge';
-              node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-            }>;
-          };
-          ownedByOnlineAccount?: {
-            __typename: 'OnlineAccount';
-            represents?: {
-              __typename: 'Person';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-          } | null;
-          createdByGroup?: {
-            __typename: 'Group';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-          ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-          commentStats: { __typename: 'CommentConnection'; count: number };
-          managedByAgent: {
-            __typename: 'AgentConnection';
-            edges: Array<{
-              __typename: 'AgentEdge';
-              node:
-                | {
-                    __typename: 'Group';
-                    id: string;
-                    name: string;
-                    slug?: string | null;
-                    imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                  }
-                | {
-                    __typename: 'Network';
-                    id: string;
-                    name: string;
-                    slug?: string | null;
-                    imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                  }
-                | {
-                    __typename: 'Person';
-                    id: string;
-                    name: string;
-                    slug?: string | null;
-                    imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                  };
-            }>;
-          };
-          categorizedByCategory: {
-            __typename: 'CategoryConnection';
-            edges: Array<{
-              __typename: 'CategoryEdge';
-              node: { __typename: 'Category'; id: string; name: string };
-            }>;
-          };
-          locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-          _viewer: {
-            __typename: 'TopicViewer';
-            ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-            commentedByComment: { __typename: 'CommentConnection'; count: number };
-          };
-        };
-      }>;
-    };
-    _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-    _viewer: {
-      __typename: 'ArticleViewer';
-      ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-      commentedByComment: { __typename: 'CommentConnection'; count: number };
-    };
-  } | null;
-};
 
-export type ArticleFragment = {
-  __typename: 'Article';
-  title: string;
-  intro?: string | null;
-  text: string;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  ratedByContentRating: {
-    __typename: 'ContentRatingConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'ContentRatingEdge';
-      node: {
-        __typename: 'ContentRating';
-        id: string;
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-  };
-  commentedByComment: {
-    __typename: 'CommentConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'CommentEdge';
-      node: {
-        __typename: 'Comment';
-        id: string;
-        createdAt: Date;
-        text: string;
-        ownedBy?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  curatedByTopic: {
-    __typename: 'TopicConnection';
-    edges: Array<{
-      __typename: 'TopicEdge';
-      node: {
-        __typename: 'Topic';
-        title: string;
-        warning?: string | null;
-        visibility: Visibility;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        displayedByNetwork: {
-          __typename: 'NetworkConnection';
-          edges: Array<{
-            __typename: 'NetworkEdge';
-            node: { __typename: 'Network'; id: string; name: string };
-          }>;
-          pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-        };
-        imagedByImage: {
-          __typename: 'ImageConnection';
-          edges: Array<{
-            __typename: 'ImageEdge';
-            node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-          }>;
-        };
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-        createdByGroup?: {
-          __typename: 'Group';
-          info?: string | null;
-          id: string;
-          name: string;
-          imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-        } | null;
-        ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-        commentStats: { __typename: 'CommentConnection'; count: number };
-        managedByAgent: {
-          __typename: 'AgentConnection';
-          edges: Array<{
-            __typename: 'AgentEdge';
-            node:
-              | {
-                  __typename: 'Group';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Network';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Person';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                };
-          }>;
-        };
-        categorizedByCategory: {
-          __typename: 'CategoryConnection';
-          edges: Array<{
-            __typename: 'CategoryEdge';
-            node: { __typename: 'Category'; id: string; name: string };
-          }>;
-        };
-        locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-        _viewer: {
-          __typename: 'TopicViewer';
-          ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-          commentedByComment: { __typename: 'CommentConnection'; count: number };
-        };
-      };
-    }>;
-  };
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-  _viewer: {
-    __typename: 'ArticleViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+export type ArticleQuery = { __typename?: 'Query', article?: { __typename: 'Article', title: string, intro?: string | null, text: string, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> }, commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, _permissions?: { __typename: 'Permissions', update?: boolean | null } | null, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | null };
 
-type ContentMeta_Article_Fragment = {
-  __typename: 'Article';
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  _viewer: {
-    __typename: 'ArticleViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+export type ArticleFragment = { __typename: 'Article', title: string, intro?: string | null, text: string, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> }, commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, _permissions?: { __typename: 'Permissions', update?: boolean | null } | null, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentMeta_Event_Fragment = {
-  __typename: 'Event';
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  _viewer: {
-    __typename: 'EventViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentMeta_Article_Fragment = { __typename: 'Article', id: string, slug?: string | null, createdAt: Date, updatedAt: Date, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentMeta_Impulse_Fragment = {
-  __typename: 'Impulse';
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  _viewer: {
-    __typename: 'ImpulseViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentMeta_Event_Fragment = { __typename: 'Event', id: string, slug?: string | null, createdAt: Date, updatedAt: Date, _viewer: { __typename: 'EventViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentMeta_Topic_Fragment = {
-  __typename: 'Topic';
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  _viewer: {
-    __typename: 'TopicViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentMeta_Impulse_Fragment = { __typename: 'Impulse', id: string, slug?: string | null, createdAt: Date, updatedAt: Date, _viewer: { __typename: 'ImpulseViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-export type ContentMetaFragment =
-  | ContentMeta_Article_Fragment
-  | ContentMeta_Event_Fragment
-  | ContentMeta_Impulse_Fragment
-  | ContentMeta_Topic_Fragment;
+type ContentMeta_Topic_Fragment = { __typename: 'Topic', id: string, slug?: string | null, createdAt: Date, updatedAt: Date, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentState_Article_Fragment = {
-  __typename: 'Article';
-  _viewer: {
-    __typename: 'ArticleViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+export type ContentMetaFragment = ContentMeta_Article_Fragment | ContentMeta_Event_Fragment | ContentMeta_Impulse_Fragment | ContentMeta_Topic_Fragment;
 
-type ContentState_Event_Fragment = {
-  __typename: 'Event';
-  _viewer: {
-    __typename: 'EventViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentState_Article_Fragment = { __typename: 'Article', _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentState_Impulse_Fragment = {
-  __typename: 'Impulse';
-  _viewer: {
-    __typename: 'ImpulseViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentState_Event_Fragment = { __typename: 'Event', _viewer: { __typename: 'EventViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentState_Topic_Fragment = {
-  __typename: 'Topic';
-  _viewer: {
-    __typename: 'TopicViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+type ContentState_Impulse_Fragment = { __typename: 'Impulse', _viewer: { __typename: 'ImpulseViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-export type ContentStateFragment =
-  | ContentState_Article_Fragment
-  | ContentState_Event_Fragment
-  | ContentState_Impulse_Fragment
-  | ContentState_Topic_Fragment;
+type ContentState_Topic_Fragment = { __typename: 'Topic', _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
-type ContentAuthor_Article_Fragment = {
-  __typename: 'Article';
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-};
+export type ContentStateFragment = ContentState_Article_Fragment | ContentState_Event_Fragment | ContentState_Impulse_Fragment | ContentState_Topic_Fragment;
 
-type ContentAuthor_Event_Fragment = {
-  __typename: 'Event';
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-};
+type ContentAuthor_Article_Fragment = { __typename: 'Article', ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null };
 
-type ContentAuthor_Impulse_Fragment = {
-  __typename: 'Impulse';
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-};
+type ContentAuthor_Event_Fragment = { __typename: 'Event', ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null };
 
-type ContentAuthor_Topic_Fragment = {
-  __typename: 'Topic';
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-};
+type ContentAuthor_Impulse_Fragment = { __typename: 'Impulse', ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null };
 
-export type ContentAuthorFragment =
-  | ContentAuthor_Article_Fragment
-  | ContentAuthor_Event_Fragment
-  | ContentAuthor_Impulse_Fragment
-  | ContentAuthor_Topic_Fragment;
+type ContentAuthor_Topic_Fragment = { __typename: 'Topic', ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null };
 
-type AgentSignature_Group_Fragment = {
-  __typename: 'Group';
-  info?: string | null;
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+export type ContentAuthorFragment = ContentAuthor_Article_Fragment | ContentAuthor_Event_Fragment | ContentAuthor_Impulse_Fragment | ContentAuthor_Topic_Fragment;
 
-type AgentSignature_Network_Fragment = {
-  __typename: 'Network';
-  info?: string | null;
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+type AgentSignature_Group_Fragment = { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-type AgentSignature_Person_Fragment = {
-  __typename: 'Person';
-  info?: string | null;
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+type AgentSignature_Network_Fragment = { __typename: 'Network', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-export type AgentSignatureFragment =
-  | AgentSignature_Group_Fragment
-  | AgentSignature_Network_Fragment
-  | AgentSignature_Person_Fragment;
+type AgentSignature_Person_Fragment = { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-type AgentAvatar_Group_Fragment = {
-  __typename: 'Group';
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+export type AgentSignatureFragment = AgentSignature_Group_Fragment | AgentSignature_Network_Fragment | AgentSignature_Person_Fragment;
 
-type AgentAvatar_Network_Fragment = {
-  __typename: 'Network';
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+type AgentAvatar_Group_Fragment = { __typename: 'Group', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-type AgentAvatar_Person_Fragment = {
-  __typename: 'Person';
-  id: string;
-  name: string;
-  imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-};
+type AgentAvatar_Network_Fragment = { __typename: 'Network', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-export type AgentAvatarFragment =
-  | AgentAvatar_Group_Fragment
-  | AgentAvatar_Network_Fragment
-  | AgentAvatar_Person_Fragment;
+type AgentAvatar_Person_Fragment = { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null };
 
-type Document_File_Fragment = { __typename: 'File'; id: string; resourceLocation?: string | null };
+export type AgentAvatarFragment = AgentAvatar_Group_Fragment | AgentAvatar_Network_Fragment | AgentAvatar_Person_Fragment;
 
-type Document_Image_Fragment = { __typename: 'Image'; id: string; resourceLocation?: string | null };
+type Document_File_Fragment = { __typename: 'File', id: string, resourceLocation?: string | null };
+
+type Document_Image_Fragment = { __typename: 'Image', id: string, resourceLocation?: string | null };
 
 export type DocumentFragment = Document_File_Fragment | Document_Image_Fragment;
 
-type ContentImages_Article_Fragment = {
-  __typename: 'Article';
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-};
-
-type ContentImages_Event_Fragment = {
-  __typename: 'Event';
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-};
-
-type ContentImages_Impulse_Fragment = {
-  __typename: 'Impulse';
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-};
-
-type ContentImages_Topic_Fragment = {
-  __typename: 'Topic';
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-};
-
-export type ContentImagesFragment =
-  | ContentImages_Article_Fragment
-  | ContentImages_Event_Fragment
-  | ContentImages_Impulse_Fragment
-  | ContentImages_Topic_Fragment;
-
-type ContentCategories_Article_Fragment = {
-  __typename: 'Article';
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-};
-
-type ContentCategories_Event_Fragment = {
-  __typename: 'Event';
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-};
-
-type ContentCategories_Impulse_Fragment = {
-  __typename: 'Impulse';
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-};
-
-type ContentCategories_Topic_Fragment = {
-  __typename: 'Topic';
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-};
-
-export type ContentCategoriesFragment =
-  | ContentCategories_Article_Fragment
-  | ContentCategories_Event_Fragment
-  | ContentCategories_Impulse_Fragment
-  | ContentCategories_Topic_Fragment;
-
-export type CategoryFragment = { __typename: 'Category'; id: string; name: string };
-
-type ContentLocation_Article_Fragment = {
-  __typename: 'Article';
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-};
-
-type ContentLocation_Event_Fragment = {
-  __typename: 'Event';
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-};
-
-type ContentLocation_Impulse_Fragment = {
-  __typename: 'Impulse';
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-};
-
-type ContentLocation_Topic_Fragment = {
-  __typename: 'Topic';
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-};
-
-export type ContentLocationFragment =
-  | ContentLocation_Article_Fragment
-  | ContentLocation_Event_Fragment
-  | ContentLocation_Impulse_Fragment
-  | ContentLocation_Topic_Fragment;
-
-export type AddressFragment = { __typename: 'Address'; id: string; name?: string | null };
-
-type ContentPermissions_Article_Fragment = {
-  __typename: 'Article';
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-};
-
-type ContentPermissions_Event_Fragment = {
-  __typename: 'Event';
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-};
-
-type ContentPermissions_Impulse_Fragment = {
-  __typename: 'Impulse';
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-};
-
-type ContentPermissions_Topic_Fragment = {
-  __typename: 'Topic';
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-};
-
-export type ContentPermissionsFragment =
-  | ContentPermissions_Article_Fragment
-  | ContentPermissions_Event_Fragment
-  | ContentPermissions_Impulse_Fragment
-  | ContentPermissions_Topic_Fragment;
-
-type ContentSummary_Article_Fragment = {
-  __typename: 'Article';
-  title: string;
-  warning?: string | null;
-  visibility: Visibility;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  displayedByNetwork: {
-    __typename: 'NetworkConnection';
-    edges: Array<{ __typename: 'NetworkEdge'; node: { __typename: 'Network'; id: string; name: string } }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _viewer: {
-    __typename: 'ArticleViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
-
-type ContentSummary_Event_Fragment = {
-  __typename: 'Event';
-  title: string;
-  warning?: string | null;
-  visibility: Visibility;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  displayedByNetwork: {
-    __typename: 'NetworkConnection';
-    edges: Array<{ __typename: 'NetworkEdge'; node: { __typename: 'Network'; id: string; name: string } }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _viewer: {
-    __typename: 'EventViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
-
-type ContentSummary_Impulse_Fragment = {
-  __typename: 'Impulse';
-  title: string;
-  warning?: string | null;
-  visibility: Visibility;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  displayedByNetwork: {
-    __typename: 'NetworkConnection';
-    edges: Array<{ __typename: 'NetworkEdge'; node: { __typename: 'Network'; id: string; name: string } }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _viewer: {
-    __typename: 'ImpulseViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
-
-type ContentSummary_Topic_Fragment = {
-  __typename: 'Topic';
-  title: string;
-  warning?: string | null;
-  visibility: Visibility;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  displayedByNetwork: {
-    __typename: 'NetworkConnection';
-    edges: Array<{ __typename: 'NetworkEdge'; node: { __typename: 'Network'; id: string; name: string } }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _viewer: {
-    __typename: 'TopicViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
-
-export type ContentSummaryFragment =
-  | ContentSummary_Article_Fragment
-  | ContentSummary_Event_Fragment
-  | ContentSummary_Impulse_Fragment
-  | ContentSummary_Topic_Fragment;
-
-type ContentStats_Article_Fragment = {
-  __typename: 'Article';
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-};
-
-type ContentStats_Event_Fragment = {
-  __typename: 'Event';
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-};
-
-type ContentStats_Impulse_Fragment = {
-  __typename: 'Impulse';
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-};
-
-type ContentStats_Topic_Fragment = {
-  __typename: 'Topic';
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-};
-
-export type ContentStatsFragment =
-  | ContentStats_Article_Fragment
-  | ContentStats_Event_Fragment
-  | ContentStats_Impulse_Fragment
-  | ContentStats_Topic_Fragment;
-
-type ContentNetworks_Article_Fragment = {
-  __typename: 'Article';
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-};
-
-type ContentNetworks_Event_Fragment = {
-  __typename: 'Event';
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-};
-
-type ContentNetworks_Impulse_Fragment = {
-  __typename: 'Impulse';
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-};
-
-type ContentNetworks_Topic_Fragment = {
-  __typename: 'Topic';
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-};
-
-export type ContentNetworksFragment =
-  | ContentNetworks_Article_Fragment
-  | ContentNetworks_Event_Fragment
-  | ContentNetworks_Impulse_Fragment
-  | ContentNetworks_Topic_Fragment;
-
-export type MinimalNetworkInfoFragment = { __typename: 'Network'; id: string; name: string };
-
-type PageInfo_AccountConnection_Fragment = {
-  __typename: 'AccountConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_AddressConnection_Fragment = {
-  __typename: 'AddressConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_AddressScopeConnection_Fragment = {
-  __typename: 'AddressScopeConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_AgentConnection_Fragment = {
-  __typename: 'AgentConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ArticleConnection_Fragment = {
-  __typename: 'ArticleConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_CategoryConnection_Fragment = {
-  __typename: 'CategoryConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ChannelConnection_Fragment = {
-  __typename: 'ChannelConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_CollabTextConnection_Fragment = {
-  __typename: 'CollabTextConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_CommentConnection_Fragment = {
-  __typename: 'CommentConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_CommentRatingConnection_Fragment = {
-  __typename: 'CommentRatingConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ContentConnection_Fragment = {
-  __typename: 'ContentConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ContentRatingConnection_Fragment = {
-  __typename: 'ContentRatingConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_DocumentConnection_Fragment = {
-  __typename: 'DocumentConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_EventConnection_Fragment = {
-  __typename: 'EventConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_FeedConnection_Fragment = {
-  __typename: 'FeedConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_FileConnection_Fragment = {
-  __typename: 'FileConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_GroupConnection_Fragment = {
-  __typename: 'GroupConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ImageConnection_Fragment = {
-  __typename: 'ImageConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ImpulseConnection_Fragment = {
-  __typename: 'ImpulseConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_MembershipConnection_Fragment = {
-  __typename: 'MembershipConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_MembershipInviteConnection_Fragment = {
-  __typename: 'MembershipInviteConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_MembershipRequestConnection_Fragment = {
-  __typename: 'MembershipRequestConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_NetworkCategoryConnection_Fragment = {
-  __typename: 'NetworkCategoryConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_NetworkConnection_Fragment = {
-  __typename: 'NetworkConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_OnlineAccountConnection_Fragment = {
-  __typename: 'OnlineAccountConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_PersonConnection_Fragment = {
-  __typename: 'PersonConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_PreferenceConnection_Fragment = {
-  __typename: 'PreferenceConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_RatingConnection_Fragment = {
-  __typename: 'RatingConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_RoleConnection_Fragment = {
-  __typename: 'RoleConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_TaskConnection_Fragment = {
-  __typename: 'TaskConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_ThingConnection_Fragment = {
-  __typename: 'ThingConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_TopicConnection_Fragment = {
-  __typename: 'TopicConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-type PageInfo_VideoMeetingConnection_Fragment = {
-  __typename: 'VideoMeetingConnection';
-  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-};
-
-export type PageInfoFragment =
-  | PageInfo_AccountConnection_Fragment
-  | PageInfo_AddressConnection_Fragment
-  | PageInfo_AddressScopeConnection_Fragment
-  | PageInfo_AgentConnection_Fragment
-  | PageInfo_ArticleConnection_Fragment
-  | PageInfo_CategoryConnection_Fragment
-  | PageInfo_ChannelConnection_Fragment
-  | PageInfo_CollabTextConnection_Fragment
-  | PageInfo_CommentConnection_Fragment
-  | PageInfo_CommentRatingConnection_Fragment
-  | PageInfo_ContentConnection_Fragment
-  | PageInfo_ContentRatingConnection_Fragment
-  | PageInfo_DocumentConnection_Fragment
-  | PageInfo_EventConnection_Fragment
-  | PageInfo_FeedConnection_Fragment
-  | PageInfo_FileConnection_Fragment
-  | PageInfo_GroupConnection_Fragment
-  | PageInfo_ImageConnection_Fragment
-  | PageInfo_ImpulseConnection_Fragment
-  | PageInfo_MembershipConnection_Fragment
-  | PageInfo_MembershipInviteConnection_Fragment
-  | PageInfo_MembershipRequestConnection_Fragment
-  | PageInfo_NetworkCategoryConnection_Fragment
-  | PageInfo_NetworkConnection_Fragment
-  | PageInfo_OnlineAccountConnection_Fragment
-  | PageInfo_PersonConnection_Fragment
-  | PageInfo_PreferenceConnection_Fragment
-  | PageInfo_RatingConnection_Fragment
-  | PageInfo_RoleConnection_Fragment
-  | PageInfo_TaskConnection_Fragment
-  | PageInfo_ThingConnection_Fragment
-  | PageInfo_TopicConnection_Fragment
-  | PageInfo_VideoMeetingConnection_Fragment;
-
-type ContentRatings_Article_Fragment = {
-  __typename: 'Article';
-  ratedByContentRating: {
-    __typename: 'ContentRatingConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'ContentRatingEdge';
-      node: {
-        __typename: 'ContentRating';
-        id: string;
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-  };
-};
-
-type ContentRatings_Event_Fragment = {
-  __typename: 'Event';
-  ratedByContentRating: {
-    __typename: 'ContentRatingConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'ContentRatingEdge';
-      node: {
-        __typename: 'ContentRating';
-        id: string;
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-  };
-};
-
-type ContentRatings_Impulse_Fragment = {
-  __typename: 'Impulse';
-  ratedByContentRating: {
-    __typename: 'ContentRatingConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'ContentRatingEdge';
-      node: {
-        __typename: 'ContentRating';
-        id: string;
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-  };
-};
-
-type ContentRatings_Topic_Fragment = {
-  __typename: 'Topic';
-  ratedByContentRating: {
-    __typename: 'ContentRatingConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'ContentRatingEdge';
-      node: {
-        __typename: 'ContentRating';
-        id: string;
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-  };
-};
-
-export type ContentRatingsFragment =
-  | ContentRatings_Article_Fragment
-  | ContentRatings_Event_Fragment
-  | ContentRatings_Impulse_Fragment
-  | ContentRatings_Topic_Fragment;
-
-type Rating_CommentRating_Fragment = {
-  __typename: 'CommentRating';
-  id: string;
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-};
-
-type Rating_ContentRating_Fragment = {
-  __typename: 'ContentRating';
-  id: string;
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-};
+type ContentImages_Article_Fragment = { __typename: 'Article', imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> } };
+
+type ContentImages_Event_Fragment = { __typename: 'Event', imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> } };
+
+type ContentImages_Impulse_Fragment = { __typename: 'Impulse', imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> } };
+
+type ContentImages_Topic_Fragment = { __typename: 'Topic', imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> } };
+
+export type ContentImagesFragment = ContentImages_Article_Fragment | ContentImages_Event_Fragment | ContentImages_Impulse_Fragment | ContentImages_Topic_Fragment;
+
+type ContentCategories_Article_Fragment = { __typename: 'Article', categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> } };
+
+type ContentCategories_Event_Fragment = { __typename: 'Event', categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> } };
+
+type ContentCategories_Impulse_Fragment = { __typename: 'Impulse', categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> } };
+
+type ContentCategories_Topic_Fragment = { __typename: 'Topic', categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> } };
+
+export type ContentCategoriesFragment = ContentCategories_Article_Fragment | ContentCategories_Event_Fragment | ContentCategories_Impulse_Fragment | ContentCategories_Topic_Fragment;
+
+export type CategoryFragment = { __typename: 'Category', id: string, name: string };
+
+type ContentLocation_Article_Fragment = { __typename: 'Article', locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null };
+
+type ContentLocation_Event_Fragment = { __typename: 'Event', locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null };
+
+type ContentLocation_Impulse_Fragment = { __typename: 'Impulse', locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null };
+
+type ContentLocation_Topic_Fragment = { __typename: 'Topic', locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null };
+
+export type ContentLocationFragment = ContentLocation_Article_Fragment | ContentLocation_Event_Fragment | ContentLocation_Impulse_Fragment | ContentLocation_Topic_Fragment;
+
+export type AddressFragment = { __typename: 'Address', id: string, name?: string | null };
+
+type ContentPermissions_Article_Fragment = { __typename: 'Article', _permissions?: { __typename: 'Permissions', update?: boolean | null } | null };
+
+type ContentPermissions_Event_Fragment = { __typename: 'Event', _permissions?: { __typename: 'Permissions', update?: boolean | null } | null };
+
+type ContentPermissions_Impulse_Fragment = { __typename: 'Impulse', _permissions?: { __typename: 'Permissions', update?: boolean | null } | null };
+
+type ContentPermissions_Topic_Fragment = { __typename: 'Topic', _permissions?: { __typename: 'Permissions', update?: boolean | null } | null };
+
+export type ContentPermissionsFragment = ContentPermissions_Article_Fragment | ContentPermissions_Event_Fragment | ContentPermissions_Impulse_Fragment | ContentPermissions_Topic_Fragment;
+
+type ContentSummary_Article_Fragment = { __typename: 'Article', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
+
+type ContentSummary_Event_Fragment = { __typename: 'Event', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'EventViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
+
+type ContentSummary_Impulse_Fragment = { __typename: 'Impulse', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ImpulseViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
+
+type ContentSummary_Topic_Fragment = { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
+
+export type ContentSummaryFragment = ContentSummary_Article_Fragment | ContentSummary_Event_Fragment | ContentSummary_Impulse_Fragment | ContentSummary_Topic_Fragment;
+
+type ContentStats_Article_Fragment = { __typename: 'Article', ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number } };
+
+type ContentStats_Event_Fragment = { __typename: 'Event', ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number } };
+
+type ContentStats_Impulse_Fragment = { __typename: 'Impulse', ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number } };
+
+type ContentStats_Topic_Fragment = { __typename: 'Topic', ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number } };
+
+export type ContentStatsFragment = ContentStats_Article_Fragment | ContentStats_Event_Fragment | ContentStats_Impulse_Fragment | ContentStats_Topic_Fragment;
+
+type ContentNetworks_Article_Fragment = { __typename: 'Article', managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> } };
+
+type ContentNetworks_Event_Fragment = { __typename: 'Event', managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> } };
+
+type ContentNetworks_Impulse_Fragment = { __typename: 'Impulse', managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> } };
+
+type ContentNetworks_Topic_Fragment = { __typename: 'Topic', managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> } };
+
+export type ContentNetworksFragment = ContentNetworks_Article_Fragment | ContentNetworks_Event_Fragment | ContentNetworks_Impulse_Fragment | ContentNetworks_Topic_Fragment;
+
+export type MinimalNetworkInfoFragment = { __typename: 'Network', id: string, name: string };
+
+type PageInfo_AccountConnection_Fragment = { __typename: 'AccountConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_AddressConnection_Fragment = { __typename: 'AddressConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_AddressScopeConnection_Fragment = { __typename: 'AddressScopeConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_AgentConnection_Fragment = { __typename: 'AgentConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ArticleConnection_Fragment = { __typename: 'ArticleConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_CategoryConnection_Fragment = { __typename: 'CategoryConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ChannelConnection_Fragment = { __typename: 'ChannelConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_CollabTextConnection_Fragment = { __typename: 'CollabTextConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_CommentConnection_Fragment = { __typename: 'CommentConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_CommentRatingConnection_Fragment = { __typename: 'CommentRatingConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ContentConnection_Fragment = { __typename: 'ContentConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ContentRatingConnection_Fragment = { __typename: 'ContentRatingConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_DocumentConnection_Fragment = { __typename: 'DocumentConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_EventConnection_Fragment = { __typename: 'EventConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_FeedConnection_Fragment = { __typename: 'FeedConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_FileConnection_Fragment = { __typename: 'FileConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_GroupConnection_Fragment = { __typename: 'GroupConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ImageConnection_Fragment = { __typename: 'ImageConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ImpulseConnection_Fragment = { __typename: 'ImpulseConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_MembershipConnection_Fragment = { __typename: 'MembershipConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_MembershipInviteConnection_Fragment = { __typename: 'MembershipInviteConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_MembershipRequestConnection_Fragment = { __typename: 'MembershipRequestConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_NetworkCategoryConnection_Fragment = { __typename: 'NetworkCategoryConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_NetworkConnection_Fragment = { __typename: 'NetworkConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_OnlineAccountConnection_Fragment = { __typename: 'OnlineAccountConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_PersonConnection_Fragment = { __typename: 'PersonConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_PreferenceConnection_Fragment = { __typename: 'PreferenceConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_RatingConnection_Fragment = { __typename: 'RatingConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_RoleConnection_Fragment = { __typename: 'RoleConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_TaskConnection_Fragment = { __typename: 'TaskConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_ThingConnection_Fragment = { __typename: 'ThingConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_TopicConnection_Fragment = { __typename: 'TopicConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+type PageInfo_VideoMeetingConnection_Fragment = { __typename: 'VideoMeetingConnection', pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } };
+
+export type PageInfoFragment = PageInfo_AccountConnection_Fragment | PageInfo_AddressConnection_Fragment | PageInfo_AddressScopeConnection_Fragment | PageInfo_AgentConnection_Fragment | PageInfo_ArticleConnection_Fragment | PageInfo_CategoryConnection_Fragment | PageInfo_ChannelConnection_Fragment | PageInfo_CollabTextConnection_Fragment | PageInfo_CommentConnection_Fragment | PageInfo_CommentRatingConnection_Fragment | PageInfo_ContentConnection_Fragment | PageInfo_ContentRatingConnection_Fragment | PageInfo_DocumentConnection_Fragment | PageInfo_EventConnection_Fragment | PageInfo_FeedConnection_Fragment | PageInfo_FileConnection_Fragment | PageInfo_GroupConnection_Fragment | PageInfo_ImageConnection_Fragment | PageInfo_ImpulseConnection_Fragment | PageInfo_MembershipConnection_Fragment | PageInfo_MembershipInviteConnection_Fragment | PageInfo_MembershipRequestConnection_Fragment | PageInfo_NetworkCategoryConnection_Fragment | PageInfo_NetworkConnection_Fragment | PageInfo_OnlineAccountConnection_Fragment | PageInfo_PersonConnection_Fragment | PageInfo_PreferenceConnection_Fragment | PageInfo_RatingConnection_Fragment | PageInfo_RoleConnection_Fragment | PageInfo_TaskConnection_Fragment | PageInfo_ThingConnection_Fragment | PageInfo_TopicConnection_Fragment | PageInfo_VideoMeetingConnection_Fragment;
+
+type ContentRatings_Article_Fragment = { __typename: 'Article', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> } };
+
+type ContentRatings_Event_Fragment = { __typename: 'Event', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> } };
+
+type ContentRatings_Impulse_Fragment = { __typename: 'Impulse', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> } };
+
+type ContentRatings_Topic_Fragment = { __typename: 'Topic', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number, edges: Array<{ __typename: 'ContentRatingEdge', node: { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }> } };
+
+export type ContentRatingsFragment = ContentRatings_Article_Fragment | ContentRatings_Event_Fragment | ContentRatings_Impulse_Fragment | ContentRatings_Topic_Fragment;
+
+type Rating_CommentRating_Fragment = { __typename: 'CommentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null };
+
+type Rating_ContentRating_Fragment = { __typename: 'ContentRating', id: string, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null };
 
 export type RatingFragment = Rating_CommentRating_Fragment | Rating_ContentRating_Fragment;
 
-type ContentComments_Article_Fragment = {
-  __typename: 'Article';
-  commentedByComment: {
-    __typename: 'CommentConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'CommentEdge';
-      node: {
-        __typename: 'Comment';
-        id: string;
-        createdAt: Date;
-        text: string;
-        ownedBy?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-};
+type ContentComments_Article_Fragment = { __typename: 'Article', commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-type ContentComments_Event_Fragment = {
-  __typename: 'Event';
-  commentedByComment: {
-    __typename: 'CommentConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'CommentEdge';
-      node: {
-        __typename: 'Comment';
-        id: string;
-        createdAt: Date;
-        text: string;
-        ownedBy?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-};
+type ContentComments_Event_Fragment = { __typename: 'Event', commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-type ContentComments_Impulse_Fragment = {
-  __typename: 'Impulse';
-  commentedByComment: {
-    __typename: 'CommentConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'CommentEdge';
-      node: {
-        __typename: 'Comment';
-        id: string;
-        createdAt: Date;
-        text: string;
-        ownedBy?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-};
+type ContentComments_Impulse_Fragment = { __typename: 'Impulse', commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-type ContentComments_Topic_Fragment = {
-  __typename: 'Topic';
-  commentedByComment: {
-    __typename: 'CommentConnection';
-    count: number;
-    edges: Array<{
-      __typename: 'CommentEdge';
-      node: {
-        __typename: 'Comment';
-        id: string;
-        createdAt: Date;
-        text: string;
-        ownedBy?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-      };
-    }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-};
+type ContentComments_Topic_Fragment = { __typename: 'Topic', commentedByComment: { __typename: 'CommentConnection', count: number, edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
-export type ContentCommentsFragment =
-  | ContentComments_Article_Fragment
-  | ContentComments_Event_Fragment
-  | ContentComments_Impulse_Fragment
-  | ContentComments_Topic_Fragment;
+export type ContentCommentsFragment = ContentComments_Article_Fragment | ContentComments_Event_Fragment | ContentComments_Impulse_Fragment | ContentComments_Topic_Fragment;
 
-export type CommentFragment = {
-  __typename: 'Comment';
-  id: string;
-  createdAt: Date;
-  text: string;
-  ownedBy?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-};
+export type CommentFragment = { __typename: 'Comment', id: string, createdAt: Date, text: string, ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null };
 
-export type CommentAuthorFragment = {
-  __typename: 'Comment';
-  ownedBy?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-};
+export type CommentAuthorFragment = { __typename: 'Comment', ownedBy?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null };
 
-type ContentTopics_Article_Fragment = {
-  __typename: 'Article';
-  curatedByTopic: {
-    __typename: 'TopicConnection';
-    edges: Array<{
-      __typename: 'TopicEdge';
-      node: {
-        __typename: 'Topic';
-        title: string;
-        warning?: string | null;
-        visibility: Visibility;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        displayedByNetwork: {
-          __typename: 'NetworkConnection';
-          edges: Array<{
-            __typename: 'NetworkEdge';
-            node: { __typename: 'Network'; id: string; name: string };
-          }>;
-          pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-        };
-        imagedByImage: {
-          __typename: 'ImageConnection';
-          edges: Array<{
-            __typename: 'ImageEdge';
-            node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-          }>;
-        };
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-        createdByGroup?: {
-          __typename: 'Group';
-          info?: string | null;
-          id: string;
-          name: string;
-          imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-        } | null;
-        ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-        commentStats: { __typename: 'CommentConnection'; count: number };
-        managedByAgent: {
-          __typename: 'AgentConnection';
-          edges: Array<{
-            __typename: 'AgentEdge';
-            node:
-              | {
-                  __typename: 'Group';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Network';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Person';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                };
-          }>;
-        };
-        categorizedByCategory: {
-          __typename: 'CategoryConnection';
-          edges: Array<{
-            __typename: 'CategoryEdge';
-            node: { __typename: 'Category'; id: string; name: string };
-          }>;
-        };
-        locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-        _viewer: {
-          __typename: 'TopicViewer';
-          ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-          commentedByComment: { __typename: 'CommentConnection'; count: number };
-        };
-      };
-    }>;
-  };
-};
+type ContentTopics_Article_Fragment = { __typename: 'Article', curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> } };
 
-type ContentTopics_Event_Fragment = {
-  __typename: 'Event';
-  curatedByTopic: {
-    __typename: 'TopicConnection';
-    edges: Array<{
-      __typename: 'TopicEdge';
-      node: {
-        __typename: 'Topic';
-        title: string;
-        warning?: string | null;
-        visibility: Visibility;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        displayedByNetwork: {
-          __typename: 'NetworkConnection';
-          edges: Array<{
-            __typename: 'NetworkEdge';
-            node: { __typename: 'Network'; id: string; name: string };
-          }>;
-          pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-        };
-        imagedByImage: {
-          __typename: 'ImageConnection';
-          edges: Array<{
-            __typename: 'ImageEdge';
-            node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-          }>;
-        };
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-        createdByGroup?: {
-          __typename: 'Group';
-          info?: string | null;
-          id: string;
-          name: string;
-          imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-        } | null;
-        ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-        commentStats: { __typename: 'CommentConnection'; count: number };
-        managedByAgent: {
-          __typename: 'AgentConnection';
-          edges: Array<{
-            __typename: 'AgentEdge';
-            node:
-              | {
-                  __typename: 'Group';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Network';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Person';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                };
-          }>;
-        };
-        categorizedByCategory: {
-          __typename: 'CategoryConnection';
-          edges: Array<{
-            __typename: 'CategoryEdge';
-            node: { __typename: 'Category'; id: string; name: string };
-          }>;
-        };
-        locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-        _viewer: {
-          __typename: 'TopicViewer';
-          ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-          commentedByComment: { __typename: 'CommentConnection'; count: number };
-        };
-      };
-    }>;
-  };
-};
+type ContentTopics_Event_Fragment = { __typename: 'Event', curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> } };
 
-type ContentTopics_Impulse_Fragment = {
-  __typename: 'Impulse';
-  curatedByTopic: {
-    __typename: 'TopicConnection';
-    edges: Array<{
-      __typename: 'TopicEdge';
-      node: {
-        __typename: 'Topic';
-        title: string;
-        warning?: string | null;
-        visibility: Visibility;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        displayedByNetwork: {
-          __typename: 'NetworkConnection';
-          edges: Array<{
-            __typename: 'NetworkEdge';
-            node: { __typename: 'Network'; id: string; name: string };
-          }>;
-          pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-        };
-        imagedByImage: {
-          __typename: 'ImageConnection';
-          edges: Array<{
-            __typename: 'ImageEdge';
-            node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-          }>;
-        };
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-        createdByGroup?: {
-          __typename: 'Group';
-          info?: string | null;
-          id: string;
-          name: string;
-          imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-        } | null;
-        ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-        commentStats: { __typename: 'CommentConnection'; count: number };
-        managedByAgent: {
-          __typename: 'AgentConnection';
-          edges: Array<{
-            __typename: 'AgentEdge';
-            node:
-              | {
-                  __typename: 'Group';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Network';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Person';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                };
-          }>;
-        };
-        categorizedByCategory: {
-          __typename: 'CategoryConnection';
-          edges: Array<{
-            __typename: 'CategoryEdge';
-            node: { __typename: 'Category'; id: string; name: string };
-          }>;
-        };
-        locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-        _viewer: {
-          __typename: 'TopicViewer';
-          ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-          commentedByComment: { __typename: 'CommentConnection'; count: number };
-        };
-      };
-    }>;
-  };
-};
+type ContentTopics_Impulse_Fragment = { __typename: 'Impulse', curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> } };
 
-type ContentTopics_Topic_Fragment = {
-  __typename: 'Topic';
-  curatedByTopic: {
-    __typename: 'TopicConnection';
-    edges: Array<{
-      __typename: 'TopicEdge';
-      node: {
-        __typename: 'Topic';
-        title: string;
-        warning?: string | null;
-        visibility: Visibility;
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        displayedByNetwork: {
-          __typename: 'NetworkConnection';
-          edges: Array<{
-            __typename: 'NetworkEdge';
-            node: { __typename: 'Network'; id: string; name: string };
-          }>;
-          pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-        };
-        imagedByImage: {
-          __typename: 'ImageConnection';
-          edges: Array<{
-            __typename: 'ImageEdge';
-            node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-          }>;
-        };
-        ownedByOnlineAccount?: {
-          __typename: 'OnlineAccount';
-          represents?: {
-            __typename: 'Person';
-            info?: string | null;
-            id: string;
-            name: string;
-            imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-          } | null;
-        } | null;
-        createdByGroup?: {
-          __typename: 'Group';
-          info?: string | null;
-          id: string;
-          name: string;
-          imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-        } | null;
-        ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-        commentStats: { __typename: 'CommentConnection'; count: number };
-        managedByAgent: {
-          __typename: 'AgentConnection';
-          edges: Array<{
-            __typename: 'AgentEdge';
-            node:
-              | {
-                  __typename: 'Group';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Network';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                }
-              | {
-                  __typename: 'Person';
-                  id: string;
-                  name: string;
-                  slug?: string | null;
-                  imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                };
-          }>;
-        };
-        categorizedByCategory: {
-          __typename: 'CategoryConnection';
-          edges: Array<{
-            __typename: 'CategoryEdge';
-            node: { __typename: 'Category'; id: string; name: string };
-          }>;
-        };
-        locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-        _viewer: {
-          __typename: 'TopicViewer';
-          ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-          commentedByComment: { __typename: 'CommentConnection'; count: number };
-        };
-      };
-    }>;
-  };
-};
+type ContentTopics_Topic_Fragment = { __typename: 'Topic', curatedByTopic: { __typename: 'TopicConnection', edges: Array<{ __typename: 'TopicEdge', node: { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> } };
 
-export type ContentTopicsFragment =
-  | ContentTopics_Article_Fragment
-  | ContentTopics_Event_Fragment
-  | ContentTopics_Impulse_Fragment
-  | ContentTopics_Topic_Fragment;
+export type ContentTopicsFragment = ContentTopics_Article_Fragment | ContentTopics_Event_Fragment | ContentTopics_Impulse_Fragment | ContentTopics_Topic_Fragment;
 
 export type TopicQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
-export type TopicQuery = {
-  __typename?: 'Query';
-  topic?: {
-    __typename: 'Topic';
-    title: string;
-    intro?: string | null;
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    curates: {
-      __typename: 'ContentConnection';
-      edges: Array<{
-        __typename: 'ContentEdge';
-        node:
-          | {
-              __typename: 'Article';
-              title: string;
-              warning?: string | null;
-              visibility: Visibility;
-              id: string;
-              createdAt: Date;
-              updatedAt: Date;
-              displayedByNetwork: {
-                __typename: 'NetworkConnection';
-                edges: Array<{
-                  __typename: 'NetworkEdge';
-                  node: { __typename: 'Network'; id: string; name: string };
-                }>;
-                pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-              };
-              imagedByImage: {
-                __typename: 'ImageConnection';
-                edges: Array<{
-                  __typename: 'ImageEdge';
-                  node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                }>;
-              };
-              ownedByOnlineAccount?: {
-                __typename: 'OnlineAccount';
-                represents?: {
-                  __typename: 'Person';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-              } | null;
-              createdByGroup?: {
-                __typename: 'Group';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-              ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-              commentStats: { __typename: 'CommentConnection'; count: number };
-              managedByAgent: {
-                __typename: 'AgentConnection';
-                edges: Array<{
-                  __typename: 'AgentEdge';
-                  node:
-                    | {
-                        __typename: 'Group';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Network';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Person';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      };
-                }>;
-              };
-              categorizedByCategory: {
-                __typename: 'CategoryConnection';
-                edges: Array<{
-                  __typename: 'CategoryEdge';
-                  node: { __typename: 'Category'; id: string; name: string };
-                }>;
-              };
-              locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-              _viewer: {
-                __typename: 'ArticleViewer';
-                ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                commentedByComment: { __typename: 'CommentConnection'; count: number };
-              };
-            }
-          | {
-              __typename: 'Event';
-              title: string;
-              warning?: string | null;
-              visibility: Visibility;
-              id: string;
-              createdAt: Date;
-              updatedAt: Date;
-              displayedByNetwork: {
-                __typename: 'NetworkConnection';
-                edges: Array<{
-                  __typename: 'NetworkEdge';
-                  node: { __typename: 'Network'; id: string; name: string };
-                }>;
-                pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-              };
-              imagedByImage: {
-                __typename: 'ImageConnection';
-                edges: Array<{
-                  __typename: 'ImageEdge';
-                  node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                }>;
-              };
-              ownedByOnlineAccount?: {
-                __typename: 'OnlineAccount';
-                represents?: {
-                  __typename: 'Person';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-              } | null;
-              createdByGroup?: {
-                __typename: 'Group';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-              ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-              commentStats: { __typename: 'CommentConnection'; count: number };
-              managedByAgent: {
-                __typename: 'AgentConnection';
-                edges: Array<{
-                  __typename: 'AgentEdge';
-                  node:
-                    | {
-                        __typename: 'Group';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Network';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Person';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      };
-                }>;
-              };
-              categorizedByCategory: {
-                __typename: 'CategoryConnection';
-                edges: Array<{
-                  __typename: 'CategoryEdge';
-                  node: { __typename: 'Category'; id: string; name: string };
-                }>;
-              };
-              locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-              _viewer: {
-                __typename: 'EventViewer';
-                ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                commentedByComment: { __typename: 'CommentConnection'; count: number };
-              };
-            }
-          | {
-              __typename: 'Impulse';
-              title: string;
-              warning?: string | null;
-              visibility: Visibility;
-              id: string;
-              createdAt: Date;
-              updatedAt: Date;
-              displayedByNetwork: {
-                __typename: 'NetworkConnection';
-                edges: Array<{
-                  __typename: 'NetworkEdge';
-                  node: { __typename: 'Network'; id: string; name: string };
-                }>;
-                pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-              };
-              imagedByImage: {
-                __typename: 'ImageConnection';
-                edges: Array<{
-                  __typename: 'ImageEdge';
-                  node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                }>;
-              };
-              ownedByOnlineAccount?: {
-                __typename: 'OnlineAccount';
-                represents?: {
-                  __typename: 'Person';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-              } | null;
-              createdByGroup?: {
-                __typename: 'Group';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-              ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-              commentStats: { __typename: 'CommentConnection'; count: number };
-              managedByAgent: {
-                __typename: 'AgentConnection';
-                edges: Array<{
-                  __typename: 'AgentEdge';
-                  node:
-                    | {
-                        __typename: 'Group';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Network';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Person';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      };
-                }>;
-              };
-              categorizedByCategory: {
-                __typename: 'CategoryConnection';
-                edges: Array<{
-                  __typename: 'CategoryEdge';
-                  node: { __typename: 'Category'; id: string; name: string };
-                }>;
-              };
-              locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-              _viewer: {
-                __typename: 'ImpulseViewer';
-                ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                commentedByComment: { __typename: 'CommentConnection'; count: number };
-              };
-            }
-          | {
-              __typename: 'Topic';
-              title: string;
-              warning?: string | null;
-              visibility: Visibility;
-              id: string;
-              createdAt: Date;
-              updatedAt: Date;
-              displayedByNetwork: {
-                __typename: 'NetworkConnection';
-                edges: Array<{
-                  __typename: 'NetworkEdge';
-                  node: { __typename: 'Network'; id: string; name: string };
-                }>;
-                pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-              };
-              imagedByImage: {
-                __typename: 'ImageConnection';
-                edges: Array<{
-                  __typename: 'ImageEdge';
-                  node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                }>;
-              };
-              ownedByOnlineAccount?: {
-                __typename: 'OnlineAccount';
-                represents?: {
-                  __typename: 'Person';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-              } | null;
-              createdByGroup?: {
-                __typename: 'Group';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-              ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-              commentStats: { __typename: 'CommentConnection'; count: number };
-              managedByAgent: {
-                __typename: 'AgentConnection';
-                edges: Array<{
-                  __typename: 'AgentEdge';
-                  node:
-                    | {
-                        __typename: 'Group';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Network';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Person';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      };
-                }>;
-              };
-              categorizedByCategory: {
-                __typename: 'CategoryConnection';
-                edges: Array<{
-                  __typename: 'CategoryEdge';
-                  node: { __typename: 'Category'; id: string; name: string };
-                }>;
-              };
-              locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-              _viewer: {
-                __typename: 'TopicViewer';
-                ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                commentedByComment: { __typename: 'CommentConnection'; count: number };
-              };
-            };
-      }>;
-    };
-    createdByGroup?: {
-      __typename: 'Group';
-      intro?: string | null;
-      info?: string | null;
-      id: string;
-      name: string;
-      creates: {
-        __typename: 'ContentConnection';
-        edges: Array<{
-          __typename: 'ContentEdge';
-          node:
-            | { __typename: 'Article' }
-            | { __typename: 'Event' }
-            | { __typename: 'Impulse' }
-            | {
-                __typename: 'Topic';
-                title: string;
-                warning?: string | null;
-                visibility: Visibility;
-                id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                displayedByNetwork: {
-                  __typename: 'NetworkConnection';
-                  edges: Array<{
-                    __typename: 'NetworkEdge';
-                    node: { __typename: 'Network'; id: string; name: string };
-                  }>;
-                  pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-                };
-                imagedByImage: {
-                  __typename: 'ImageConnection';
-                  edges: Array<{
-                    __typename: 'ImageEdge';
-                    node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                  }>;
-                };
-                ownedByOnlineAccount?: {
-                  __typename: 'OnlineAccount';
-                  represents?: {
-                    __typename: 'Person';
-                    info?: string | null;
-                    id: string;
-                    name: string;
-                    imagedByImage?: {
-                      __typename: 'Image';
-                      id: string;
-                      resourceLocation?: string | null;
-                    } | null;
-                  } | null;
-                } | null;
-                createdByGroup?: {
-                  __typename: 'Group';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-                ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-                commentStats: { __typename: 'CommentConnection'; count: number };
-                managedByAgent: {
-                  __typename: 'AgentConnection';
-                  edges: Array<{
-                    __typename: 'AgentEdge';
-                    node:
-                      | {
-                          __typename: 'Group';
-                          id: string;
-                          name: string;
-                          slug?: string | null;
-                          imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                        }
-                      | {
-                          __typename: 'Network';
-                          id: string;
-                          name: string;
-                          slug?: string | null;
-                          imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                        }
-                      | {
-                          __typename: 'Person';
-                          id: string;
-                          name: string;
-                          slug?: string | null;
-                          imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                        };
-                  }>;
-                };
-                categorizedByCategory: {
-                  __typename: 'CategoryConnection';
-                  edges: Array<{
-                    __typename: 'CategoryEdge';
-                    node: { __typename: 'Category'; id: string; name: string };
-                  }>;
-                };
-                locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-                _viewer: {
-                  __typename: 'TopicViewer';
-                  ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                  commentedByComment: { __typename: 'CommentConnection'; count: number };
-                };
-              };
-        }>;
-      };
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-    ownedByOnlineAccount?: {
-      __typename: 'OnlineAccount';
-      represents?: {
-        __typename: 'Person';
-        info?: string | null;
-        id: string;
-        name: string;
-        imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-      } | null;
-    } | null;
-    imagedByImage: {
-      __typename: 'ImageConnection';
-      edges: Array<{
-        __typename: 'ImageEdge';
-        node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-      }>;
-    };
-    categorizedByCategory: {
-      __typename: 'CategoryConnection';
-      edges: Array<{
-        __typename: 'CategoryEdge';
-        node: { __typename: 'Category'; id: string; name: string };
-      }>;
-    };
-    locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-    _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-    _viewer: {
-      __typename: 'TopicViewer';
-      ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-      commentedByComment: { __typename: 'CommentConnection'; count: number };
-    };
-  } | null;
-};
 
-export type TopicFragment = {
-  __typename: 'Topic';
-  title: string;
-  intro?: string | null;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  curates: {
-    __typename: 'ContentConnection';
-    edges: Array<{
-      __typename: 'ContentEdge';
-      node:
-        | {
-            __typename: 'Article';
-            title: string;
-            warning?: string | null;
-            visibility: Visibility;
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            displayedByNetwork: {
-              __typename: 'NetworkConnection';
-              edges: Array<{
-                __typename: 'NetworkEdge';
-                node: { __typename: 'Network'; id: string; name: string };
-              }>;
-              pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-            };
-            imagedByImage: {
-              __typename: 'ImageConnection';
-              edges: Array<{
-                __typename: 'ImageEdge';
-                node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-              }>;
-            };
-            ownedByOnlineAccount?: {
-              __typename: 'OnlineAccount';
-              represents?: {
-                __typename: 'Person';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-            } | null;
-            createdByGroup?: {
-              __typename: 'Group';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-            ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-            commentStats: { __typename: 'CommentConnection'; count: number };
-            managedByAgent: {
-              __typename: 'AgentConnection';
-              edges: Array<{
-                __typename: 'AgentEdge';
-                node:
-                  | {
-                      __typename: 'Group';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Network';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Person';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    };
-              }>;
-            };
-            categorizedByCategory: {
-              __typename: 'CategoryConnection';
-              edges: Array<{
-                __typename: 'CategoryEdge';
-                node: { __typename: 'Category'; id: string; name: string };
-              }>;
-            };
-            locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-            _viewer: {
-              __typename: 'ArticleViewer';
-              ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-              commentedByComment: { __typename: 'CommentConnection'; count: number };
-            };
-          }
-        | {
-            __typename: 'Event';
-            title: string;
-            warning?: string | null;
-            visibility: Visibility;
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            displayedByNetwork: {
-              __typename: 'NetworkConnection';
-              edges: Array<{
-                __typename: 'NetworkEdge';
-                node: { __typename: 'Network'; id: string; name: string };
-              }>;
-              pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-            };
-            imagedByImage: {
-              __typename: 'ImageConnection';
-              edges: Array<{
-                __typename: 'ImageEdge';
-                node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-              }>;
-            };
-            ownedByOnlineAccount?: {
-              __typename: 'OnlineAccount';
-              represents?: {
-                __typename: 'Person';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-            } | null;
-            createdByGroup?: {
-              __typename: 'Group';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-            ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-            commentStats: { __typename: 'CommentConnection'; count: number };
-            managedByAgent: {
-              __typename: 'AgentConnection';
-              edges: Array<{
-                __typename: 'AgentEdge';
-                node:
-                  | {
-                      __typename: 'Group';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Network';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Person';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    };
-              }>;
-            };
-            categorizedByCategory: {
-              __typename: 'CategoryConnection';
-              edges: Array<{
-                __typename: 'CategoryEdge';
-                node: { __typename: 'Category'; id: string; name: string };
-              }>;
-            };
-            locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-            _viewer: {
-              __typename: 'EventViewer';
-              ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-              commentedByComment: { __typename: 'CommentConnection'; count: number };
-            };
-          }
-        | {
-            __typename: 'Impulse';
-            title: string;
-            warning?: string | null;
-            visibility: Visibility;
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            displayedByNetwork: {
-              __typename: 'NetworkConnection';
-              edges: Array<{
-                __typename: 'NetworkEdge';
-                node: { __typename: 'Network'; id: string; name: string };
-              }>;
-              pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-            };
-            imagedByImage: {
-              __typename: 'ImageConnection';
-              edges: Array<{
-                __typename: 'ImageEdge';
-                node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-              }>;
-            };
-            ownedByOnlineAccount?: {
-              __typename: 'OnlineAccount';
-              represents?: {
-                __typename: 'Person';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-            } | null;
-            createdByGroup?: {
-              __typename: 'Group';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-            ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-            commentStats: { __typename: 'CommentConnection'; count: number };
-            managedByAgent: {
-              __typename: 'AgentConnection';
-              edges: Array<{
-                __typename: 'AgentEdge';
-                node:
-                  | {
-                      __typename: 'Group';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Network';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Person';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    };
-              }>;
-            };
-            categorizedByCategory: {
-              __typename: 'CategoryConnection';
-              edges: Array<{
-                __typename: 'CategoryEdge';
-                node: { __typename: 'Category'; id: string; name: string };
-              }>;
-            };
-            locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-            _viewer: {
-              __typename: 'ImpulseViewer';
-              ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-              commentedByComment: { __typename: 'CommentConnection'; count: number };
-            };
-          }
-        | {
-            __typename: 'Topic';
-            title: string;
-            warning?: string | null;
-            visibility: Visibility;
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            displayedByNetwork: {
-              __typename: 'NetworkConnection';
-              edges: Array<{
-                __typename: 'NetworkEdge';
-                node: { __typename: 'Network'; id: string; name: string };
-              }>;
-              pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-            };
-            imagedByImage: {
-              __typename: 'ImageConnection';
-              edges: Array<{
-                __typename: 'ImageEdge';
-                node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-              }>;
-            };
-            ownedByOnlineAccount?: {
-              __typename: 'OnlineAccount';
-              represents?: {
-                __typename: 'Person';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-            } | null;
-            createdByGroup?: {
-              __typename: 'Group';
-              info?: string | null;
-              id: string;
-              name: string;
-              imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-            } | null;
-            ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-            commentStats: { __typename: 'CommentConnection'; count: number };
-            managedByAgent: {
-              __typename: 'AgentConnection';
-              edges: Array<{
-                __typename: 'AgentEdge';
-                node:
-                  | {
-                      __typename: 'Group';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Network';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    }
-                  | {
-                      __typename: 'Person';
-                      id: string;
-                      name: string;
-                      slug?: string | null;
-                      imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                    };
-              }>;
-            };
-            categorizedByCategory: {
-              __typename: 'CategoryConnection';
-              edges: Array<{
-                __typename: 'CategoryEdge';
-                node: { __typename: 'Category'; id: string; name: string };
-              }>;
-            };
-            locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-            _viewer: {
-              __typename: 'TopicViewer';
-              ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-              commentedByComment: { __typename: 'CommentConnection'; count: number };
-            };
-          };
-    }>;
-  };
-  createdByGroup?: {
-    __typename: 'Group';
-    intro?: string | null;
-    info?: string | null;
-    id: string;
-    name: string;
-    creates: {
-      __typename: 'ContentConnection';
-      edges: Array<{
-        __typename: 'ContentEdge';
-        node:
-          | { __typename: 'Article' }
-          | { __typename: 'Event' }
-          | { __typename: 'Impulse' }
-          | {
-              __typename: 'Topic';
-              title: string;
-              warning?: string | null;
-              visibility: Visibility;
-              id: string;
-              createdAt: Date;
-              updatedAt: Date;
-              displayedByNetwork: {
-                __typename: 'NetworkConnection';
-                edges: Array<{
-                  __typename: 'NetworkEdge';
-                  node: { __typename: 'Network'; id: string; name: string };
-                }>;
-                pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-              };
-              imagedByImage: {
-                __typename: 'ImageConnection';
-                edges: Array<{
-                  __typename: 'ImageEdge';
-                  node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-                }>;
-              };
-              ownedByOnlineAccount?: {
-                __typename: 'OnlineAccount';
-                represents?: {
-                  __typename: 'Person';
-                  info?: string | null;
-                  id: string;
-                  name: string;
-                  imagedByImage?: {
-                    __typename: 'Image';
-                    id: string;
-                    resourceLocation?: string | null;
-                  } | null;
-                } | null;
-              } | null;
-              createdByGroup?: {
-                __typename: 'Group';
-                info?: string | null;
-                id: string;
-                name: string;
-                imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-              } | null;
-              ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-              commentStats: { __typename: 'CommentConnection'; count: number };
-              managedByAgent: {
-                __typename: 'AgentConnection';
-                edges: Array<{
-                  __typename: 'AgentEdge';
-                  node:
-                    | {
-                        __typename: 'Group';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Network';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      }
-                    | {
-                        __typename: 'Person';
-                        id: string;
-                        name: string;
-                        slug?: string | null;
-                        imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-                      };
-                }>;
-              };
-              categorizedByCategory: {
-                __typename: 'CategoryConnection';
-                edges: Array<{
-                  __typename: 'CategoryEdge';
-                  node: { __typename: 'Category'; id: string; name: string };
-                }>;
-              };
-              locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-              _viewer: {
-                __typename: 'TopicViewer';
-                ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-                commentedByComment: { __typename: 'CommentConnection'; count: number };
-              };
-            };
-      }>;
-    };
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _permissions?: { __typename: 'Permissions'; update?: boolean | null } | null;
-  _viewer: {
-    __typename: 'TopicViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+export type TopicQuery = { __typename?: 'Query', topic?: { __typename: 'Topic', title: string, intro?: string | null, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, curates: { __typename: 'ContentConnection', edges: Array<{ __typename: 'ContentEdge', node: { __typename: 'Article', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Event', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'EventViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Impulse', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ImpulseViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, createdByGroup?: { __typename: 'Group', intro?: string | null, info?: string | null, id: string, name: string, creates: { __typename: 'ContentConnection', edges: Array<{ __typename: 'ContentEdge', node: { __typename: 'Article' } | { __typename: 'Event' } | { __typename: 'Impulse' } | { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _permissions?: { __typename: 'Permissions', update?: boolean | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | null };
 
-export type TopicTeaserFragment = {
-  __typename: 'Topic';
-  title: string;
-  warning?: string | null;
-  visibility: Visibility;
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  displayedByNetwork: {
-    __typename: 'NetworkConnection';
-    edges: Array<{ __typename: 'NetworkEdge'; node: { __typename: 'Network'; id: string; name: string } }>;
-    pageInfo: { __typename: 'PageInfo'; endCursor?: string | null; hasNextPage: boolean };
-  };
-  imagedByImage: {
-    __typename: 'ImageConnection';
-    edges: Array<{
-      __typename: 'ImageEdge';
-      node: { __typename: 'Image'; id: string; resourceLocation?: string | null };
-    }>;
-  };
-  ownedByOnlineAccount?: {
-    __typename: 'OnlineAccount';
-    represents?: {
-      __typename: 'Person';
-      info?: string | null;
-      id: string;
-      name: string;
-      imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-    } | null;
-  } | null;
-  createdByGroup?: {
-    __typename: 'Group';
-    info?: string | null;
-    id: string;
-    name: string;
-    imagedByImage?: { __typename: 'Image'; id: string; resourceLocation?: string | null } | null;
-  } | null;
-  ratingStats: { __typename: 'ContentRatingConnection'; count: number };
-  commentStats: { __typename: 'CommentConnection'; count: number };
-  managedByAgent: {
-    __typename: 'AgentConnection';
-    edges: Array<{
-      __typename: 'AgentEdge';
-      node:
-        | {
-            __typename: 'Group';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Network';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          }
-        | {
-            __typename: 'Person';
-            id: string;
-            name: string;
-            slug?: string | null;
-            imagedByImage?: { __typename: 'Image'; id: string; name: string } | null;
-          };
-    }>;
-  };
-  categorizedByCategory: {
-    __typename: 'CategoryConnection';
-    edges: Array<{ __typename: 'CategoryEdge'; node: { __typename: 'Category'; id: string; name: string } }>;
-  };
-  locatedByAddress?: { __typename: 'Address'; id: string; name?: string | null } | null;
-  _viewer: {
-    __typename: 'TopicViewer';
-    ratedByContentRating: { __typename: 'ContentRatingConnection'; count: number };
-    commentedByComment: { __typename: 'CommentConnection'; count: number };
-  };
-};
+export type TopicFragment = { __typename: 'Topic', title: string, intro?: string | null, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, curates: { __typename: 'ContentConnection', edges: Array<{ __typename: 'ContentEdge', node: { __typename: 'Article', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ArticleViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Event', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'EventViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Impulse', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'ImpulseViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } | { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, createdByGroup?: { __typename: 'Group', intro?: string | null, info?: string | null, id: string, name: string, creates: { __typename: 'ContentConnection', edges: Array<{ __typename: 'ContentEdge', node: { __typename: 'Article' } | { __typename: 'Event' } | { __typename: 'Impulse' } | { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } } }> }, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _permissions?: { __typename: 'Permissions', update?: boolean | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
+
+export type TopicTeaserFragment = { __typename: 'Topic', title: string, warning?: string | null, visibility: Visibility, id: string, slug?: string | null, createdAt: Date, updatedAt: Date, displayedByNetwork: { __typename: 'NetworkConnection', edges: Array<{ __typename: 'NetworkEdge', node: { __typename: 'Network', id: string, name: string } }>, pageInfo: { __typename: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } }, imagedByImage: { __typename: 'ImageConnection', edges: Array<{ __typename: 'ImageEdge', node: { __typename: 'Image', id: string, resourceLocation?: string | null } }> }, ownedByOnlineAccount?: { __typename: 'OnlineAccount', represents?: { __typename: 'Person', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null } | null, createdByGroup?: { __typename: 'Group', info?: string | null, id: string, name: string, imagedByImage?: { __typename: 'Image', id: string, resourceLocation?: string | null } | null } | null, ratingStats: { __typename: 'ContentRatingConnection', count: number }, commentStats: { __typename: 'CommentConnection', count: number }, managedByAgent: { __typename: 'AgentConnection', edges: Array<{ __typename: 'AgentEdge', node: { __typename: 'Group', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Network', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } | { __typename: 'Person', id: string, name: string, slug?: string | null, imagedByImage?: { __typename: 'Image', id: string, name: string } | null } }> }, categorizedByCategory: { __typename: 'CategoryConnection', edges: Array<{ __typename: 'CategoryEdge', node: { __typename: 'Category', id: string, name: string } }> }, locatedByAddress?: { __typename: 'Address', id: string, name?: string | null } | null, _viewer: { __typename: 'TopicViewer', ratedByContentRating: { __typename: 'ContentRatingConnection', count: number }, commentedByComment: { __typename: 'CommentConnection', count: number } } };
 
 export const ContentStateFragmentDoc = gql`
-  fragment ContentState on Content {
-    _viewer {
-      ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        count
-        __typename
-      }
-      commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-        count
-        __typename
-      }
+    fragment ContentState on Content {
+  _viewer {
+    ratedByContentRating(orderBy: {createdAt: {ascending: false, priority: 1}}) {
+      count
+      __typename
+    }
+    commentedByComment(orderBy: {createdAt: {ascending: false, priority: 1}}) {
+      count
       __typename
     }
     __typename
   }
-`;
+  __typename
+}
+    `;
 export const ContentMetaFragmentDoc = gql`
-  fragment ContentMeta on Content {
-    ...ContentState
-    __typename
-    id
-    createdAt
-    updatedAt
-  }
-  ${ContentStateFragmentDoc}
-`;
+    fragment ContentMeta on Content {
+  ...ContentState
+  __typename
+  id
+  slug
+  createdAt
+  updatedAt
+}
+    ${ContentStateFragmentDoc}`;
 export const DocumentFragmentDoc = gql`
-  fragment Document on Document {
-    id
-    resourceLocation
-    __typename
-  }
-`;
+    fragment Document on Document {
+  id
+  resourceLocation
+  __typename
+}
+    `;
 export const AgentAvatarFragmentDoc = gql`
-  fragment AgentAvatar on Agent {
+    fragment AgentAvatar on Agent {
+  __typename
+  id
+  name
+  imagedByImage {
+    ...Document
     __typename
-    id
-    name
-    imagedByImage {
-      ...Document
-      __typename
-    }
   }
-  ${DocumentFragmentDoc}
-`;
+}
+    ${DocumentFragmentDoc}`;
 export const AgentSignatureFragmentDoc = gql`
-  fragment AgentSignature on Agent {
-    ...AgentAvatar
-    info
-    __typename
-  }
-  ${AgentAvatarFragmentDoc}
-`;
+    fragment AgentSignature on Agent {
+  ...AgentAvatar
+  info
+  __typename
+}
+    ${AgentAvatarFragmentDoc}`;
 export const ContentAuthorFragmentDoc = gql`
-  fragment ContentAuthor on Content {
-    ownedByOnlineAccount {
-      represents {
-        ...AgentSignature
-        __typename
-      }
-      __typename
-    }
-    createdByGroup {
+    fragment ContentAuthor on Content {
+  ownedByOnlineAccount {
+    represents {
       ...AgentSignature
       __typename
     }
     __typename
   }
-  ${AgentSignatureFragmentDoc}
-`;
+  createdByGroup {
+    ...AgentSignature
+    __typename
+  }
+  __typename
+}
+    ${AgentSignatureFragmentDoc}`;
 export const ContentImagesFragmentDoc = gql`
-  fragment ContentImages on Content {
-    imagedByImage(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
-      edges {
-        node {
-          ...Document
-          __typename
-        }
+    fragment ContentImages on Content {
+  imagedByImage(orderBy: {createdAt: {ascending: true, priority: 1}}) {
+    edges {
+      node {
+        ...Document
         __typename
       }
       __typename
     }
     __typename
   }
-  ${DocumentFragmentDoc}
-`;
+  __typename
+}
+    ${DocumentFragmentDoc}`;
 export const CategoryFragmentDoc = gql`
-  fragment Category on Category {
-    id
-    name
-    __typename
-  }
-`;
+    fragment Category on Category {
+  id
+  name
+  __typename
+}
+    `;
 export const ContentCategoriesFragmentDoc = gql`
-  fragment ContentCategories on Content {
-    categorizedByCategory(orderBy: { name: { ascending: true, priority: 1 } }) {
-      edges {
-        node {
-          ...Category
-          __typename
-        }
+    fragment ContentCategories on Content {
+  categorizedByCategory(orderBy: {name: {ascending: true, priority: 1}}) {
+    edges {
+      node {
+        ...Category
         __typename
       }
       __typename
     }
     __typename
   }
-  ${CategoryFragmentDoc}
-`;
+  __typename
+}
+    ${CategoryFragmentDoc}`;
 export const AddressFragmentDoc = gql`
-  fragment Address on Address {
-    id
-    name
-    __typename
-  }
-`;
+    fragment Address on Address {
+  id
+  name
+  __typename
+}
+    `;
 export const ContentLocationFragmentDoc = gql`
-  fragment ContentLocation on Content {
-    locatedByAddress {
-      ...Address
-      __typename
-    }
+    fragment ContentLocation on Content {
+  locatedByAddress {
+    ...Address
     __typename
   }
-  ${AddressFragmentDoc}
-`;
+  __typename
+}
+    ${AddressFragmentDoc}`;
 export const RatingFragmentDoc = gql`
-  fragment Rating on Rating {
-    id
-    ownedByOnlineAccount {
-      represents {
-        ...AgentAvatar
-        __typename
-      }
+    fragment Rating on Rating {
+  id
+  ownedByOnlineAccount {
+    represents {
+      ...AgentAvatar
       __typename
     }
     __typename
   }
-  ${AgentAvatarFragmentDoc}
-`;
+  __typename
+}
+    ${AgentAvatarFragmentDoc}`;
 export const ContentRatingsFragmentDoc = gql`
-  fragment ContentRatings on Content {
-    ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-      count
-      edges {
-        node {
-          ...Rating
-          __typename
-        }
+    fragment ContentRatings on Content {
+  ratedByContentRating(orderBy: {createdAt: {ascending: false, priority: 1}}) {
+    count
+    edges {
+      node {
+        ...Rating
         __typename
       }
       __typename
     }
     __typename
   }
-  ${RatingFragmentDoc}
-`;
+  __typename
+}
+    ${RatingFragmentDoc}`;
 export const CommentAuthorFragmentDoc = gql`
-  fragment CommentAuthor on Comment {
-    ownedBy {
-      represents {
-        ...AgentSignature
-        __typename
-      }
+    fragment CommentAuthor on Comment {
+  ownedBy {
+    represents {
+      ...AgentSignature
       __typename
     }
     __typename
   }
-  ${AgentSignatureFragmentDoc}
-`;
+  __typename
+}
+    ${AgentSignatureFragmentDoc}`;
 export const CommentFragmentDoc = gql`
-  fragment Comment on Comment {
-    ...CommentAuthor
-    id
-    createdAt
-    text
-    __typename
-  }
-  ${CommentAuthorFragmentDoc}
-`;
+    fragment Comment on Comment {
+  ...CommentAuthor
+  id
+  createdAt
+  text
+  __typename
+}
+    ${CommentAuthorFragmentDoc}`;
 export const ContentCommentsFragmentDoc = gql`
-  fragment ContentComments on Content {
-    commentedByComment(
-      orderBy: { createdAt: { ascending: false, priority: 1 } }
-      pagination: { first: 4, afterCursor: $commentedByCursor }
-    ) {
-      count
-      edges {
-        node {
-          ...Comment
-          __typename
-        }
-        __typename
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
+    fragment ContentComments on Content {
+  commentedByComment(
+    orderBy: {createdAt: {ascending: false, priority: 1}}
+    pagination: {first: 4, afterCursor: $commentedByCursor}
+  ) {
+    count
+    edges {
+      node {
+        ...Comment
         __typename
       }
       __typename
     }
-    __typename
-  }
-  ${CommentFragmentDoc}
-`;
-export const ContentStatsFragmentDoc = gql`
-  fragment ContentStats on Content {
-    ratingStats: ratedByContentRating(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-      count
-      __typename
-    }
-    commentStats: commentedByComment(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-      count
-      __typename
-    }
-    __typename
-  }
-`;
-export const ContentNetworksFragmentDoc = gql`
-  fragment ContentNetworks on Content {
-    managedByAgent(orderBy: { createdAt: { ascending: true, priority: 1 } }) {
-      edges {
-        node {
-          id
-          name
-          slug
-          imagedByImage {
-            id
-            name
-            __typename
-          }
-          __typename
-        }
-        __typename
-      }
-      __typename
-    }
-    __typename
-  }
-`;
-export const MinimalNetworkInfoFragmentDoc = gql`
-  fragment MinimalNetworkInfo on Network {
-    id
-    name
-    __typename
-  }
-`;
-export const PageInfoFragmentDoc = gql`
-  fragment PageInfo on Connection {
     pageInfo {
       endCursor
       hasNextPage
@@ -11509,52 +8985,178 @@ export const PageInfoFragmentDoc = gql`
     }
     __typename
   }
-`;
-export const ContentSummaryFragmentDoc = gql`
-  fragment ContentSummary on Content {
-    ...ContentMeta
-    ...ContentImages
-    ...ContentAuthor
-    ...ContentStats
-    ...ContentNetworks
-    ...ContentCategories
-    ...ContentLocation
-    title
-    warning
-    visibility
-    displayedByNetwork(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-      edges {
-        node {
-          ...MinimalNetworkInfo
+  __typename
+}
+    ${CommentFragmentDoc}`;
+export const ContentStatsFragmentDoc = gql`
+    fragment ContentStats on Content {
+  ratingStats: ratedByContentRating(
+    orderBy: {createdAt: {ascending: false, priority: 1}}
+  ) {
+    count
+    __typename
+  }
+  commentStats: commentedByComment(
+    orderBy: {createdAt: {ascending: false, priority: 1}}
+  ) {
+    count
+    __typename
+  }
+  __typename
+}
+    `;
+export const ContentNetworksFragmentDoc = gql`
+    fragment ContentNetworks on Content {
+  managedByAgent(orderBy: {createdAt: {ascending: true, priority: 1}}) {
+    edges {
+      node {
+        id
+        name
+        slug
+        imagedByImage {
+          id
+          name
           __typename
         }
         __typename
       }
-      ...PageInfo
       __typename
     }
     __typename
   }
-  ${ContentMetaFragmentDoc}
-  ${ContentImagesFragmentDoc}
-  ${ContentAuthorFragmentDoc}
-  ${ContentStatsFragmentDoc}
-  ${ContentNetworksFragmentDoc}
-  ${ContentCategoriesFragmentDoc}
-  ${ContentLocationFragmentDoc}
-  ${MinimalNetworkInfoFragmentDoc}
-  ${PageInfoFragmentDoc}
-`;
-export const TopicTeaserFragmentDoc = gql`
-  fragment TopicTeaser on Topic {
-    ...ContentSummary
+  __typename
+}
+    `;
+export const MinimalNetworkInfoFragmentDoc = gql`
+    fragment MinimalNetworkInfo on Network {
+  id
+  name
+  __typename
+}
+    `;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfo on Connection {
+  pageInfo {
+    endCursor
+    hasNextPage
     __typename
   }
-  ${ContentSummaryFragmentDoc}
-`;
+  __typename
+}
+    `;
+export const ContentSummaryFragmentDoc = gql`
+    fragment ContentSummary on Content {
+  ...ContentMeta
+  ...ContentImages
+  ...ContentAuthor
+  ...ContentStats
+  ...ContentNetworks
+  ...ContentCategories
+  ...ContentLocation
+  title
+  warning
+  visibility
+  displayedByNetwork(orderBy: {createdAt: {ascending: false, priority: 1}}) {
+    edges {
+      node {
+        ...MinimalNetworkInfo
+        __typename
+      }
+      __typename
+    }
+    ...PageInfo
+    __typename
+  }
+  __typename
+}
+    ${ContentMetaFragmentDoc}
+${ContentImagesFragmentDoc}
+${ContentAuthorFragmentDoc}
+${ContentStatsFragmentDoc}
+${ContentNetworksFragmentDoc}
+${ContentCategoriesFragmentDoc}
+${ContentLocationFragmentDoc}
+${MinimalNetworkInfoFragmentDoc}
+${PageInfoFragmentDoc}`;
+export const TopicTeaserFragmentDoc = gql`
+    fragment TopicTeaser on Topic {
+  ...ContentSummary
+  __typename
+}
+    ${ContentSummaryFragmentDoc}`;
 export const ContentTopicsFragmentDoc = gql`
-  fragment ContentTopics on Content {
-    curatedByTopic(orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
+    fragment ContentTopics on Content {
+  curatedByTopic(orderBy: {updatedAt: {ascending: false, priority: 1}}) {
+    edges {
+      node {
+        ...TopicTeaser
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+    ${TopicTeaserFragmentDoc}`;
+export const ContentPermissionsFragmentDoc = gql`
+    fragment ContentPermissions on Content {
+  _permissions {
+    update
+    __typename
+  }
+  __typename
+}
+    `;
+export const ArticleFragmentDoc = gql`
+    fragment Article on Article {
+  ...ContentMeta
+  ...ContentAuthor
+  ...ContentImages
+  ...ContentCategories
+  ...ContentLocation
+  ...ContentRatings
+  ...ContentComments
+  ...ContentTopics
+  ...ContentPermissions
+  title
+  intro
+  text
+  __typename
+}
+    ${ContentMetaFragmentDoc}
+${ContentAuthorFragmentDoc}
+${ContentImagesFragmentDoc}
+${ContentCategoriesFragmentDoc}
+${ContentLocationFragmentDoc}
+${ContentRatingsFragmentDoc}
+${ContentCommentsFragmentDoc}
+${ContentTopicsFragmentDoc}
+${ContentPermissionsFragmentDoc}`;
+export const TopicFragmentDoc = gql`
+    fragment Topic on Topic {
+  ...ContentMeta
+  ...ContentAuthor
+  ...ContentImages
+  ...ContentCategories
+  ...ContentLocation
+  ...ContentPermissions
+  title
+  intro
+  curates(orderBy: {createdAt: {ascending: false, priority: 1}}) {
+    edges {
+      node {
+        ...ContentSummary
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  createdByGroup {
+    ...AgentSignature
+    intro
+    creates(type: [TOPIC], orderBy: {updatedAt: {ascending: false, priority: 1}}) {
       edges {
         node {
           ...TopicTeaser
@@ -11566,99 +9168,25 @@ export const ContentTopicsFragmentDoc = gql`
     }
     __typename
   }
-  ${TopicTeaserFragmentDoc}
-`;
-export const ContentPermissionsFragmentDoc = gql`
-  fragment ContentPermissions on Content {
-    _permissions {
-      update
-      __typename
-    }
-    __typename
-  }
-`;
-export const ArticleFragmentDoc = gql`
-  fragment Article on Article {
-    ...ContentMeta
-    ...ContentAuthor
-    ...ContentImages
-    ...ContentCategories
-    ...ContentLocation
-    ...ContentRatings
-    ...ContentComments
-    ...ContentTopics
-    ...ContentPermissions
-    title
-    intro
-    text
-    __typename
-  }
-  ${ContentMetaFragmentDoc}
-  ${ContentAuthorFragmentDoc}
-  ${ContentImagesFragmentDoc}
-  ${ContentCategoriesFragmentDoc}
-  ${ContentLocationFragmentDoc}
-  ${ContentRatingsFragmentDoc}
-  ${ContentCommentsFragmentDoc}
-  ${ContentTopicsFragmentDoc}
-  ${ContentPermissionsFragmentDoc}
-`;
-export const TopicFragmentDoc = gql`
-  fragment Topic on Topic {
-    ...ContentMeta
-    ...ContentAuthor
-    ...ContentImages
-    ...ContentCategories
-    ...ContentLocation
-    ...ContentPermissions
-    title
-    intro
-    curates(orderBy: { createdAt: { ascending: false, priority: 1 } }) {
-      edges {
-        node {
-          ...ContentSummary
-          __typename
-        }
-        __typename
-      }
-      __typename
-    }
-    createdByGroup {
-      ...AgentSignature
-      intro
-      creates(type: [TOPIC], orderBy: { updatedAt: { ascending: false, priority: 1 } }) {
-        edges {
-          node {
-            ...TopicTeaser
-            __typename
-          }
-          __typename
-        }
-        __typename
-      }
-      __typename
-    }
-    __typename
-  }
-  ${ContentMetaFragmentDoc}
-  ${ContentAuthorFragmentDoc}
-  ${ContentImagesFragmentDoc}
-  ${ContentCategoriesFragmentDoc}
-  ${ContentLocationFragmentDoc}
-  ${ContentPermissionsFragmentDoc}
-  ${ContentSummaryFragmentDoc}
-  ${AgentSignatureFragmentDoc}
-  ${TopicTeaserFragmentDoc}
-`;
+  __typename
+}
+    ${ContentMetaFragmentDoc}
+${ContentAuthorFragmentDoc}
+${ContentImagesFragmentDoc}
+${ContentCategoriesFragmentDoc}
+${ContentLocationFragmentDoc}
+${ContentPermissionsFragmentDoc}
+${ContentSummaryFragmentDoc}
+${AgentSignatureFragmentDoc}
+${TopicTeaserFragmentDoc}`;
 export const ArticleDocument = gql`
-  query Article($id: ID!, $commentedByCursor: String) {
-    article(id: $id) {
-      ...Article
-      __typename
-    }
+    query Article($id: ID!, $commentedByCursor: String) {
+  article(id: $id) {
+    ...Article
+    __typename
   }
-  ${ArticleFragmentDoc}
-`;
+}
+    ${ArticleFragmentDoc}`;
 
 /**
  * __useArticleQuery__
@@ -11677,38 +9205,30 @@ export const ArticleDocument = gql`
  *   },
  * });
  */
-export function useArticleQuery(
-  baseOptions: Apollo.QueryHookOptions<ArticleQuery, ArticleQueryVariables> &
-    ({ variables: ArticleQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
-}
-export function useArticleLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ArticleQuery, ArticleQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
-}
-export function useArticleSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<ArticleQuery, ArticleQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
-}
+export function useArticleQuery(baseOptions: Apollo.QueryHookOptions<ArticleQuery, ArticleQueryVariables> & ({ variables: ArticleQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
+      }
+export function useArticleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ArticleQuery, ArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
+        }
+export function useArticleSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ArticleQuery, ArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
+        }
 export type ArticleQueryHookResult = ReturnType<typeof useArticleQuery>;
 export type ArticleLazyQueryHookResult = ReturnType<typeof useArticleLazyQuery>;
 export type ArticleSuspenseQueryHookResult = ReturnType<typeof useArticleSuspenseQuery>;
 export type ArticleQueryResult = Apollo.QueryResult<ArticleQuery, ArticleQueryVariables>;
 export const TopicDocument = gql`
-  query Topic($id: ID!) {
-    topic(id: $id) {
-      ...Topic
-      __typename
-    }
+    query Topic($id: ID!) {
+  topic(id: $id) {
+    ...Topic
+    __typename
   }
-  ${TopicFragmentDoc}
-`;
+}
+    ${TopicFragmentDoc}`;
 
 /**
  * __useTopicQuery__
@@ -11726,25 +9246,18 @@ export const TopicDocument = gql`
  *   },
  * });
  */
-export function useTopicQuery(
-  baseOptions: Apollo.QueryHookOptions<TopicQuery, TopicQueryVariables> &
-    ({ variables: TopicQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
-}
-export function useTopicLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<TopicQuery, TopicQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
-}
-export function useTopicSuspenseQuery(
-  baseOptions?: Apollo.SuspenseQueryHookOptions<TopicQuery, TopicQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
-}
+export function useTopicQuery(baseOptions: Apollo.QueryHookOptions<TopicQuery, TopicQueryVariables> & ({ variables: TopicQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
+      }
+export function useTopicLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TopicQuery, TopicQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
+        }
+export function useTopicSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<TopicQuery, TopicQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TopicQuery, TopicQueryVariables>(TopicDocument, options);
+        }
 export type TopicQueryHookResult = ReturnType<typeof useTopicQuery>;
 export type TopicLazyQueryHookResult = ReturnType<typeof useTopicLazyQuery>;
 export type TopicSuspenseQueryHookResult = ReturnType<typeof useTopicSuspenseQuery>;

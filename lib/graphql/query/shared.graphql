@@ -2,6 +2,7 @@ fragment ContentMeta on Content {
   ...ContentState
   __typename
   id
+  slug
   createdAt
   updatedAt
 }

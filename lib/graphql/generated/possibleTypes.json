@@ -1,8 +1,19 @@
 {
   "possibleTypes": {
-    "Account": ["MyOnlineAccount", "OnlineAccount"],
-    "Agent": ["Group", "Network", "Person"],
-    "AgentViewer": ["GroupViewer", "NetworkViewer", "PersonViewer"],
+    "Account": [
+      "MyOnlineAccount",
+      "OnlineAccount"
+    ],
+    "Agent": [
+      "Group",
+      "Network",
+      "Person"
+    ],
+    "AgentViewer": [
+      "GroupViewer",
+      "NetworkViewer",
+      "PersonViewer"
+    ],
     "Connection": [
       "AccountConnection",
       "AddressConnection",
@@ -38,9 +49,22 @@
       "TopicConnection",
       "VideoMeetingConnection"
     ],
-    "Content": ["Article", "Event", "Impulse", "Topic"],
-    "ContentViewer": ["ArticleViewer", "EventViewer", "ImpulseViewer", "TopicViewer"],
-    "Document": ["File", "Image"],
+    "Content": [
+      "Article",
+      "Event",
+      "Impulse",
+      "Topic"
+    ],
+    "ContentViewer": [
+      "ArticleViewer",
+      "EventViewer",
+      "ImpulseViewer",
+      "TopicViewer"
+    ],
+    "Document": [
+      "File",
+      "Image"
+    ],
     "Edge": [
       "AccountEdge",
       "AddressEdge",
@@ -76,8 +100,16 @@
       "TopicEdge",
       "VideoMeetingEdge"
     ],
-    "Feed": ["Article", "Event", "Impulse", "Topic"],
-    "Rating": ["CommentRating", "ContentRating"],
+    "Feed": [
+      "Article",
+      "Event",
+      "Impulse",
+      "Topic"
+    ],
+    "Rating": [
+      "CommentRating",
+      "ContentRating"
+    ],
     "Thing": [
       "Address",
       "AddressScope",
