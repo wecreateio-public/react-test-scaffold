@@ -6,19 +6,17 @@ Welcome to this scaffold project for the challenge! The folder and file structur
 main project and therefore a bit verbose. Don't be discouraged by that, if you create new files, put them
 where-ever you feel it's appropriate.
 
-- You can find the app's entry point in `pages/_app.tsx`.
+- You can find the app's entry point in `app/page.tsx`.
 - There are two queries prepared: `useTopicQuery()` and `useArticleQuery()`, and the first one can be seen in
   action. In case you need other queries, feel free to contact us! If you're confident with GraphQL, you
   can also try to set up new queries by your own: develop them at
   our [playground](https://graph.dev.we-create.io/graphql), add them to `lib/graphql/query` and
   run `npm run generate:graphql` for the updated TypeScript file. But doing that on your own isn't first
   priority at all.
-- IDs have a pattern of `[U|A]:[som3-g3neric-stuff]:[EntityType]`,
+- IDs have a pattern of `[U|O]:[som3-g3neric-stuff]:[EntityType]`,
   e.g. `U:dd1db6ff-f513-4759-9f22-2b6da30e716c:Topic`. Use that full id to query entities.
 - This project is work in progress. It's totally possible that something essential (like queries) is missing
   at this point, so don't hesitate to ask us if you got that impression!
-- The project is set up in Next.js 12 style. If you want, you can migrate it to Next.js 13 style and utilize
-  the new approaches.
 - If it makes sense, try to
   utilize [(dynamic) routing]([API routes](https://nextjs.org/docs/api-routes/introduction))
 - Our core interest is not to see that you are an expert on a specific library as Next.js, GraphQL etc., but
@@ -54,7 +52,7 @@ In case you see the error `Cannot find module graphql`, run `npm i graphql`.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/_app.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 We're looking forward your ideas!
 
@@ -71,7 +69,6 @@ We're looking forward your ideas!
 
 ## Optional Tasks in case you want to prove some experience in other (but related) fields
 
-- Utilize the Next.js 13 `api` or Next.js 14 server actions, where feasible
 - Write a test (`jest` is set up)
 - Build a Docker container
 - Create a GitHub Action that will run some steps (e.g. runs tests or builds a container)

@@ -1,16 +1,29 @@
-import { ApolloClient, ApolloLink, NormalizedCacheObject } from '@apollo/client';
+'use client';
+import { ApolloLink } from '@apollo/client';
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
+import { ApolloClient, SSRMultipartLink } from '@apollo/experimental-nextjs-app-support';
 
 import { createCache } from 'lib/apollo/cache';
-import { errorLink, httpLink } from 'lib/apollo/link';
-import { isServerSide } from 'util/env';
+import { createHttpLink, errorLink } from 'lib/apollo/link';
+import { inDevelopmentEnv, inProductionEnv } from '../constants.public';
 
-let globalApolloClient: ApolloClient<NormalizedCacheObject>;
+if (!inProductionEnv) {
+  // In dev mode, display the full error messages directly in the console - we don't care about bundle size
+  loadDevMessages();
+  loadErrorMessages();
+}
 
-/** Create a custom Apollo Client. */
-const createApolloClient = () =>
+/** Creates a custom Apollo Client. It is used on the client-side and supports SSR. */
+export const createApolloClient = (gatewayUrl: string) =>
   new ApolloClient({
-    ssrMode: isServerSide,
-    link: ApolloLink.from([errorLink, httpLink]),
+    // the server-side client's authentication needs to be determined for each request
+    link: ApolloLink.from([
+      new SSRMultipartLink({
+        stripDefer: true,
+      }),
+      errorLink,
+      createHttpLink(gatewayUrl),
+    ]),
     cache: createCache(),
     defaultOptions: {
       watchQuery: {
@@ -20,36 +33,11 @@ const createApolloClient = () =>
          *
          * https://github.com/apollographql/apollo-client/issues/6760#issuecomment-668188727
          */
-        fetchPolicy: isServerSide ? 'cache-only' : 'cache-and-network',
-        nextFetchPolicy: isServerSide ? 'cache-only' : 'cache-first',
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
       },
     },
     // Allow SSR prefetching when using `network-only` fetch policy.
     ssrForceFetchDelay: 100,
+    connectToDevTools: inDevelopmentEnv,
   });
-
-/** Initialize an Apollo Client with previously prepared cache content. */
-export const initializeApollo = (initialState?: NormalizedCacheObject) => {
-  let apolloClient: ApolloClient<NormalizedCacheObject>;
-
-  if (isServerSide) {
-    // Always create a new Apollo Client instance.
-    apolloClient = createApolloClient();
-  } else {
-    if (globalApolloClient) {
-      // Reuse the Apollo Client to maintain the cache.
-      apolloClient = globalApolloClient;
-    } else {
-      // Create a new Apollo Client instance.
-      apolloClient = createApolloClient();
-
-      // Save the Apollo Client instance for subsequent function calls.
-      globalApolloClient = apolloClient;
-    }
-  }
-
-  // Restore the cache by merging existing and prefetched data.
-  if (initialState) apolloClient.cache.restore({ ...apolloClient.extract(), ...initialState });
-
-  return apolloClient;
-};

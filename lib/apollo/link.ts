@@ -5,12 +5,16 @@ import { onError } from '@apollo/client/link/error';
 export const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.map(({ message, locations, path }) =>
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      console.error(
+        `[GraphQL error]: Message: ${message}, Location: ${locations?.toString()}, Path: ${path?.toString()}`
+      )
     );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) console.error(`[Network error]: ${networkError?.toString()}`);
 });
 
 /** A custom HTTP link. */
-export const httpLink = new BatchHttpLink({
-  uri: process.env.NEXT_PUBLIC_GATEWAY_URL,
-});
+export const createHttpLink = (gatewayUrl: string) =>
+  new BatchHttpLink({
+    uri: gatewayUrl,
+    credentials: 'same-origin',
+  });

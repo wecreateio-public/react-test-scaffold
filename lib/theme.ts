@@ -7,7 +7,7 @@ export const SCALING_UNIT = 'px';
 export const MOBILE_NAV_HEIGHT = 56;
 
 /** Create our custom Material UI theme. */
-export const createTheme = (expectDesktop = false) => {
+export const createTheme = () => {
   const breakpoints = createMuiTheme({}).breakpoints;
   const theme = createMuiTheme({
     spacing: (factor: number) => `${SCALING_FACTOR * factor}${SCALING_UNIT}`,
@@ -48,7 +48,7 @@ export const createTheme = (expectDesktop = false) => {
           defaultProps: {
             ssrMatchMedia: (query) => ({
               matches: mediaQuery.match(query, {
-                width: expectDesktop ? '1024px' : '0px',
+                width: '1024px',
               }),
             }),
           },
